@@ -3,6 +3,7 @@ import LogIn from './components/login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faLaptopCode} from '@fortawesome/free-solid-svg-icons'
 import CreateAccount from './components/createAccount';
+import ForgotPassword from './components/forgotPassword';
 
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
     // * for creating the account page 
         <div >
               {/* <CreateAccount/> */}
-              
+              <ForgotPassword />
         </div>
   );
 }
