@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+
+import LogIn from './components/login';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faLaptopCode} from '@fortawesome/free-solid-svg-icons'
+import CreateAccount from './components/createAccount';
+import ForgotPassword from './components/forgotPassword';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // <div className=" pt-8 bg-gray-100 h-screen ">
+    //   {/* //* logo section  */}
+    //     <div className='text-center'>
+    //     <FontAwesomeIcon icon={faLaptopCode} className="h-16 "/>
+    //     </div>
+
+    //    {/* //* Form and login section  */}
+    //      <LogIn />
+
+    // </div>
+
+
+    // * for creating the account page 
+        <div >
+              {/* <CreateAccount/> */}
+              <ForgotPassword />
+        </div>
   );
 }
 
