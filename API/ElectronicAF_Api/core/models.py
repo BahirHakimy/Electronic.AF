@@ -6,6 +6,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 from django.utils import timezone
 from django.core.mail import send_mail
+from datetime import datetime,timedelta
+from django.conf import settings
 
 class CustomManager(BaseUserManager):
     use_in_migrations = True
@@ -24,6 +26,7 @@ class CustomManager(BaseUserManager):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(email,password,**extra_fields)
+
 
 class CustomUser(AbstractBaseUser,PermissionsMixin):
     email = models.EmailField(verbose_name='email address',unique=True)
@@ -65,9 +68,28 @@ class CustomUser(AbstractBaseUser,PermissionsMixin):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
+    def get_email(self):
+        return self.email
+
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+
+# class ResetCodes(models.Model):
+#     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+#     code = models.CharField(max_length=6)
+#     generated_at = models.DateTimeField(auto_now_add=True)
+
+
+#     def __str__(self) -> str:
+#         return self.code
+
+#     def is_valid(self,for_user):
+#         if self.user == for_user:
+#             if self.generated_at + timedelta(minutes=5) < datetime.now():
+#                 return True
+#         else:
+#             return False
 
 
