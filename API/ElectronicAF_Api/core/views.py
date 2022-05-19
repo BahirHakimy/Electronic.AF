@@ -17,7 +17,9 @@ def registerView(request):
     serializer = UserCreateSerializer(data=request.data,many=False)
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data,status=status.HTTP_201_CREATED)
+        copydata = serializer.data.copy()
+        copydata.pop('password')
+        return Response(copydata,status=status.HTTP_201_CREATED)
     else:
         standerdizedErrors = {}
         print(serializer.errors)
@@ -86,9 +88,11 @@ def sendResetCodeView(request):
         sender = settings.EMAIL_HOST_USER
         try:
             user.email_user(subject,message,sender,fail_silently=False)
-            return Response({"detail":"Reset code was sent to your email.If you can't find it check your spam folder."})
+            return Response({"detail":"Reset code was sent to your email.If you can't find it check your spam folder."},
+            status=status.HTTP_200_OK
+            )
         except Exception:
             print(Exception.with_traceback())
             return Response({"detail":"Some thing went wrong please try again later."},status=status.HTTP_503_SERVICE_UNAVAILABLE)
     except User.DoesNotExist:
-        return Response({"detail":"User with the given email not found in the database."})
+        return Response({"detail":"User with the given email not found in the database."},status=status.HTTP_404_NOT_FOUND)

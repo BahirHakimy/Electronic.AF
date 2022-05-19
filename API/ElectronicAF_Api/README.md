@@ -70,7 +70,7 @@ python manage.py runserver
 
 +++++++++++++++++++
 
-1:- `127.0.0.1:8000/api/token/`
+1:- `<<hostAddress:port>>/api/token/`
 
 - `Method`: Post
 - `IsProtected` : NO
@@ -98,7 +98,7 @@ python manage.py runserver
   }
   ```
 
-2:- `127.0.0.1:8000/api/token/refresh/`
+2:- `<<hostAddress:port>>/api/token/refresh/`
 
 - `Method`: Post
 - `IsProtected` : NO
@@ -126,7 +126,7 @@ python manage.py runserver
   }
   ```
 
-3:- `127.0.0.1:8000/api/register/`
+3:- `<<hostAddress:port>>/api/register/`
 
 - `Method`: Post
 - `IsProtected` : NO
@@ -162,5 +162,73 @@ python manage.py runserver
       "firstname": "firstname error",
       "lastname": "lastname error"
     }
+  }
+  ```
+
+  4:- `<<hostAddress:port>>/api/sendResetCode/`
+
+- `Method`: Post
+- `IsProtected` : NO
+- `Expecting inputs`:
+
+- ```json
+  {
+    "email": "email to send reset code to"
+  }
+  ```
+- `Success Status`: `HTTP 200 OK`
+- `Success Response`:
+- ```json
+  {
+    "detail": "Reset code was sent to your email.If you can't find it check your spam folder."
+  }
+  ```
+- `Failiure Status If email is not registered`: `HTTP 404 NotFound`
+- `Failiure Response`:
+- ```json
+  {
+    "detail": "User with the given email not found in the database."
+  }
+  ```
+- `Failiure Status If email sending fail`: `HTTP 503 ServiceUnAvailable`
+- `Failiure Response`:
+- ```json
+  {
+    "detail":"Some thing went wrong please try again later.
+  }
+  ```
+
+4:- `<<hostAddress:port>>/api/passwordReset/`
+
+- `Method`: Post
+- `IsProtected` : NO
+- `Expecting inputs`:
+
+- ```json
+  {
+    "email": "Email of user",
+    "resetCode": "Reset code that was sent to user email",
+    "newPassword": "New password for the user"
+  }
+  ```
+- `Success Status`: `HTTP 202 Accepted`
+- `Success Response`:
+- ```json
+  {
+    "detail": "Password reseted successfully."
+  }
+  ```
+- `Failiure Status If reset code is expired or used`: `HTTP 400 BadRequest`
+- `Failiure Response`:
+- ```json
+  {
+    "detail": "Entered resetCode is not valid or expired."
+  }
+  ```
+- `Failiure Status If reset code is not arbitary or not registerd in database`: `HTTP 400 BadRequest`
+- `Failiure Response`:
+- ```json
+  {
+    "detail":"Entered resetCode is invalid.
   }
   ```
