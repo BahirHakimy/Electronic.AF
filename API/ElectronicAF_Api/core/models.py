@@ -1,9 +1,9 @@
+import pytz
 from django.db import models
 from django.core.validators import RegexValidator
 from django.contrib.auth.base_user import AbstractBaseUser,BaseUserManager
-from django.contrib.auth.models import AbstractUser,UserManager,PermissionsMixin
+from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth import get_user_model
-from django.contrib.auth.hashers import make_password
 from django.utils import timezone
 from django.core.mail import send_mail
 from datetime import datetime,timedelta
@@ -76,20 +76,20 @@ class CustomUser(AbstractBaseUser,PermissionsMixin):
     REQUIRED_FIELDS = []
 
 
-# class ResetCodes(models.Model):
-#     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
-#     code = models.CharField(max_length=6)
-#     generated_at = models.DateTimeField(auto_now_add=True)
+class ResetCodes(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    value = models.CharField(max_length=6)
+    generated_at = models.DateTimeField(auto_now_add=True)
+    used = models.BooleanField(default=False)
 
+    def __str__(self) -> str:
+        return self.value
 
-#     def __str__(self) -> str:
-#         return self.code
-
-#     def is_valid(self,for_user):
-#         if self.user == for_user:
-#             if self.generated_at + timedelta(minutes=5) < datetime.now():
-#                 return True
-#         else:
-#             return False
+    def is_valid(self,for_user):
+        utc = pytz.UTC
+        if self.user == for_user:
+            if self.generated_at.replace(tzinfo=utc) + timedelta(minutes=5) > datetime.now().replace(tzinfo=utc) and not self.used:
+                return True
+        return False
 
 
