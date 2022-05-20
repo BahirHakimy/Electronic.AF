@@ -1,5 +1,5 @@
 import React from 'react'
-import InputMaker from '../utils/inputMaker'
+import InputMaker from '../common/inputMaker'
 
 function ForgotPassword() {
   return (
@@ -21,11 +21,6 @@ function ForgotPassword() {
             {/* //? Last Name */}
             <div className='p-2'>
                 <InputMaker type={'email'} name="forgotPassword" label="Email" styling={{labelStyling: 'block', input: 'w-full'}}/>
-              </div>
-
-               {/* //? Security Number  */}
-            <div className='p-2'>
-                <InputMaker type={'number'} name="securityCode" label="SecurityCode" styling={{labelStyling: 'block', input: 'w-full'}}/>
               </div>
 
                        {/* button for submit  */}

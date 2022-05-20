@@ -1,7 +1,7 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faLaptopCode} from '@fortawesome/free-solid-svg-icons'
-import InputMaker from '../utils/inputMaker';
+import InputMaker from '../common/inputMaker';
 
 function CreateAccount() {
   return (

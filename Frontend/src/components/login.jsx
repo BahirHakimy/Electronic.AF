@@ -1,14 +1,22 @@
-import React from 'react'
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faLaptopCode} from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom';
+
 
 function LogIn() {
   return (
     <div className='my-8 '>
+        {/* //* logo section  */}
+        <div className='text-center'>
+          <FontAwesomeIcon icon={faLaptopCode} className="h-16 "/>
+          </div>
 
       {/* //* header section */}
       <div className='text-center'>
         <h1 className='text-2xl font-bold '>Sign In To Your Account </h1>
         {/* //todo add the registration page link in here */}
-        <p>Or <a href='/' className='font-semibold underline'> create your account now</a></p>
+        <p>Or <Link to='/createaccount' className='font-semibold underline'> create your account now</Link></p>
       </div>
 
         {/*  //* card section  */}
@@ -38,7 +46,7 @@ function LogIn() {
 
                 {/* //? forgot password  */}
                 <div>
-                  <p><a href='/' className='capitalize font-semibold'>forgot your password?</a></p>
+                  <p><Link to='/forgotpassword' className='capitalize font-semibold'>forgot your password?</Link></p>
                 </div>
             </div>
 
