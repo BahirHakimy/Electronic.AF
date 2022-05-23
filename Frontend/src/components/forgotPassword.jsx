@@ -1,18 +1,23 @@
 import axios from "axios";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import InputMaker from "../common/inputMaker";
+import * as Yup from 'yup'
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email('Invalid Email').required('Required')
+})
+
 
 function ForgotPassword() {
   const [data, setData] = useState({});
   const [error, setError] = useState({ condition: false, message: "" });
   const navigate = useNavigate();
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  function onSubmit(values) {
     axios
       .post("http://127.0.0.1:8000/api/sendResetCode/", {
-        email : data.forgotPassword
+        email : values.forgotPassword
       })
       .then((response) => {
         if (response.status === 200) navigate("/PasswordReset")
@@ -26,9 +31,6 @@ function ForgotPassword() {
       );
   }
 
-  function takeData(info, name) {
-    setData({ ...data, [name]: info });
-  }
 
   return (
     <div className="bg-gray-100 h-screen">
@@ -40,7 +42,13 @@ function ForgotPassword() {
 
       {/* card section */}
       <div className="bg-white w-4/12 mx-auto mt-5">
-        <form onSubmit={handleSubmit}>
+        <Formik initialValues={{email : ''}} 
+        onSubmit={onSubmit}
+         validationSchema={validationSchema}
+         validateOnBlur={false}
+         validateOnChange={false}
+        >
+        <Form >
           {/* //* card header section  */}
           <div className="text-center">
             <h3 className="capitalize font-semibold">
@@ -49,17 +57,13 @@ function ForgotPassword() {
             </h3>
           </div>
 
-          {/* //? Last Name */}
-          <div className="p-2">
-            <InputMaker
-              type={"email"}
-              name="forgotPassword"
-              label="Email"
-              styling={{ labelStyling: "block", input: "w-full" }}
-              required={true}
-              data={takeData}
-            />
-          </div>
+             {/* //? email */}
+          <div className="p-3">
+          <label htmlFor="email" className="customizeLabel">Email</label>
+           <Field name="email" type="email" id="email" className="customizeForm"/>
+           <ErrorMessage name="email" render={msg => <div className="text-red-500 capitalize font-medium">{msg}</div>}/>
+            </div>
+
 
           <span className={`${error.condition ? 'block' : 'hidden'} text-red-500 font-medium text-sm text-center capitalize`}>{error.message}</span>
           {/* button for submit  */}
@@ -71,7 +75,9 @@ function ForgotPassword() {
               Search
             </button>
           </div>
-        </form>
+        </Form>
+        </Formik>
+
       </div>
     </div>
   );

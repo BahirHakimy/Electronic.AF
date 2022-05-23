@@ -1,46 +1,58 @@
-import React, { useState } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLaptopCode } from "@fortawesome/free-solid-svg-icons";
-import InputMaker from "../common/inputMaker";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import * as Yup from 'yup'
+import { useState } from "react";
 
-function CreateAccount() {
-  const [data, setData] = useState({});
-  const [error, setError] = useState({ condition: false, message: "" });
-  const navigate = useNavigate();
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    axios
-      .post("http://127.0.0.1:8000/api/register/", {
-        firstname: `${data.firstName}`,
-        lastname: `${data.lastName}`,
-        email: `${data.email}`,
-        phone: `${data.number}`,
-        password: `${data.password}`,
-      })
-      .then((response) => {
-        if (response.status === 201) navigate("/Home", { replace: true })
-      })
-      .catch((error) =>
-        setError({
-          condition: true,
-          message:
-            error.response.data.errors.email ||
-            error.response.data.errors.phone ||
-            error.response.data.errors.firstname || 
-            error.response.data.errors.lastName || 
-            error.response.data.errors.password
-        })
-      );
+  const initialValue = {
+    firstName : '',
+    lastName : '',
+    phone : '',
+    email : '', 
+    password : '',
+    confirmPassword : ''
   }
 
-  console.log(error);
-  console.log(data.firstname, data.lastname);
-  function takeData(info, name) {
-    setData({ ...data, [name]: info });
-  }
+  const validationSchema = Yup.object().shape({
+      firstName : Yup.string().required('You need to fill this field'),
+      lastName: Yup.string().required('You need to fill this field'),
+      phone: Yup.string().length(9, 'please enter the 9 digits of your phone number').required('You need to fill this field'),
+      email :Yup.string().email('Invalid Email').required('You need to fill this field'),
+      password: Yup.string().min(4, 'Too short').required('You need to fill this field')
+  })
+
+
+
+    function CreateAccount() {
+    const navigate = useNavigate();
+    const [error, setError] = useState({ condition: false, message: "" });
+    const onSubmit = values =>  { 
+      axios
+        .post("http://127.0.0.1:8000/api/register/", {
+            email : values.email,
+            password: values.password,
+            phone: values.phone,
+            firstName: values.firstName,
+            lastName: values.lastName
+          })
+          .then((response) => {
+              if (response.status === 201) navigate("/Home", { replace: true })
+            })
+            .catch((error) => 
+            setError({
+              condition: true,
+              message:
+                error.response.data.errors.email ||
+                error.response.data.errors.phone ||
+                error.response.data.errors.firstname || 
+                error.response.data.errors.lastName || 
+                error.response.data.errors.password
+            })
+            );
+        }
 
   return (
     <div className="bg-gray-100 h-screen">
@@ -51,74 +63,58 @@ function CreateAccount() {
       </div>
 
       {/* card section */}
-      <div className="bg-white shadow-md rounded w-4/12 mx-auto mt-4 ">
-        <form onSubmit={handleSubmit}>
-          {/* //?First Name */}
-          <div className="p-2">
-            <InputMaker
-              type={"text"}
-              name="firstName"
-              label="First Name"
-              styling={{ labelStyling: "block", input: "w-full" }}
-              required={true}
-              data={takeData}
-            />
-          </div>
-
+      <div className="bg-white shadow-md rounded w-9/12 lg:w-5/12 mx-auto mt-4 px-3 ">
+        <Formik  initialValues={initialValue}
+        onSubmit={onSubmit}
+        validationSchema={validationSchema}
+        >
+        <Form>
+            {/* //? First Name */}
+            <div className="p-3">
+          <label htmlFor="firstName" className="customizeLabel">First Name</label>
+           <Field name="firstName" type="text" id="firstName" className="customizeForm " />
+           <ErrorMessage name="firstName" render={msg => <div className="text-red-500 capitalize font-medium">{msg}</div>}/>
+            </div>
+          
           {/* //? Last Name */}
-          <div className="p-2">
-            <InputMaker
-              type={"text"}
-              name="lastName"
-              label="Last Name"
-              styling={{ labelStyling: "block", input: "w-full" }}
-              required={true}
-              data={takeData}
-            />
-          </div>
+          <div className="p-3">
+          <label htmlFor="lastName" className="customizeLabel">Last Name</label>
+           <Field name="lastName" type="text" id="lastName" className="customizeForm" />
+           <ErrorMessage name="lastName" render={msg => <div className="text-red-500 capitalize font-medium">{msg}</div>}/>
+            </div>
 
           {/* //? Phone Number */}
-          <div className="p-2">
-            <InputMaker
-              type={"number"}
-              name="number"
-              label="Phone Number"
-              styling={{ labelStyling: "block", input: "w-full" }}
-              required={true}
-              data={takeData}
-              placeholder="Only the 9 digits '781123456' "
-            />
-          </div>
+          <div className="p-3">
+          <label htmlFor="phone" className="text-sm text-gray-700 font-medium block">Phone Number</label>
+           <Field name="phone" type="text" id="phone" className="customizeForm"/>  
+           <ErrorMessage name="phone" render={msg => <div className="text-red-500 capitalize font-medium">{msg}</div>}/>
+            </div>
 
           {/* //? email */}
-          <div className="p-2">
-            <InputMaker
-              type={"email"}
-              name="email"
-              label="Email Address"
-              styling={{ labelStyling: "block", input: "w-full" }}
-              required={true}
-              data={takeData}
-            />
-          </div>
+          <div className="p-3">
+          <label htmlFor="email" className="customizeLabel">Email</label>
+           <Field name="email" type="email" id="email" className="customizeForm"/>
+           <ErrorMessage name="email" render={msg => <div className="text-red-500 capitalize font-medium">{msg}</div>}/>
+            </div>
 
-          {/* //? Last Name */}
-          <div className="p-2">
-            <InputMaker
-              type={"password"}
-              name="password"
-              label="Password"
-              styling={{ labelStyling: "block", input: "w-full" }}
-              required={true}
-              data={takeData}
-            />
-          </div>
+          {/* //? Password */}
+          <div className="p-3">
+          <label htmlFor="password" className="customizeLabel">Password</label>
+           <Field name="password" type="text" id="password" className="customizeForm "/>
+           <ErrorMessage name="password" render={msg => <div className="text-red-500  capitalize font-medium">{msg}</div>}/>
+            </div>
 
-          <span
+              {/* //? Confirm  Password */}
+          <div className="p-3">
+          <label htmlFor="confirmPassword" className="customizeLabel">Confirm Password</label>
+           <Field name="confirmPassword" type="text" id="confirmPassword" className="customizeForm"/>
+            </div>
+
+            <span
             className={`${
               error.condition ? "block" : "hidden"
             } text-red-500 font-medium capitalize text-center `}
-          >
+              >
             {error.message}
           </span>
 
@@ -126,13 +122,16 @@ function CreateAccount() {
           <div className="text-center">
             <button
               type="submit"
-              className="bg-gray-600 text-white rounded-md w-11/12  py-1  my-2 hover:bg-gray-800"
+              className="bg-gray-600 text-white rounded-md w-11/12  py-1  mt-2 mb-4 hover:bg-gray-800"
             >
               {" "}
               Sign Up
             </button>
           </div>
-        </form>
+        </Form>
+        </Formik>
+
+
       </div>
     </div>
   );

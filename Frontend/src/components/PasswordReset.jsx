@@ -1,25 +1,36 @@
 import axios from "axios";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import InputMaker from "../common/inputMaker";
+import * as Yup from 'yup'
+
+  const initialValue = {
+
+  }
+
+  const validationSchema = Yup.object().shape({
+      email: Yup.string().email('Invalid Email').required('Required'),
+      password : Yup.string().min(4, 'Too short').max(9, 'Too long ').required('Required'),
+      confirmPassword : Yup.string().min(4, 'Too short').max(9, 'Too long ').required('Required')
+  })
 
 
 const PasswordReset = () => {
 
-    const [data, setData] = useState({});
     const [error, setError] = useState({ condition: false, message: "" });
     const navigate = useNavigate();
   
-    function handleSubmit(e) {
-      e.preventDefault();
+    function onSubmit(values) {
+
+      //todo match the passwords 
       axios
         .post("http://127.0.0.1:8000/api/passwordReset/", {
-          email : data.resetPasswordEmail,
-          resetCode : data.resetPasswordNumber,
-          newPassword: data.resetPassword
+          email : values.resetPasswordEmail,
+          resetCode : values.resetPasswordNumber,
+          newPassword: values.resetPassword
         })
         .then((response) => {
-                if(response.status == 200) navigate('/Home')
+                if(response.status === 200) navigate('/Home')
         })
         .catch((error) =>
           setError({
@@ -30,9 +41,7 @@ const PasswordReset = () => {
         );
     }
   
-    function takeData(info, name) {
-      setData({ ...data, [name]: info });
-    }
+ 
   
     return (
         <div className="bg-gray-100 h-screen">
@@ -44,54 +53,34 @@ const PasswordReset = () => {
     
           {/* card section */}
           <div className="bg-white w-4/12 mx-auto mt-5">
-            <form onSubmit={handleSubmit}>
-              {/* //* card header section  */}
-              <div className="text-center">
-                <h3 className="capitalize font-semibold">
-                 check your <span className="font-bold">Spam</span> folder 
-                    for the the reset key 
-                </h3>
-              </div>
-    
-              {/* //? Last Name */}
-              <div className="p-2">
-                <InputMaker
-                  type={"email"}
-                  name="resetPasswordEmail"
-                  label="Email"
-                  styling={{ labelStyling: "block", input: "w-full" }}
-                  required={true}
-                  data={takeData}
-                />
-              </div>
+            <Formik 
+                initialValues={initialValue}
+                onSubmit={onSubmit}
+                validationSchema={validationSchema}
+            >
+            <Form >
+              {/* //? email */}
+          <div className="p-3">
+          <label htmlFor="email" className="customizeLabel">Email</label>
+           <Field name="email" type="email" id="email" className="customizeForm"/>
+           <ErrorMessage name="email" render={msg => <div className="text-red-500 capitalize font-medium">{msg}</div>}/>
+            </div>
+
+              {/* //? Password */}
+          <div className="p-3">
+          <label htmlFor="password" className="customizeLabel">Password</label>
+           <Field name="password" type="text" id="password" className="customizeForm "/>
+           <ErrorMessage name="password" render={msg => <div className="text-red-500  capitalize font-medium">{msg}</div>}/>
+            </div>
+
+              {/* //? Password */}
+          <div className="p-3">
+          <label htmlFor="confirmPassword" className="customizeLabel">Confirm Password</label>
+           <Field name="confirmPassword" type="text" id="confirmPassword" className="customizeForm "/>
+           <ErrorMessage name="confirmPassword" render={msg => <div className="text-red-500  capitalize font-medium">{msg}</div>}/>
+            </div>
 
 
-                     {/* //? Last Name */}
-              <div className="p-2">
-                <InputMaker
-                  type={"number"}
-                  name="resetPasswordNumber"
-                  label="Security Code "
-                  styling={{ labelStyling: "block", input: "w-full" }}
-                  required={true}
-                  data={takeData}
-                />
-              </div>
-
-
-               {/* //? Last Name */}
-               <div className="p-2">
-                <InputMaker
-                  type={"password"}
-                  name="resetPassword"
-                  label="New Password"
-                  styling={{ labelStyling: "block", input: "w-full" }}
-                  required={true}
-                  data={takeData}
-                />
-              </div>
-
-    
               <span className={`${error.condition ? 'block' : 'hidden'} text-red-500 font-medium text-sm text-center capitalize`}>{error.message}</span>
               {/* button for submit  */}
               <div className="text-center">
@@ -102,7 +91,9 @@ const PasswordReset = () => {
                   Reset
                 </button>
               </div>
-            </form>
+            </Form>
+            </Formik>
+
           </div>
         </div>
       );
