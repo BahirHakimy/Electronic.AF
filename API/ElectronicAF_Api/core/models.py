@@ -1,5 +1,6 @@
 import os
 from django.db import models
+from django.db.models.signals import pre_delete
 from django.core.files.uploadedfile import SimpleUploadedFile
 from io import BytesIO
 from PIL import Image as PilImage, ImageFilter, ImageOps
@@ -57,7 +58,7 @@ class Image(models.Model):
     def create_thumbnail(self):
         if not self.image:
             return
-        THUMBNAIL_SIZE = (400, 400)
+        THUMBNAIL_SIZE = (600, 450)
 
         if self.image.name.endswith(".jpg"):
             PIL_TYPE = "jpeg"
@@ -90,3 +91,13 @@ class Image(models.Model):
         if not self.thumbnail:
             self.create_thumbnail()
         super(Image, self).save()
+
+
+def deleteFilesFromDisk(instance, **kwargs):
+    if instance.image:
+        instance.image.delete(False)
+    if instance.thumbnail:
+        instance.thumbnail.delete(False)
+
+
+pre_delete.connect(deleteFilesFromDisk, sender=Image)

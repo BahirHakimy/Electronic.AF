@@ -40,6 +40,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "storageType",
             "os",
             "price",
+            "description",
             "images",
         )
 
