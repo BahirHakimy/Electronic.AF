@@ -1,8 +1,17 @@
 from django.contrib import admin
-from .customUserAdmin import CustomUserAdmin
-from .models import CustomUser
+from .models import Product, Image
 
 
-admin.site.register(CustomUser, CustomUserAdmin)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ("title", "category", "price")
+    list_filter = ("category", "price")
+    search_fields = ("title",)
 
-# Register your models here.
+
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ("product",)
+    list_filter = ("product",)
+
+
+admin.site.register(Product, ProductAdmin)
+admin.site.register(Image, ImageAdmin)

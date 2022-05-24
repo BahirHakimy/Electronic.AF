@@ -1,28 +1,45 @@
-import random
-from datetime import datetime, timedelta
+from functools import partial
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
-from django.core.mail import send_mail
-from django.contrib.auth import get_user_model
-from core.models import ResetCodes
-from core.serializers import UserCreateSerializer
-from django.conf import settings
+from rest_framework.permissions import IsAdminUser, AllowAny
+from rest_framework.parsers import FormParser, MultiPartParser
+from rest_framework.decorators import api_view, permission_classes, parser_classes
+
+from .models import Product, Image
+from .serializers import ProductCreateSerializer, ProductSerializer
 
 
 @api_view(["POST"])
-@permission_classes([AllowAny])
-def registerView(request):
-    serializer = UserCreateSerializer(data=request.data, many=False)
+@parser_classes([MultiPartParser, FormParser])
+@permission_classes([IsAdminUser])
+def createProductView(request):
+    images = None
+    if len(request.FILES) > 0:
+        images = request.FILES
+
+    data = request.data.copy()
+    data["storage_type"] = data["storageType"]
+    serializer = ProductCreateSerializer(data=data, many=False)
     if serializer.is_valid():
-        serializer.save()
-        copydata = serializer.data.copy()
-        copydata.pop("password")
-        return Response(copydata, status=status.HTTP_201_CREATED)
+        product = serializer.save()
+        if images:
+            for image in images:
+                if not isinstance(request.data[image], InMemoryUploadedFile):
+                    return Response(
+                        {
+                            "detail": "Error: The sent files are either too big or not supported"
+                        },
+                        status=status.HTTP_400_BAD_REQUEST,
+                    )
+                instance = Image.objects.create(product=product, image=images[image])
+                instance.save()
+
+        serializer = ProductSerializer(product, many=False)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
     else:
         standerdizedErrors = {}
-        print(serializer.errors)
         for error in serializer.errors:
             standerdizedErrors[error] = serializer.errors[error][0].__str__()
         return Response(
@@ -30,92 +47,78 @@ def registerView(request):
         )
 
 
-def getRandom6digitCode():
-    return random.randint(111111, 999999)
-
-
-@api_view(["POST"])
-@permission_classes([AllowAny])
-def passwordResetView(request):
-    User = get_user_model()
+@api_view(["PUT"])
+@permission_classes([IsAdminUser])
+def updateProductView(request):
     try:
-        code = request.data["resetCode"]
-        new_password = request.data["newPassword"]
-        email = request.data["email"]
-        user = User.objects.get(email=email)
+        id = request.data["id"]
         try:
-            reset_code = ResetCodes.objects.get(user=user, value=code)
-            if reset_code.is_valid(user):
-                user.set_password(new_password)
-                user.save()
-                reset_code.used = True
-                reset_code.save()
-                return Response(
-                    {"detail": "Password reseted successfully"},
-                    status=status.HTTP_202_ACCEPTED,
-                )
+            product = Product.objects.get(id=id)
+            data = request.data.copy()
+            if data.__contains__("storageType"):
+                data["storage_type"] = data["storageType"]
+
+            serializer = ProductCreateSerializer(
+                instance=product, data=data, partial=True
+            )
+            if serializer.is_valid():
+                product = serializer.save()
+                serializer = ProductSerializer(product, many=False)
+                return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
             else:
+                standerdizedErrors = {}
+                for error in serializer.errors:
+                    standerdizedErrors[error] = serializer.errors[error][0].__str__()
                 return Response(
-                    {"detail": "Entered resetCode is not valid or expired"},
-                    status=status.HTTP_400_BAD_REQUEST,
+                    {"errors": standerdizedErrors}, status=status.HTTP_400_BAD_REQUEST
                 )
 
-        except ResetCodes.DoesNotExist:
+        except Product.DoesNotExist:
             return Response(
-                {"detail": "Entered resetCode is invalid"},
-                status=status.HTTP_400_BAD_REQUEST,
+                {"detail": "Product with the given id was not found in the system"},
+                status=status.HTTP_404_NOT_FOUND,
             )
     except KeyError:
         return Response(
-            {
-                "detail": "You must include all requested data in request body (email,resetCode,newPassword)"
-            },
+            {"detail": "You must include the id of product you want to update"},
             status=status.HTTP_400_BAD_REQUEST,
         )
 
 
-@api_view(["POST"])
-@permission_classes([AllowAny])
-def sendResetCodeView(request):
-    User = get_user_model()
-    email = request.data["email"]
+@api_view(["DELETE"])
+@permission_classes([IsAdminUser])
+def deleteProductView(request):
     try:
-        user = User.objects.get(email=email)
-        code = None
-        codes_queryset = ResetCodes.objects.filter(user=user)
-        if codes_queryset.exists():
-            existent_code = codes_queryset[0]
-            if existent_code.is_valid(user):
-                code = existent_code.value
-            else:
-                existent_code.value = getRandom6digitCode()
-                existent_code.generated_at = datetime.now()
-                existent_code.used = False
-                existent_code.save()
-                code = existent_code.value
-        else:
-            new_code = ResetCodes.objects.create(user=user, value=getRandom6digitCode())
-            code = new_code.value
-
-        subject = f"Reset password code for {user.get_email()}"
-        message = f"Use [{code}] for reseting you account password."
-        sender = settings.EMAIL_HOST_USER
+        id = request.data["id"]
         try:
-            user.email_user(subject, message, sender, fail_silently=False)
+            product = Product.objects.get(id=id)
+            product.delete()
             return Response(
-                {
-                    "detail": "Reset code was sent to your email.If you can't find it check your spam folder."
-                },
+                {"detail": f"Product with id[{id}] was deleted successfully"},
                 status=status.HTTP_200_OK,
             )
-        except Exception:
-            print(Exception.with_traceback())
+        except Product.DoesNotExist:
             return Response(
-                {"detail": "Some thing went wrong please try again later."},
-                status=status.HTTP_503_SERVICE_UNAVAILABLE,
+                {"detail": "Product with the given id was not found in the system"},
+                status=status.HTTP_404_NOT_FOUND,
             )
-    except User.DoesNotExist:
+    except KeyError:
         return Response(
-            {"detail": "User with the given email not found in the database."},
-            status=status.HTTP_404_NOT_FOUND,
+            {"detail": "You must include the id of product you want to delete"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def getProductsView(request):
+    products = Product.objects.all()
+    if products.exists():
+        serializer = ProductSerializer(
+            products, many=True, context={"request": request}
+        )
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    else:
+        return Response(
+            {"detail": "No availble product in the database"}, status=status.HTTP_200_OK
         )

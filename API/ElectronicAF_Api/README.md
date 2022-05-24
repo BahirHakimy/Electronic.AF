@@ -68,7 +68,7 @@ python manage.py runserver
 
 +++++++++++++++++++
 
-1:- `<<hostAddress:port>>/api/token/`
+1:- `<<hostAddress:port>>/api/auth/token/`
 
 - `Method`: Post
 - `IsProtected` : NO
@@ -96,7 +96,7 @@ python manage.py runserver
   }
   ```
 
-2:- `<<hostAddress:port>>/api/token/refresh/`
+2:- `<<hostAddress:port>>/api/auth/token/refresh/`
 
 - `Method`: Post
 - `IsProtected` : NO
@@ -124,7 +124,7 @@ python manage.py runserver
   }
   ```
 
-3:- `<<hostAddress:port>>/api/register/`
+3:- `<<hostAddress:port>>/api/auth/register/`
 
 - `Method`: Post
 - `IsProtected` : NO
@@ -163,7 +163,7 @@ python manage.py runserver
   }
   ```
 
-  4:- `<<hostAddress:port>>/api/sendResetCode/`
+  4:- `<<hostAddress:port>>/api/auth/sendResetCode/`
 
 - `Method`: Post
 - `IsProtected` : NO
@@ -196,7 +196,7 @@ python manage.py runserver
   }
   ```
 
-4:- `<<hostAddress:port>>/api/passwordReset/`
+4:- `<<hostAddress:port>>/api/auth/passwordReset/`
 
 - `Method`: Post
 - `IsProtected` : NO
@@ -223,7 +223,7 @@ python manage.py runserver
     "detail": "Entered resetCode is not valid or expired."
   }
   ```
-- `Failiure Status If reset code is not arbitary or not registerd in database`: `HTTP 400 BadRequest`
+- `Failiure Status If reset code is not registerd in database`: `HTTP 400 BadRequest`
 - `Failiure Response`:
 - ```json
   {
@@ -231,3 +231,196 @@ python manage.py runserver
   }
   ```
 
+
++++++++++++++++++++
+
+#### CRUD Operation on products
+
++++++++++++++++++++
+
+1:- `<<hostAddress:port>>/api/core/getProducts/`
+
+- `Method`: Get
+- `IsProtected` : NO
+- `Expecting inputs`: None
+- `Success Status`: `HTTP 200 OK`
+- `Success Response`:
+- ```json
+  [
+    {
+      "id": 37,
+      "title": "Dell Xps 600 Gaming",
+      "category": "Laptop",
+      "cpu": "Intel core i7 10th genration 3.5GHz upto 5GHz",
+      "gpu": "Nvidea Geforce Rtx 3080 8GB",
+      "memory": "16GB",
+      "storage": "256GB",
+      "storageType": "SSD",
+      "os": "Windows 10 Pro",
+      "price": "1500.00",
+      "description": "Gaming laptop",
+      "images": [
+        {
+          "image": "image url",
+          "thumbnail": "thumbnail url"
+        }
+      ]
+    }
+  ]
+  ```
+- `Failiure Status`: `HTTP 200 OK`
+- `Failiure Response`:
+- ```json
+  { "detail": "No availble product in the database" }
+  ```
+
+2:- `<<hostAddress:port>>/api/core/createProduct/`
+
+- `Method`: Post
+- `IsProtected` : Yes `You should provide an admin user access token to access the endpoint`
+- `Accepting Data Type`:"multipart/form-data"
+- `Expecting inputs`:
+- ```json
+  {
+    "title": "product title",
+    "category": "LT for[Laptop] and DT for[Desktop]",
+    "cpu": "cpu info",
+    "gpu": "gpu info",
+    "memory": "must be [4|8|16|32|64|128]",
+    "storage": "must be [256|512|1000|2000|4000]",
+    "storageType": "[1 for[HDD] 2 for[SSD]]",
+    "os": "operating system info [Optional]",
+    "price": "must be between range [0-9999].[00]",
+    "description": "product description [Optional]",
+    "image1": "a valid uploaded image ",
+    "image2": "a valid uploaded image, you can add up to three images"
+  }
+  ```
+
+- `Success Status`: `HTTP 201 Created`
+- `Success Response`:
+- ```json
+  {
+    "id": "auto generated id",
+    "title": "created product title",
+    "category": "selected category",
+    "cpu": "...",
+    "gpu": "...",
+    "memory": "...",
+    "storage": "...",
+    "storageType": "...",
+    "os": "...",
+    "price": "...",
+    "description": "...",
+    "images": [
+      {
+        "image": "image url",
+        "thumbnail": "thumbnail url"
+      },
+      {
+        "image": "image url",
+        "thumbnail": "thumbnail url"
+      }
+    ]
+  }
+  ```
+
+- `Failiure Status`: `HTTP 400 BadRequest`
+- `Failiure Response`:
+- ```json
+  {
+    "errors": {
+      "title": "error associated with title field",
+      "..."
+    }
+  }
+  ```
+- `Failiure Status sent images are more than 25MB or invalid type`: `HTTP 400 BadRequest`
+- `Failiure Response`:
+- ```json
+  {
+    "detail": "Error: The sent files are either too big or not supported"
+  }
+  ```
+
+3:- `<<hostAddress:port>>/api/core/updateProduct/`
+
+- `Method`: Put
+- `IsProtected` : Yes `You should provide an admin user access token to access the endpoint`
+- `Expecting inputs`:
+- ```json
+  {
+    "id":"product id you want to update [Required]",
+    "title": "new title",
+    "... include any field you want to update"
+  }
+  ```
+
+- `Success Status`: `HTTP 202 Accepted`
+- `Success Response`:
+- ```json
+  {
+    "id": "product id",
+    "title": "updated title",
+    "..."
+  }
+  ```
+
+- `Failiure Status`: `HTTP 400 BadRequest`
+- `Failiure Response`:
+- ```json
+  {
+    "errors": {
+      "title": "error associated with title field",
+      "..."
+    }
+  }
+  ```
+- `Failiure Status if id is not included in request body`: `HTTP 400 BadRequest`
+- `Failiure Response`:
+- ```json
+  {
+    "detail": "You must include the id of product you want to update"
+  }
+  ```
+- `Failiure Status if product doesn't exists in database`: `HTTP 404 NotFound`
+- `Failiure Response`:
+- ```json
+  {
+    "detail": "Product with the given id was not found in the system"
+  }
+  ```
+
+3:- `<<hostAddress:port>>/api/core/updateProduct/`
+
+- `Method`: Delete
+- `IsProtected` : Yes `You should provide an admin user access token to access the endpoint`
+- `Expecting inputs`:
+- ```json
+  {
+    "id": "product id you want to delete [Required]"
+  }
+  ```
+
+- `Success Status`: `HTTP 200 OK`
+- `Success Response`:
+- ```json
+  {
+    "detail": "Product with id {id} was deleted successfully"
+  }
+  ```
+
+- `Failiure Status if id is not included in request body`: `HTTP 400 BadRequest`
+- `Failiure Response`:
+- ```json
+  {
+    "detail": "You must include the id of product you want to delete"
+  }
+  ```
+- `Failiure Status if product doesn't exists in database`: `HTTP 404 NotFound`
+- `Failiure Response`:
+- ```json
+  {
+    "detail": "Product with the given id was not found in the system"
+  }
+  ```

@@ -1,28 +1,53 @@
+from dataclasses import fields
+from unicodedata import category
 from rest_framework import serializers
-from django.contrib.auth import get_user_model
 
-User = get_user_model()
+from .models import Product, Image
 
 
-class UserSerializer(serializers.ModelSerializer):
-    fullname = serializers.ReadOnlyField(source="get_fullname")
+class ImageSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(use_url=True)
+    thumbnail = serializers.ImageField(use_url=True)
 
     class Meta:
-        model = User
-        fields = ("email", "fullname", "phone")
+        model = Image
+        fields = ("image", "thumbnail")
 
 
-class UserCreateSerializer(serializers.ModelSerializer):
-    def create(self, validated_data):
-        user = User.objects.create_user(
-            validated_data["email"],
-            validated_data["password"],
-            firstname=validated_data["firstname"],
-            lastname=validated_data["lastname"],
+class ProductCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = "__all__"
+
+
+class ProductSerializer(serializers.ModelSerializer):
+    category = serializers.ReadOnlyField(source="get_category_display")
+    storageType = serializers.ReadOnlyField(source="get_storage_type_display")
+    memory = serializers.ReadOnlyField(source="get_memory_display")
+    storage = serializers.ReadOnlyField(source="get_storage_display")
+    images = serializers.SerializerMethodField("get_images")
+
+    class Meta:
+        model = Product
+        fields = (
+            "id",
+            "title",
+            "category",
+            "cpu",
+            "gpu",
+            "memory",
+            "storage",
+            "storageType",
+            "os",
+            "price",
+            "description",
+            "images",
         )
-        user.phone = validated_data["phone"]
-        return user
 
-    class Meta:
-        model = User
-        fields = ("email", "password", "firstname", "lastname", "phone")
+    def get_images(self, instance):
+        images = Image.objects.filter(product=instance)
+        if images.exists():
+            serializer = ImageSerializer(images, many=True)
+            return serializer.data
+        else:
+            return {}

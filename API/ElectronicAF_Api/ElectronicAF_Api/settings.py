@@ -11,7 +11,7 @@ SECRET_KEY = "django-insecure-jfax3vm+*f7kbpxm!6#j8@&+k+%+ahrr6s=^v4!avk#s&b9^qy
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-AUTH_USER_MODEL = "core.CustomUser"
+AUTH_USER_MODEL = "authentication.CustomUser"
 ROOT_URLCONF = "ElectronicAF_Api.urls"
 WSGI_APPLICATION = "ElectronicAF_Api.wsgi.application"
 CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
@@ -33,9 +33,14 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = "static/"
+MEDIA_URL = "media/"
+STATIC_ROOT = BASE_DIR / "static"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+# Consistent uploaded file format
+FILE_UPLOAD_MAX_MEMORY_SIZE = 10242880
 
 
 # Application definition
@@ -49,6 +54,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "corsheaders",
+    "authentication.apps.AuthenticationConfig",
     "core.apps.CoreConfig",
 ]
 
