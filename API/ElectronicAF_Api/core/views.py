@@ -20,8 +20,6 @@ def createProductView(request):
         images = request.data["images"].split(",")
     except KeyError:
         images = None
-    print(request.data[images[0]])
-    print(type(request.data[images[0]]))
 
     data = request.data.copy()
     data["storage_type"] = data["storageType"]
