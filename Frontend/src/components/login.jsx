@@ -75,7 +75,7 @@ function LogIn() {
           {/* //? Password */}
           <div className="p-3">
           <label htmlFor="password" className="customizeLabel">Password</label>
-           <Field name="password" type="text" id="password" className="customizeForm "/>
+           <Field name="password" type="password" id="password" className="customizeForm "/>
            <ErrorMessage name="password" render={msg => <div className="text-red-500  capitalize font-medium">{msg}</div>}/>
             </div>
 

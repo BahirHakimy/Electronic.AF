@@ -21,7 +21,8 @@ import { useState } from "react";
       lastName: Yup.string().required('You need to fill this field'),
       phone: Yup.string().length(9, 'please enter the 9 digits of your phone number').required('You need to fill this field'),
       email :Yup.string().email('Invalid Email').required('You need to fill this field'),
-      password: Yup.string().min(4, 'Too short').required('You need to fill this field')
+      password: Yup.string().min(4, 'Too short').required('You need to fill this field'),
+      confirmPassword : Yup.string().required().oneOf([Yup.ref('password')], 'password did not match')
   })
 
 
@@ -100,14 +101,15 @@ import { useState } from "react";
           {/* //? Password */}
           <div className="p-3">
           <label htmlFor="password" className="customizeLabel">Password</label>
-           <Field name="password" type="text" id="password" className="customizeForm "/>
+           <Field name="password" type="password" id="password" className="customizeForm "/>
            <ErrorMessage name="password" render={msg => <div className="text-red-500  capitalize font-medium">{msg}</div>}/>
             </div>
 
               {/* //? Confirm  Password */}
           <div className="p-3">
           <label htmlFor="confirmPassword" className="customizeLabel">Confirm Password</label>
-           <Field name="confirmPassword" type="text" id="confirmPassword" className="customizeForm"/>
+           <Field name="confirmPassword" type="password" id="confirmPassword" className="customizeForm"/>
+           <ErrorMessage name="confirmPassword" render={msg => <div className="text-red-500  capitalize font-medium">{msg}</div>}/>
             </div>
 
             <span
