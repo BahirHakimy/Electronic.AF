@@ -50,10 +50,8 @@ Above commands was firsttime setup on future updates just pull new changes from 
 ```
 
 pip install -r requirements.txt
-
 python manage.py migrate
 python manage.py migrate core
-
 python manage.py runserver
 
 ```
@@ -232,3 +230,4 @@ python manage.py runserver
     "detail":"Entered resetCode is invalid.
   }
   ```
+
