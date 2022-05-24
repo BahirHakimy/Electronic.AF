@@ -1,62 +1,108 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faLaptopCode} from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom';
+  import { useState } from "react";
+  import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+  import { faLaptopCode } from "@fortawesome/free-solid-svg-icons";
+  import { Link, useNavigate } from "react-router-dom";
+  import axios from "axios";
+  import { ErrorMessage, Field, Form, Formik} from "formik";
+  import * as Yup from 'yup'
 
+  const initialValue = {
+    email : '',
+    password : ''
+  }
+
+  const validationSchema = Yup.object().shape({
+      email: Yup.string().email('Invalid Email').required('Required'),
+      password: Yup.string().required('Required')
+  }) 
+
+  
 
 function LogIn() {
-  return (
-    <div className='my-8 '>
-        {/* //* logo section  */}
-        <div className='text-center'>
-          <FontAwesomeIcon icon={faLaptopCode} className="h-16 "/>
-          </div>
 
-      {/* //* header section */}
-      <div className='text-center'>
-        <h1 className='text-2xl font-bold '>Sign In To Your Account </h1>
-        {/* //todo add the registration page link in here */}
-        <p>Or <Link to='/createaccount' className='font-semibold underline'> create your account now</Link></p>
+  const [error, setError] = useState({ condition: false, message: "" });
+  const navigate = useNavigate();
+
+  function onSubmit(values) {
+    axios
+      .post("http://127.0.0.1:8000/api/token/", {
+        email: values.emailaddress,
+        password: values.password
+      })
+      .then((response) => {
+        if (response.status === 200) navigate("/Home", { replace: true });
+      })
+      .catch((error) => setError({ condition: true, message: error.response.data.detail }));
+  }
+
+  return (
+    <div className="my-8 ">
+      {/* //* logo section  */}
+      <div className="text-center">
+        <FontAwesomeIcon icon={faLaptopCode} className="h-16 " />
       </div>
 
-        {/*  //* card section  */}
-         <div className='bg-white w-4/12 shadow-md rounded-md pt-2 pb-4 pl-4 mt-5 mx-auto'>
-      {/* //* form  */}
-              {/* //todod giving the form proper action field   */}
-            <form className='' >
-              {/* //? username input  */}
-              <div className='pl-3 w-11/12 py-6'>
-              <label htmlFor="email" className='block text-sm font-medium text-gray-700  '>Email Address</label>
-              <input type='email' id='email' className='focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md w-full' required/>
-              </div>
+      {/* //* header section */}
+      <div className="text-center">
+        <h1 className="text-2xl font-bold ">Sign In To Your Account </h1>
+        {/* //todo add the registration page link in here */}
+        <p>
+          Or{" "}
+          <Link to="/createaccount" className="font-semibold underline">
+            {" "}
+            create your account now
+          </Link>
+        </p>
+      </div>
 
-              {/* //? password section  */}
-              <div className='pl-3 w-11/12 '>
-              <label htmlFor="password" className='block text-sm font-medium text-gray-700  '>Password</label>
-              <input type='password' id='password' className='focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md w-full' required/>
-              </div>
+     {/* card section */}
+     <div className="bg-white shadow-md rounded w-9/12 lg:w-4/12 mx-auto mt-4 px-3 ">
 
-            {/* //* forgot password and remember me section   */}
-            <div className='py-3 pl-3 flex justify-between w-11/12'>
-              {/* //? checkbox section  */}
-                <div>
-                  <input type="checkbox" name="remember" id="remember" className='rounded text-gray-700 ' />
-                  <label htmlFor='remember' className='pl-2'>Remember me</label>
-                </div>
-
-                {/* //? forgot password  */}
-                <div>
-                  <p><Link to='/forgotpassword' className='capitalize font-semibold'>forgot your password?</Link></p>
-                </div>
+        <Formik  initialValues={initialValue}
+        onSubmit={onSubmit}
+        validationSchema={validationSchema}
+        validateOnBlur={false}
+        validateOnChange={false}
+        >
+        <Form>
+          {/* //? email */}
+          <div className="p-3">
+          <label htmlFor="email" className="customizeLabel">Email</label>
+           <Field name="email" type="email" id="email" className="customizeForm"/>
+           <ErrorMessage name="email" render={msg => <div className="text-red-500 capitalize font-medium">{msg}</div>}/>
             </div>
 
-            {/* //* button for sign in  */}
-                <button type='submit' className='bg-gray-800 text-white rounded-md w-11/12 py-1 mt-1 ml-2'> Sign In</button>
+          {/* //? Password */}
+          <div className="p-3">
+          <label htmlFor="password" className="customizeLabel">Password</label>
+           <Field name="password" type="password" id="password" className="customizeForm "/>
+           <ErrorMessage name="password" render={msg => <div className="text-red-500  capitalize font-medium">{msg}</div>}/>
+            </div>
 
-            </form> 
+          <span
+            className={`${
+              error.condition ? "block" : "hidden"
+            } text-red-500 font-medium capitalize text-center `}
+              >
+            {error.message}
+          </span>
+
+          {/* button for submit  */}
+          <div className="text-center">
+            <button
+              type="submit"
+              className="bg-gray-600 text-white rounded-md w-11/12  py-1  mt-2 mb-4 hover:bg-gray-800"
+            >
+              {" "}
+              Sign Up
+            </button>
           </div>
+        </Form>
+        </Formik>
+
+      </div>
     </div>
-  )
+  );
 }
 
-export default LogIn
+export default LogIn;

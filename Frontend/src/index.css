@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+    @layer components {
+        .customizeForm {
+                @apply w-full rounded-md border-gray-300 focus:ring-gray-700 focus:border-gray-500 
+        }
+        .customizeLabel {
+            @apply text-sm text-gray-700 font-medium block
+        }
+    }
+    

@@ -16,6 +16,7 @@ ROOT_URLCONF = "ElectronicAF_Api.urls"
 WSGI_APPLICATION = "ElectronicAF_Api.wsgi.application"
 CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
 
+
 # Internationalization
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
