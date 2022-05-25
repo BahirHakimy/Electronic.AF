@@ -336,7 +336,7 @@ python manage.py runserver
     }
   }
   ```
-- `Failiure Status sent images are more than 25MB or invalid type`: `HTTP 400 BadRequest`
+- `Failiure Status if sent images are more than 25MB or invalid type`: `HTTP 400 BadRequest`
 - `Failiure Response`:
 - ```json
   {
