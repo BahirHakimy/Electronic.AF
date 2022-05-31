@@ -1,8 +1,9 @@
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from 'yup'
+import forgotPassword from '../illustrations/forgotPassword.svg'
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid Email').required('Required')
@@ -33,54 +34,63 @@ function ForgotPassword() {
 
 
   return (
-    <div className="bg-gray-100 h-screen">
-      {/* //*header section */}
-      <div className="text-center pt-8">
-        <h1 className="text-4xl font-bold">Forgot Password</h1>
-        <h3 className="text-xl font-semibold">Don't Worry We've Got you</h3>
-      </div>
+    <div className="h-screen bg-background flex items-center">
+      <div className="customizeCard scale-110 h-4/6">
 
-      {/* card section */}
-      <div className="bg-white w-4/12 mx-auto mt-5">
-        <Formik initialValues={{email : ''}} 
-        onSubmit={onSubmit}
-         validationSchema={validationSchema}
-         validateOnBlur={false}
-         validateOnChange={false}
-        >
-        <Form >
-          {/* //* card header section  */}
-          <div className="text-center">
-            <h3 className="capitalize font-semibold">
-              Just Give us the <span className="font-bold">Email</span> and
-              you're set to go{" "}
-            </h3>
-          </div>
-
-             {/* //? email */}
-          <div className="p-3">
-          <label htmlFor="email" className="customizeLabel">Email</label>
-           <Field name="email" type="email" id="email" className="customizeForm"/>
-           <ErrorMessage name="email" render={msg => <div className="text-red-500 capitalize font-medium">{msg}</div>}/>
-            </div>
-
-
-          <span className={`${error.condition ? 'block' : 'hidden'} text-red-500 font-medium text-sm text-center capitalize`}>{error.message}</span>
-          {/* button for submit  */}
-          <div className="text-center">
-            <button
-              type="submit"
-              className="bg-gray-600 text-white rounded-md w-11/12  py-1  my-2 hover:bg-gray-800"
-            >
-              Search
-            </button>
-          </div>
-        </Form>
-        </Formik>
-
-      </div>
+  {/* //*form  section */}
+  <div className="pt-4 px-3 space-y-3 bg-white">
+    {/* //*header  */}
+    <div className="flex justify-between px-7">
+      <div className="font-bold text-primaryLight text-2xl">logo</div>
+      <div className="text-gray-500 font-bold text-xl  hover:text-gray-700"><Link to={'/'}>Sign In</Link></div>
     </div>
-  );
+
+         {/* //* sign in  */}
+          <div className="py-6 pl-7 flex flex-wrap ">
+            <h1 className="font-bold text-2xl pb-2 pt-6">FORGOT YOUR PASSWORD?</h1>
+            <span className="text-gray-400 text-lg font-mono">
+              Don't worry we've got u covered 
+            </span>
+          </div> 
+              
+          <Formik initialValues={{email : ''}} 
+          onSubmit={onSubmit}
+          validationSchema={validationSchema}
+          validateOnBlur={false}
+          validateOnChange={false}
+          >
+          <Form >
+              {/* //? email */}
+            <div className="p-3">
+            <label htmlFor="email" className="customizeLabel">Email</label>
+            <Field name="email" type="email" id="email" className="customizeForm" placeholder="you@email.com"/>
+            <ErrorMessage name="email" render={msg => <div className="text-red-500 capitalize font-medium">{msg}</div>}/>
+              </div>
+
+
+            <span className={`${error.condition ? 'block' : 'hidden'} text-red-500 font-medium text-sm text-center capitalize`}>{error.message}</span>
+            {/* button for submit  */}
+            <div className="text-center mt-6">
+              <button
+                type="submit"
+                className="bg-gradient-to-r from-primary to-primaryLight text-white rounded-md w-11/12 h-10 shadow-md drop-shadow-lg shadow-primary py-1  "
+              >
+                Search
+              </button>
+            </div>
+          </Form>
+          </Formik>
+          </div>
+
+  {/* //* illustraion part */}
+      <div className="bg-gradient-to-b from-primaryDark to-primaryLight relative">
+            <img src={forgotPassword}  alt="illustration" className="h-80 absolute scale-75 top-32 left-14"/>
+      </div>
+
+</div>
+</div>
+);
 }
 
 export default ForgotPassword;
+
