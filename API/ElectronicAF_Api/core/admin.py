@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Product, Image
+
+from .models import Address, Cart, CartItem, CustomerReview, Image, Order, Product
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -13,5 +14,19 @@ class ImageAdmin(admin.ModelAdmin):
     list_filter = ("product",)
 
 
-admin.site.register(Product, ProductAdmin)
+class CartAdmin(admin.ModelAdmin):
+    list_display = ("user", "is_active", "timestamp")
+    list_filter = ("user", "is_active")
+
+
+class CartItemAdmin(admin.ModelAdmin):
+    list_display = ("product", "quantity")
+
+
+admin.site.register(Address)
+admin.site.register(Cart, CartAdmin)
+admin.site.register(CartItem, CartItemAdmin)
+admin.site.register(CustomerReview)
 admin.site.register(Image, ImageAdmin)
+admin.site.register(Order)
+admin.site.register(Product, ProductAdmin)

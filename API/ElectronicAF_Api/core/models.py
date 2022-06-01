@@ -1,5 +1,7 @@
 import os
+from click import Choice
 from django.db import models
+from django.conf import settings
 from django.db.models.signals import pre_delete
 from django.core.files.uploadedfile import SimpleUploadedFile
 from io import BytesIO
@@ -23,10 +25,48 @@ STORAGE_CAPACITIES = [
     ("4000", "4TB"),
 ]
 STORAGE_TYPES = [("1", "HDD"), ("2", "SSD")]
+STARS = [(1, 1), (2, 2), (3, 3), (4, 4), (5, 5)]
+ORDER_STATES = [("P", "Pending"), ("OD", "OutForDelivery"), ("D", "Delivered")]
+PROVINCES = (
+    ("BDK", "Badakhshan"),
+    ("BDG", "Badghis"),
+    ("BGH", "Baghlan"),
+    ("BLK", "Balkh"),
+    ("BAM", "Bamyan"),
+    ("DYK", "Daykundi"),
+    ("FRH", "Farah"),
+    ("FRB", "Faryab"),
+    ("GHZ", "Ghazni"),
+    ("GHR", "Ghor"),
+    ("HEL", "Helmand"),
+    ("HRT", "Herat"),
+    ("JZJ", "Jowzjan"),
+    ("KBL", "Kabul"),
+    ("KDR", "Kandahar"),
+    ("KPS", "Kapisa"),
+    ("KST", "Khost"),
+    ("KNR", "Kunar"),
+    ("KDZ", "Kunduz"),
+    ("LGH", "Laghman"),
+    ("LGR", "Logar"),
+    ("NGR", "Nangarhar"),
+    ("NMZ", "Nimruz"),
+    ("NRT", "Nuristan"),
+    ("ORZ", "Oruzgan"),
+    ("PTI", "Paktia"),
+    ("PTK", "Paktika"),
+    ("PJR", "Panjshir"),
+    ("PAR", "Parwan"),
+    ("SMN", "Samangan"),
+    ("SRP", "Sar-e-Pol"),
+    ("TKH", "Takhar"),
+    ("WDK", "Wardak"),
+    ("ZBL", "Zabul"),
+)
 
 
 class Product(models.Model):
-    title = models.CharField("Product nam", max_length=255)
+    title = models.CharField("Product name", max_length=255)
     category = models.CharField(max_length=2, choices=CATEGORIES)
     cpu = models.CharField(max_length=255)
     gpu = models.CharField(max_length=255)
@@ -101,3 +141,74 @@ def deleteFilesFromDisk(instance, **kwargs):
 
 
 pre_delete.connect(deleteFilesFromDisk, sender=Image)
+
+
+class CartItem(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    cart = models.ForeignKey("Cart", on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+
+    def __str__(self) -> str:
+        return self.product.title
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
+    is_active = models.BooleanField(default=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.user.email.split("@")[0]
+
+    def get_items(self):
+        items = CartItem.objects.filter(cart=self)
+        return items
+
+    def get_total_price(self):
+        total = 0
+        if len(self.get_items()) > 0:
+            for item in self.get_items():
+                total += item.product.price * item.quantity
+        return total
+
+
+class Address(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    province = models.CharField(max_length=3, choices=PROVINCES)
+    district = models.CharField(max_length=55)
+    home_address = models.CharField(max_length=255)
+    contact_phone = models.CharField(max_length=9, blank=True)
+
+    def __str__(self) -> str:
+        return f"Address of user {self.user.get_full_name()}"
+
+
+class Order(models.Model):
+    address = models.ForeignKey(Address, on_delete=models.DO_NOTHING)
+    cart = models.OneToOneField(Cart, on_delete=models.DO_NOTHING)
+    status = models.CharField(max_length=2, choices=ORDER_STATES)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    total = models.DecimalField(max_digits=8, decimal_places=2)
+
+    def __str__(self) -> str:
+        return f"Order of user {self.cart.user.email}"
+
+
+class CustomerReview(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE)
+    review = models.TextField(blank=True)
+    rating = models.IntegerField(choices=STARS)
+
+    def __str__(self) -> str:
+        return f"Review for product ${self.product.title}"
+
+    def get_average_rating(self):
+        reviews = CustomerReview.objects.filter(product=self.product)
+        if reviews.exists():
+            total = 0
+            for review in reviews:
+                total += int(review.rating)
+            return (total / reviews.count(), reviews.count())
+        else:
+            return (0, 0)
