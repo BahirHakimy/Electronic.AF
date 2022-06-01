@@ -64,7 +64,7 @@ python manage.py runserver
 
 ==================================
 
-[api/auth/token/](#1--hostaddressportapiauthtoken)<br>
+[api/auth/token/](#1-hostaddressportapiauthtoken)<br>
 [api/auth/token/refresh](#2-hostaddressportapiauthtokenrefresh)<br>
 [api/auth/register/](#3-hostaddressportapiauthregister)<br>
 [api/auth/sendResetCode/](#4-hostaddressportapiauthsendresetcode)<br>
@@ -72,7 +72,7 @@ python manage.py runserver
 [api/core/getProducts/](#1-hostaddressportapicoregetproducts)<br>
 [api/core/createProduct/](#2-hostaddressportapicorecreateproduct)<br>
 [api/core/updateProduct/](#3-hostaddressportapicoreupdateproduct)<br>
-[api/core/deleteProduct/](#4--hostaddressportapicoredeleteproduct)<br>
+[api/core/deleteProduct/](#4-hostaddressportapicoredeleteproduct)<br>
 [api/core/getCart/](#1-hostaddressportapicoregetcart)<br>
 [api/core/addToCart/](#2-hostaddressportapicoreaddtocart)<br>
 [api/core/removeFromCart/](#3-hostaddressportapicoreremovefromcart)<br>
