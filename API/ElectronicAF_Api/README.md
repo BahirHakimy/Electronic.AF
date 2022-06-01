@@ -52,6 +52,7 @@ Above commands was firsttime setup on future updates just pull new changes from 
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py migrate core
+python manage.py migrate authentication
 python manage.py runserver
 
 ```
@@ -192,7 +193,7 @@ python manage.py runserver
 - `Failiure Response`:
 - ```json
   {
-    "detail":"Some thing went wrong please try again later.
+    "detail":"Some thing went wrong please try again later."
   }
   ```
 
@@ -227,8 +228,9 @@ python manage.py runserver
 - `Failiure Response`:
 - ```json
   {
-      "detail":"Entered resetCode is invalid.
-    }
+    "detail":"Entered resetCode is invalid."
+  }
+
   ```
 
 +++++++++++++++++++
@@ -334,7 +336,7 @@ python manage.py runserver
     }
   }
   ```
-- `Failiure Status sent images are more than 25MB or invalid type`: `HTTP 400 BadRequest`
+- `Failiure Status if sent images are more than 25MB or invalid type`: `HTTP 400 BadRequest`
 - `Failiure Response`:
 - ```json
   {
