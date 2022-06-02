@@ -130,7 +130,6 @@ def getProductsView(request):
 
 
 @api_view(["POST"])
-@permission_classes([AllowAny])
 def getUserCartView(request):
     User = get_user_model()
     try:
@@ -160,7 +159,6 @@ def getUserCartView(request):
 
 
 @api_view(["POST"])
-@permission_classes([AllowAny])
 def addToCartView(request):
     User = get_user_model()
     try:
@@ -219,7 +217,6 @@ def addToCartView(request):
 
 
 @api_view(["DELETE"])
-@permission_classes([AllowAny])
 def removeFromCartView(request):
     try:
         cart_id = request.data["cartId"]
@@ -268,6 +265,83 @@ def removeFromCartView(request):
             {
                 "detail": "You should include cartId, productId and removedProduct in your request."
             },
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+
+@api_view(["POST"])
+def getUserReview(request):
+
+    User = get_user_model()
+    try:
+        product_id = request.data["productId"]
+        email = request.data["email"]
+        try:
+            review_profile = CustomerReview.objects.filter(
+                user__email=email, product__id=product_id
+            )
+            if review_profile.exists():
+                review_profile = review_profile[0]
+                serializer = CustomerReviewSerializer(
+                    review_profile,
+                    many=False,
+                )
+                return Response(
+                    serializer.data,
+                    status=status.HTTP_200_OK,
+                )
+            else:
+                return Response(
+                    {},
+                    status=status.HTTP_200_OK,
+                )
+        except User.DoesNotExist:
+            return Response(
+                {"detail": "User with the given email does not exist."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        except ValueError:
+            return Response(
+                {"detail": "productId or email not formatted correctly."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+    except KeyError:
+        return Response(
+            {"detail": "You should include productId and user email in your request."}
+        )
+
+
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def getProductReviews(request):
+    try:
+        product_id = request.data["productId"]
+        reviews = CustomerReview.objects.filter(product__id=product_id)
+        if reviews.exists():
+            serializer = CustomerReviewSerializer(
+                reviews,
+                many=True,
+            )
+            return Response(
+                serializer.data,
+                status=status.HTTP_200_OK,
+            )
+        else:
+            return Response(
+                {},
+                status=status.HTTP_200_OK,
+            )
+
+    except KeyError:
+        return Response(
+            {"detail": "You should include productId in your request."},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    except ValueError:
+        return Response(
+            {"detail": "productId must be a number."},
             status=status.HTTP_400_BAD_REQUEST,
         )
 
