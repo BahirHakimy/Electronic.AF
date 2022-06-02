@@ -82,6 +82,8 @@ class CartSerailizer(serializers.ModelSerializer):
 
 
 class CustomerReviewSerializer(serializers.ModelSerializer):
+    username = serializers.ReadOnlyField(source="get_user_identifier")
+
     class Meta:
         model = CustomerReview
-        fields = ("product", "rating", "review")
+        fields = ("username", "product", "rating", "review")

@@ -64,7 +64,7 @@ python manage.py runserver
 
 ==================================
 
-[api/auth/token/](#1--hostaddressportapiauthtoken)<br>
+[api/auth/token/](#1-hostaddressportapiauthtoken)<br>
 [api/auth/token/refresh](#2-hostaddressportapiauthtokenrefresh)<br>
 [api/auth/register/](#3-hostaddressportapiauthregister)<br>
 [api/auth/sendResetCode/](#4-hostaddressportapiauthsendresetcode)<br>
@@ -72,12 +72,14 @@ python manage.py runserver
 [api/core/getProducts/](#1-hostaddressportapicoregetproducts)<br>
 [api/core/createProduct/](#2-hostaddressportapicorecreateproduct)<br>
 [api/core/updateProduct/](#3-hostaddressportapicoreupdateproduct)<br>
-[api/core/deleteProduct/](#4--hostaddressportapicoredeleteproduct)<br>
+[api/core/deleteProduct/](#4-hostaddressportapicoredeleteproduct)<br>
 [api/core/getCart/](#1-hostaddressportapicoregetcart)<br>
 [api/core/addToCart/](#2-hostaddressportapicoreaddtocart)<br>
 [api/core/removeFromCart/](#3-hostaddressportapicoreremovefromcart)<br>
-[api/core/submitReview/](#1-hostaddressportapicoresubmitreview)<br>
-[api/core/getRating/](#2--hostaddressportapicoregetrating)<br>
+[api/core/getUserReview/](#1-hostaddressportapicoregetuserreview)<br>
+[api/core/getProductReviews/](#2-hostaddressportapicoregetproductreviews)<br>
+[api/core/submitReview/](#3-hostaddressportapicoresubmitreview)<br>
+[api/core/getRating/](#4-hostaddressportapicoregetrating)<br>
 
 +++++++++++++++++++
 
@@ -88,7 +90,7 @@ python manage.py runserver
 ### 1: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/auth/token/`</span>
 
 - `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
-- `IsProtected` : NO
+- `IsProtected` : No
 - `Expecting inputs`:
 
 - ```json
@@ -116,7 +118,7 @@ python manage.py runserver
 ### 2: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/auth/token/refresh/`</span>
 
 - `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
-- `IsProtected` : NO
+- `IsProtected` : No
 - `Expecting inputs`:
 
 - ```json
@@ -144,7 +146,7 @@ python manage.py runserver
 ### 3: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/auth/register/`</span>
 
 - `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
-- `IsProtected` : NO
+- `IsProtected` : No
 - `Expecting inputs`:
 
 - ```json
@@ -183,7 +185,7 @@ python manage.py runserver
 ### 4: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/auth/sendResetCode/`</span>
 
 - `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
-- `IsProtected` : NO
+- `IsProtected` : No
 - `Expecting inputs`:
 
 - ```json
@@ -216,7 +218,7 @@ python manage.py runserver
 ### 5: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/auth/passwordReset/`</span>
 
 - `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
-- `IsProtected` : NO
+- `IsProtected` : No
 - `Expecting inputs`:
 
 - ```json
@@ -257,7 +259,7 @@ python manage.py runserver
 ### 1: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/getProducts/`</span>
 
 - `Method` <span style="background-color:#22a606;padding:1px 5px;border-radius:3px">Get</span>
-- `IsProtected` : NO
+- `IsProtected` : No
 - `Expecting inputs`: None
 - `Success Status`: `HTTP 200 OK`
 - `Success Response`:
@@ -648,7 +650,88 @@ Review and Rating
 
 ++++++++++++++++++
 
-### 1: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/submitReview/`</span>
+### 1: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/getUserReview/`</span>
+
+- `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
+- `IsProtected` : Yes
+- `Accepting Data Type`:"application/json"
+- `Expecting inputs`:
+- ```json
+  {
+    "email": "user's email",
+    "productId": "Id of product that is review is submited on"
+  }
+  ```
+
+- `Success Status`: `HTTP 200 OK`
+- `Success Response`:
+- ```json
+  {
+    "product": 38,
+    "rating": 4,
+    "review": "I like this laptop"
+  }
+  ```
+
+- `Status If no rating is associated with the given product id`: `HTTP 200 OK`
+- `Response`:
+- ```json
+  {}
+  ```
+
+- `Failiure Status If email is not valid`: `HTTP 404 NotFound`
+- `Failiure Response`:
+- ```json
+  {
+    "detail": "User with the given email does not exist."
+  }
+  ```
+
+### 2: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/getProductReviews/`</span>
+
+- `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
+- `IsProtected` : No
+- `Accepting Data Type`:"application/json"
+- `Expecting inputs`:
+- ```json
+  {
+    "productId": "Id of product to get all reviews for."
+  }
+  ```
+
+- `Success Status`: `HTTP 200 OK`
+- `Success Response`:
+- ```json
+  [
+    {
+      "username": "ajmal hakimy",
+      "product": 38,
+      "rating": 4,
+      "review": "I like this laptop"
+    },
+    {
+      "username": "ahmadAhmadi",
+      "product": 38,
+      "rating": 3,
+      "review": "Good PC"
+    }
+  ]
+  ```
+
+- `Status If no review is associated with the given product id`: `HTTP 200 OK`
+- `Response`:
+- ```json
+  {}
+  ```
+- `Failiure Status `: `HTTP 400 BadRequest`
+- `Failiure Response`:
+- ```json
+  {
+    "detail": "You should include productId in your request."
+  }
+  ```
+
+### 3: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/submitReview/`</span>
 
 - `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
 - `IsProtected` : Yes
@@ -711,10 +794,10 @@ Review and Rating
   }
   ```
 
-### 2: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/getRating/`</span>
+### 4: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/getRating/`</span>
 
 - `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
-- `IsProtected` : Yes
+- `IsProtected` : No
 - `Accepting Data Type`:"application/json"
 - `Expecting inputs`:
 - ```json

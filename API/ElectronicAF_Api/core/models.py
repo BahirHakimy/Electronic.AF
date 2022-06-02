@@ -212,3 +212,9 @@ class CustomerReview(models.Model):
             return (total / reviews.count(), reviews.count())
         else:
             return (0, 0)
+
+    def get_user_identifier(self):
+        if self.user.get_full_name() != "":
+            return self.user.get_full_name()
+        else:
+            return self.user.email.split("@")[0]
