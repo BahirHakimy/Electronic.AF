@@ -87,7 +87,7 @@ python manage.py runserver
 
 +++++++++++++++++++
 
-### 1: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/auth/token/`</span>
+### 1: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/auth/token/`</span>
 
 - `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
 - `IsProtected` : No
@@ -115,7 +115,7 @@ python manage.py runserver
   }
   ```
 
-### 2: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/auth/token/refresh/`</span>
+### 2: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/auth/token/refresh/`</span>
 
 - `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
 - `IsProtected` : No
@@ -143,7 +143,7 @@ python manage.py runserver
   }
   ```
 
-### 3: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/auth/register/`</span>
+### 3: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/auth/register/`</span>
 
 - `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
 - `IsProtected` : No
@@ -182,7 +182,7 @@ python manage.py runserver
   }
   ```
 
-### 4: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/auth/sendResetCode/`</span>
+### 4: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/auth/sendResetCode/`</span>
 
 - `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
 - `IsProtected` : No
@@ -215,7 +215,7 @@ python manage.py runserver
   }
   ```
 
-### 5: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/auth/passwordReset/`</span>
+### 5: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/auth/passwordReset/`</span>
 
 - `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
 - `IsProtected` : No
@@ -256,7 +256,7 @@ python manage.py runserver
 
 +++++++++++++++++++
 
-### 1: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/getProducts/`</span>
+### 1: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/getProducts/`</span>
 
 - `Method` <span style="background-color:#22a606;padding:1px 5px;border-radius:3px">Get</span>
 - `IsProtected` : No
@@ -292,7 +292,7 @@ python manage.py runserver
   { "detail": "No availble product in the database" }
   ```
 
-### 2: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/createProduct/`</span>
+### 2: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/createProduct/`</span>
 
 - `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
 - `IsProtected` : Yes `You should provide an admin user access token to access the endpoint`
@@ -361,7 +361,7 @@ python manage.py runserver
   }
   ```
 
-### 3: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/updateProduct/`</span>
+### 3: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/updateProduct/`</span>
 
 - `Method` <span style="background-color:dodgerblue;padding:1px 5px;border-radius:3px">Put</span>
 - `IsProtected` : Yes `You should provide an admin user access token to access the endpoint`
@@ -409,7 +409,7 @@ python manage.py runserver
   }
   ```
 
-### 4: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/deleteProduct/`</span>
+### 4: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/deleteProduct/`</span>
 
 - `Method` <span style="background-color:tomato;padding:1px 5px;border-radius:3px">Delete</span>
 - `IsProtected` : Yes `You should provide an admin user access token to access the endpoint`
@@ -449,7 +449,7 @@ python manage.py runserver
 
 ++++++++++++++++++++
 
-### 1: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/getCart/`</span>
+### 1: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/getCart/`</span>
 
 - `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
 - `IsProtected` : Yes
@@ -508,7 +508,7 @@ python manage.py runserver
   }
   ```
 
-### 2: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/addToCart/`</span>
+### 2: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/addToCart/`</span>
 
 - `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
 - `IsProtected` : Yes
@@ -581,7 +581,7 @@ python manage.py runserver
   }
   ```
 
-### 3: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/removeFromCart/`</span>
+### 3: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/removeFromCart/`</span>
 
 - `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
 - `IsProtected` : Yes
@@ -650,7 +650,7 @@ Review and Rating
 
 ++++++++++++++++++
 
-### 1: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/getUserReview/`</span>
+### 1: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/getUserReview/`</span>
 
 - `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
 - `IsProtected` : Yes
@@ -687,7 +687,7 @@ Review and Rating
   }
   ```
 
-### 2: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/getProductReviews/`</span>
+### 2: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/getProductReviews/`</span>
 
 - `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
 - `IsProtected` : No
@@ -731,7 +731,7 @@ Review and Rating
   }
   ```
 
-### 3: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/submitReview/`</span>
+### 3: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/submitReview/`</span>
 
 - `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
 - `IsProtected` : Yes
@@ -794,7 +794,7 @@ Review and Rating
   }
   ```
 
-### 4: <span style="background:#4754ff44;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/getRating/`</span>
+### 4: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/getRating/`</span>
 
 - `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
 - `IsProtected` : No
