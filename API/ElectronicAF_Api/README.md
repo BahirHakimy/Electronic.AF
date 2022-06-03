@@ -87,9 +87,9 @@ python manage.py runserver
 
 +++++++++++++++++++
 
-### 1: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/auth/token/`</span>
+### 1: `<<hostAddress:port>>/api/auth/token/`
 
-- `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
+- `Method` **Post**
 - `IsProtected` : No
 - `Expecting inputs`:
 
@@ -115,9 +115,9 @@ python manage.py runserver
   }
   ```
 
-### 2: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/auth/token/refresh/`</span>
+### 2: `<<hostAddress:port>>/api/auth/token/refresh/`
 
-- `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
+- `Method` **Post**
 - `IsProtected` : No
 - `Expecting inputs`:
 
@@ -143,9 +143,9 @@ python manage.py runserver
   }
   ```
 
-### 3: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/auth/register/`</span>
+### 3: `<<hostAddress:port>>/api/auth/register/`
 
-- `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
+- `Method` **Post**
 - `IsProtected` : No
 - `Expecting inputs`:
 
@@ -182,9 +182,9 @@ python manage.py runserver
   }
   ```
 
-### 4: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/auth/sendResetCode/`</span>
+### 4: `<<hostAddress:port>>/api/auth/sendResetCode/`
 
-- `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
+- `Method` **Post**
 - `IsProtected` : No
 - `Expecting inputs`:
 
@@ -215,9 +215,9 @@ python manage.py runserver
   }
   ```
 
-### 5: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/auth/passwordReset/`</span>
+### 5: `<<hostAddress:port>>/api/auth/passwordReset/`
 
-- `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
+- `Method` **Post**
 - `IsProtected` : No
 - `Expecting inputs`:
 
@@ -256,9 +256,9 @@ python manage.py runserver
 
 +++++++++++++++++++
 
-### 1: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/getProducts/`</span>
+### 1: `<<hostAddress:port>>/api/core/getProducts/`
 
-- `Method` <span style="background-color:#22a606;padding:1px 5px;border-radius:3px">Get</span>
+- `Method` **Get**
 - `IsProtected` : No
 - `Expecting inputs`: None
 - `Success Status`: `HTTP 200 OK`
@@ -292,9 +292,9 @@ python manage.py runserver
   { "detail": "No availble product in the database" }
   ```
 
-### 2: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/createProduct/`</span>
+### 2: `<<hostAddress:port>>/api/core/createProduct/`
 
-- `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
+- `Method` **Post**
 - `IsProtected` : Yes `You should provide an admin user access token to access the endpoint`
 - `Accepting Data Type`:"multipart/form-data"
 - `Expecting inputs`:
@@ -361,9 +361,9 @@ python manage.py runserver
   }
   ```
 
-### 3: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/updateProduct/`</span>
+### 3: `<<hostAddress:port>>/api/core/updateProduct/`
 
-- `Method` <span style="background-color:dodgerblue;padding:1px 5px;border-radius:3px">Put</span>
+- `Method` **Put**
 - `IsProtected` : Yes `You should provide an admin user access token to access the endpoint`
 - `Expecting inputs`:
 - ```json
@@ -409,9 +409,9 @@ python manage.py runserver
   }
   ```
 
-### 4: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/deleteProduct/`</span>
+### 4: `<<hostAddress:port>>/api/core/deleteProduct/`
 
-- `Method` <span style="background-color:tomato;padding:1px 5px;border-radius:3px">Delete</span>
+- `Method` **Delete**
 - `IsProtected` : Yes `You should provide an admin user access token to access the endpoint`
 - `Expecting inputs`:
 - ```json
@@ -449,9 +449,9 @@ python manage.py runserver
 
 ++++++++++++++++++++
 
-### 1: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/getCart/`</span>
+### 1: `<<hostAddress:port>>/api/core/getCart/`
 
-- `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
+- `Method` **Post**
 - `IsProtected` : Yes
 - `Accepting Data Type`:"application/json"
 - `Expecting inputs`:
@@ -508,9 +508,9 @@ python manage.py runserver
   }
   ```
 
-### 2: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/addToCart/`</span>
+### 2: `<<hostAddress:port>>/api/core/addToCart/`
 
-- `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
+- `Method` **Post**
 - `IsProtected` : Yes
 - `Accepting Data Type`:"application/json"
 - `Expecting inputs`:
@@ -581,9 +581,9 @@ python manage.py runserver
   }
   ```
 
-### 3: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/removeFromCart/`</span>
+### 3: `<<hostAddress:port>>/api/core/removeFromCart/`
 
-- `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
+- `Method` **Post**
 - `IsProtected` : Yes
 - `Accepting Data Type`:"application/json"
 - `Expecting inputs`:
@@ -650,9 +650,9 @@ Review and Rating
 
 ++++++++++++++++++
 
-### 1: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/getUserReview/`</span>
+### 1: `<<hostAddress:port>>/api/core/getUserReview/`
 
-- `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
+- `Method` **Post**
 - `IsProtected` : Yes
 - `Accepting Data Type`:"application/json"
 - `Expecting inputs`:
@@ -687,9 +687,9 @@ Review and Rating
   }
   ```
 
-### 2: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/getProductReviews/`</span>
+### 2: `<<hostAddress:port>>/api/core/getProductReviews/`
 
-- `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
+- `Method` **Post**
 - `IsProtected` : No
 - `Accepting Data Type`:"application/json"
 - `Expecting inputs`:
@@ -731,9 +731,9 @@ Review and Rating
   }
   ```
 
-### 3: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/submitReview/`</span>
+### 3: `<<hostAddress:port>>/api/core/submitReview/`
 
-- `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
+- `Method` **Post**
 - `IsProtected` : Yes
 - `Accepting Data Type`:"application/json"
 - `Expecting inputs`:
@@ -794,9 +794,9 @@ Review and Rating
   }
   ```
 
-### 4: <span style="background:#4343bb77;padding:1px 5px;border-radius:3px">`<<hostAddress:port>>/api/core/getRating/`</span>
+### 4: `<<hostAddress:port>>/api/core/getRating/`
 
-- `Method` <span style="background-color:orange;padding:1px 5px;border-radius:3px">Post</span>
+- `Method` **Post**
 - `IsProtected` : No
 - `Accepting Data Type`:"application/json"
 - `Expecting inputs`:
