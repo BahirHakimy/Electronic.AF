@@ -30,7 +30,7 @@ def registerView(request):
         )
 
 
-def getRandom6digitCode():
+def get_random_6digit_code():
     return random.randint(111111, 999999)
 
 
@@ -88,13 +88,15 @@ def sendResetCodeView(request):
             if existent_code.is_valid(user):
                 code = existent_code.value
             else:
-                existent_code.value = getRandom6digitCode()
+                existent_code.value = get_random_6digit_code()
                 existent_code.generated_at = datetime.now()
                 existent_code.used = False
                 existent_code.save()
                 code = existent_code.value
         else:
-            new_code = ResetCodes.objects.create(user=user, value=getRandom6digitCode())
+            new_code = ResetCodes.objects.create(
+                user=user, value=get_random_6digit_code()
+            )
             code = new_code.value
 
         subject = f"Reset password code for {user.get_email()}"
