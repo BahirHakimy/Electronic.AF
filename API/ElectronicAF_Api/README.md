@@ -89,7 +89,7 @@ python manage.py runserver
 
 ### 1: `<<hostAddress:port>>/api/auth/token/`
 
-- `Method` **Post**
+- `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
 - `IsProtected` : No
 - `Expecting inputs`:
 
@@ -117,7 +117,7 @@ python manage.py runserver
 
 ### 2: `<<hostAddress:port>>/api/auth/token/refresh/`
 
-- `Method` **Post**
+- `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
 - `IsProtected` : No
 - `Expecting inputs`:
 
@@ -145,7 +145,7 @@ python manage.py runserver
 
 ### 3: `<<hostAddress:port>>/api/auth/register/`
 
-- `Method` **Post**
+- `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
 - `IsProtected` : No
 - `Expecting inputs`:
 
@@ -184,7 +184,7 @@ python manage.py runserver
 
 ### 4: `<<hostAddress:port>>/api/auth/sendResetCode/`
 
-- `Method` **Post**
+- `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
 - `IsProtected` : No
 - `Expecting inputs`:
 
@@ -217,7 +217,7 @@ python manage.py runserver
 
 ### 5: `<<hostAddress:port>>/api/auth/passwordReset/`
 
-- `Method` **Post**
+- `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
 - `IsProtected` : No
 - `Expecting inputs`:
 
@@ -258,7 +258,7 @@ python manage.py runserver
 
 ### 1: `<<hostAddress:port>>/api/core/getProducts/`
 
-- `Method` **Get**
+- `Method` ![GET](https://img.shields.io/badge/GET-00C300)
 - `IsProtected` : No
 - `Expecting inputs`: None
 - `Success Status`: `HTTP 200 OK`
@@ -294,7 +294,7 @@ python manage.py runserver
 
 ### 2: `<<hostAddress:port>>/api/core/createProduct/`
 
-- `Method` **Post**
+- `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
 - `IsProtected` : Yes `You should provide an admin user access token to access the endpoint`
 - `Accepting Data Type`:"multipart/form-data"
 - `Expecting inputs`:
@@ -363,7 +363,7 @@ python manage.py runserver
 
 ### 3: `<<hostAddress:port>>/api/core/updateProduct/`
 
-- `Method` **Put**
+- `Method` ![PUT](https://img.shields.io/badge/PUT-%23039BE5.svg)
 - `IsProtected` : Yes `You should provide an admin user access token to access the endpoint`
 - `Expecting inputs`:
 - ```json
@@ -411,7 +411,7 @@ python manage.py runserver
 
 ### 4: `<<hostAddress:port>>/api/core/deleteProduct/`
 
-- `Method` **Delete**
+- `Method` ![DELETE](https://img.shields.io/badge/DELETE-%23FF0000)
 - `IsProtected` : Yes `You should provide an admin user access token to access the endpoint`
 - `Expecting inputs`:
 - ```json
@@ -451,7 +451,7 @@ python manage.py runserver
 
 ### 1: `<<hostAddress:port>>/api/core/getCart/`
 
-- `Method` **Post**
+- `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
 - `IsProtected` : Yes
 - `Accepting Data Type`:"application/json"
 - `Expecting inputs`:
@@ -510,7 +510,7 @@ python manage.py runserver
 
 ### 2: `<<hostAddress:port>>/api/core/addToCart/`
 
-- `Method` **Post**
+- `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
 - `IsProtected` : Yes
 - `Accepting Data Type`:"application/json"
 - `Expecting inputs`:
@@ -583,7 +583,7 @@ python manage.py runserver
 
 ### 3: `<<hostAddress:port>>/api/core/removeFromCart/`
 
-- `Method` **Post**
+- `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
 - `IsProtected` : Yes
 - `Accepting Data Type`:"application/json"
 - `Expecting inputs`:
@@ -652,7 +652,7 @@ Review and Rating
 
 ### 1: `<<hostAddress:port>>/api/core/getUserReview/`
 
-- `Method` **Post**
+- `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
 - `IsProtected` : Yes
 - `Accepting Data Type`:"application/json"
 - `Expecting inputs`:
@@ -689,7 +689,7 @@ Review and Rating
 
 ### 2: `<<hostAddress:port>>/api/core/getProductReviews/`
 
-- `Method` **Post**
+- `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
 - `IsProtected` : No
 - `Accepting Data Type`:"application/json"
 - `Expecting inputs`:
@@ -733,7 +733,7 @@ Review and Rating
 
 ### 3: `<<hostAddress:port>>/api/core/submitReview/`
 
-- `Method` **Post**
+- `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
 - `IsProtected` : Yes
 - `Accepting Data Type`:"application/json"
 - `Expecting inputs`:
@@ -796,7 +796,7 @@ Review and Rating
 
 ### 4: `<<hostAddress:port>>/api/core/getRating/`
 
-- `Method` **Post**
+- `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
 - `IsProtected` : No
 - `Accepting Data Type`:"application/json"
 - `Expecting inputs`:
