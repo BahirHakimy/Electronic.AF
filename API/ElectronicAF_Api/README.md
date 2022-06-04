@@ -68,7 +68,7 @@ python manage.py runserver
 [api/auth/token/refresh](#2-hostaddressportapiauthtokenrefresh)<br>
 [api/auth/register/](#3-hostaddressportapiauthregister)<br>
 [api/auth/sendResetCode/](#4-hostaddressportapiauthsendresetcode)<br>
-[api/auth/passwordReset/](#5-hostaddressportapiauthcheckresetcode)<br>
+[api/auth/checkResetCode/](#5-hostaddressportapiauthcheckresetcode)<br>
 [api/auth/passwordReset/](#6-hostaddressportapiauthpasswordreset)<br>
 [api/core/getProducts/](#1-hostaddressportapicoregetproducts)<br>
 [api/core/createProduct/](#2-hostaddressportapicorecreateproduct)<br>
