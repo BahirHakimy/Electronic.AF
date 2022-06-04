@@ -83,12 +83,8 @@ class ResetCodes(models.Model):
         return self.value
 
     def is_valid(self, for_user):
-        utc = pytz.UTC
+        utc_now = pytz.utc.localize(datetime.utcnow())
         if self.user == for_user:
-            if (
-                self.generated_at.replace(tzinfo=utc) + timedelta(minutes=5)
-                > datetime.now().replace(tzinfo=utc)
-                and not self.used
-            ):
+            if self.generated_at + timedelta(minutes=5) > utc_now and not self.used:
                 return True
         return False
