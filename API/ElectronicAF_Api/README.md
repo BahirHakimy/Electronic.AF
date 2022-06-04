@@ -659,7 +659,7 @@ Review and Rating
 - ```json
   {
     "email": "user's email",
-    "productId": "Id of product that is review is submited on"
+    "productId": "Id of product that review is submited on"
   }
   ```
 
