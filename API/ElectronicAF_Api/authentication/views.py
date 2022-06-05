@@ -51,7 +51,42 @@ def passwordResetView(request):
                 reset_code.used = True
                 reset_code.save()
                 return Response(
-                    {"detail": "Password reseted successfully"},
+                    {"detail": "Password reseted successfully."},
+                    status=status.HTTP_202_ACCEPTED,
+                )
+            else:
+                return Response(
+                    {"detail": "Session is expired please try again."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+        except ResetCodes.DoesNotExist:
+            return Response(
+                {"detail": "Could not process your request please try again."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+    except KeyError:
+        return Response(
+            {
+                "detail": "You must include all requested data in request body (email,resetCode,newPassword)"
+            },
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def checkResetCodeView(request):
+    User = get_user_model()
+    try:
+        code = request.data["resetCode"]
+        email = request.data["email"]
+        user = User.objects.get(email=email)
+        try:
+            reset_code = ResetCodes.objects.get(user=user, value=code)
+            if reset_code.is_valid(user):
+                return Response(
+                    {"detail": "Verification Successfull."},
                     status=status.HTTP_202_ACCEPTED,
                 )
             else:
@@ -67,9 +102,7 @@ def passwordResetView(request):
             )
     except KeyError:
         return Response(
-            {
-                "detail": "You must include all requested data in request body (email,resetCode,newPassword)"
-            },
+            {"detail": "You must include resetCode and user email in your request"},
             status=status.HTTP_400_BAD_REQUEST,
         )
 

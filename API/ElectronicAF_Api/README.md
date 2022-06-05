@@ -68,7 +68,8 @@ python manage.py runserver
 [api/auth/token/refresh](#2-hostaddressportapiauthtokenrefresh)<br>
 [api/auth/register/](#3-hostaddressportapiauthregister)<br>
 [api/auth/sendResetCode/](#4-hostaddressportapiauthsendresetcode)<br>
-[api/auth/passwordReset/](#5-hostaddressportapiauthpasswordreset)<br>
+[api/auth/checkResetCode/](#5-hostaddressportapiauthcheckresetcode)<br>
+[api/auth/passwordReset/](#6-hostaddressportapiauthpasswordreset)<br>
 [api/core/getProducts/](#1-hostaddressportapicoregetproducts)<br>
 [api/core/createProduct/](#2-hostaddressportapicorecreateproduct)<br>
 [api/core/updateProduct/](#3-hostaddressportapicoreupdateproduct)<br>
@@ -215,7 +216,41 @@ python manage.py runserver
   }
   ```
 
-### 5: `<<hostAddress:port>>/api/auth/passwordReset/`
+### 5: `<<hostAddress:port>>/api/auth/checkResetCode/`
+
+- `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
+- `IsProtected` : No
+- `Expecting inputs`:
+
+- ```json
+  {
+    "email": "Email of user",
+    "resetCode": "Reset code that was sent to user email"
+  }
+  ```
+- `Success Status`: `HTTP 202 Accepted`
+- `Success Response`:
+- ```json
+  {
+    "detail": "Verification Successfull."
+  }
+  ```
+- `Failiure Status If reset code is expired or used`: `HTTP 400 BadRequest`
+- `Failiure Response`:
+- ```json
+  {
+    "detail": "Entered resetCode is not valid or expired."
+  }
+  ```
+- `Failiure Status If reset code is not registerd in database`: `HTTP 400 BadRequest`
+- `Failiure Response`:
+- ```json
+  {
+    "detail": "Entered resetCode is invalid."
+  }
+  ```
+
+### 6: `<<hostAddress:port>>/api/auth/passwordReset/`
 
 - `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
 - `IsProtected` : No
@@ -239,14 +274,14 @@ python manage.py runserver
 - `Failiure Response`:
 - ```json
   {
-    "detail": "Entered resetCode is not valid or expired."
+    "detail": "Session is expired please try again."
   }
   ```
 - `Failiure Status If reset code is not registerd in database`: `HTTP 400 BadRequest`
 - `Failiure Response`:
 - ```json
   {
-    "detail": "Entered resetCode is invalid."
+    "detail": "Could not process your request please try again."
   }
   ```
 
@@ -659,7 +694,7 @@ Review and Rating
 - ```json
   {
     "email": "user's email",
-    "productId": "Id of product that is review is submited on"
+    "productId": "Id of product that review is submited on"
   }
   ```
 
