@@ -32,7 +32,7 @@ import building  from '../illustrations/building.svg'
     const [error, setError] = useState({ condition: false, message: "" });
     const onSubmit = values =>  { 
       axios
-        .post("http://127.0.0.1:8000/api/register/", {
+        .post("http://127.0.0.1:8000/api/auth/register/", {
             email : values.email,
             password: values.password,
             phone: values.phone,

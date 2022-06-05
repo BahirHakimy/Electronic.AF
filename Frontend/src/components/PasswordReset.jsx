@@ -3,6 +3,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from 'yup'
+import { useAuth } from "../hooks/authContext";
 
   const initialValue = {
      email : '',
@@ -19,6 +20,9 @@ import * as Yup from 'yup'
 
 const PasswordReset = () => {
 
+    const {user} = useAuth()
+    console.log(user);
+
     const [error, setError] = useState({ condition: false, message: "" });
     const navigate = useNavigate();
   
@@ -26,7 +30,7 @@ const PasswordReset = () => {
 
       //todo match the passwords 
       axios
-        .post("http://127.0.0.1:8000/api/passwordReset/", {
+        .post("http://127.0.0.1:8000/api/auth/passwordReset/", {
           email : values.resetPasswordEmail,
           resetCode : values.resetPasswordNumber,
           newPassword: values.resetPassword

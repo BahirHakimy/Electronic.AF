@@ -21,7 +21,7 @@ function LogIn() {
 
   function onSubmit(values) {
     axios
-      .post("http://127.0.0.1:8000/api/token/", {
+      .post("http://127.0.0.1:8000/api/auth/token/", {
         email: values.emailaddress,
         password: values.password,
       })

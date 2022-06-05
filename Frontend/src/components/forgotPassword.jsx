@@ -17,14 +17,14 @@ function ForgotPassword() {
   const { setUser } = useAuth();
 
   function onSubmit(values) {
+    console.log(values);
     axios
-      .post("http://127.0.0.1:8000/api/sendResetCode/", {
-        email: values.forgotPassword,
+      .post("http://127.0.0.1:8000/api/auth/sendResetCode/", {
+        email: values.email,
       })
       .then((response) => {
         if (response.status === 200) {
-          console.log(values);
-          // setUser()
+          setUser({email : values.email})
           navigate("/PasswordReset");
         }
       })

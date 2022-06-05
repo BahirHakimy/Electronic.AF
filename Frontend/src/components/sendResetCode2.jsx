@@ -47,7 +47,7 @@ function Send() {
               num += value[item] + '';
             }
 
-            axios.post("http://127.0.0.1:8000/api/passwordReset/",{
+            axios.post("http://127.0.0.1:8000/api/auth/passwordReset/",{
                 
             })
 
