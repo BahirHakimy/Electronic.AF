@@ -144,7 +144,6 @@ def sendResetCodeView(request):
                 status=status.HTTP_200_OK,
             )
         except Exception:
-            print(Exception.with_traceback())
             return Response(
                 {"detail": "Some thing went wrong please try again later."},
                 status=status.HTTP_503_SERVICE_UNAVAILABLE,
