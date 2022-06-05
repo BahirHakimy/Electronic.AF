@@ -16,6 +16,17 @@
    @apply px-5 py-2
   }
   
-
-
 }
+
+        /* //*for the arrows in the number input type */
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+                /* 2 group of 3 items */
+        input[type="number"]:nth-child(n+4) {
+          order: 2;
+        }
+        
