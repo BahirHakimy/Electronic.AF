@@ -31,13 +31,15 @@ import building  from '../illustrations/building.svg'
     const navigate = useNavigate();
     const [error, setError] = useState({ condition: false, message: "" });
     const onSubmit = values =>  { 
+      console.log(values);
+      try{
       axios
         .post("http://127.0.0.1:8000/api/auth/register/", {
             email : values.email,
             password: values.password,
             phone: values.phone,
-            firstName: values.firstName,
-            lastName: values.lastName
+            firstname: values.firstName,
+            lastname: values.lastName,
           })
           .then((response) => {
               if (response.status === 201) navigate("/Home", { replace: true })
@@ -52,15 +54,19 @@ import building  from '../illustrations/building.svg'
                 error.response.data.errors.lastName || 
                 error.response.data.errors.password
             })
-            );
+            ) 
+          } catch(e){
+              console.log(e);
+          }
+
         }
 
         return (
-          <div className="h-screen bg-background flex items-center">
-      <div className="customizeCard scale-110">
+          <div className="h-screen bg-background flex items-center ">
+      <div className="customizeCard overflow-y-scroll">
   
         {/* //*form  section */}
-        <div className="pt-4 px-3 space-y-3 bg-white">
+        <div className="pt-4 px-3 space-y-3 bg-white pb-4 ">
           {/* //*header  */}
           <div className="flex justify-between px-7">
             <div className="font-bold text-primaryLight text-2xl">logo</div>
@@ -76,7 +82,7 @@ import building  from '../illustrations/building.svg'
           </div>
 
 
-                      <Formik  initialValues={initialValue}
+           <Formik  initialValues={initialValue}
             onSubmit={onSubmit}
             validationSchema={validationSchema}
             >
@@ -132,7 +138,7 @@ import building  from '../illustrations/building.svg'
               </span>
 
               {/* button for submit  */}
-              <div className="text-center">
+              <div className="text-center mt-4 mb-2">
                 <button
                   type="submit"
                   className="bg-gradient-to-r from-primary to-primaryLight text-white rounded-md w-11/12 h-10 shadow-md drop-shadow-lg  shadow-primary  py-1"

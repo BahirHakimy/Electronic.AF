@@ -14,22 +14,21 @@ import { useAuth } from "../hooks/authContext";
   const validationSchema = Yup.object().shape({
       email: Yup.string().email('Invalid Email').required('Required'),
       password : Yup.string().min(4, 'Too short').max(9, 'Too long ').required('Required'),
-      confirmPassword : Yup.string().min(4, 'Too short').max(9, 'Too long ').required('Required')
+      confirmPassword : Yup.string().min(4, 'Too short').max(9, 'Too long ').required('Required').oneOf([Yup.ref('password')], 'password did not match', )
   })
 
 
-const PasswordReset = () => {
+  const PasswordReset = () => {
 
     const {user} = useAuth()
-    console.log(user);
 
     const [error, setError] = useState({ condition: false, message: "" });
     const navigate = useNavigate();
   
     function onSubmit(values) {
-
-      //todo match the passwords 
-      axios
+      try{
+          if(user.email !== '' ||  user.resetCode !== ''){
+          axios
         .post("http://127.0.0.1:8000/api/auth/passwordReset/", {
           email : values.resetPasswordEmail,
           resetCode : values.resetPasswordNumber,
@@ -44,7 +43,15 @@ const PasswordReset = () => {
             message:
             error.response.data.detail
           })
-        );
+        )
+        } else {
+            //* to take back user to the forgot password
+            if(user.email === ''){}
+            if(user.resetCode === ''){}
+        }
+      }catch(e){
+          
+      }
     }
   
  
@@ -71,23 +78,23 @@ const PasswordReset = () => {
           validationSchema={validationSchema}
           >
           <Form >
-          {/* //? email */}
+          {/* //? email
           <div className="p-3">
           <label htmlFor="email" className="customizeLabel">Email</label>
           <Field name="email" type="email" id="email" className="customizeForm" placeholder="you@email.com"/>
           <ErrorMessage name="email" render={msg => <div className="text-red-500 capitalize font-medium">{msg}</div>}/>
-          </div>
+          </div> */}
 
           {/* //? Password */}
           <div className="p-3">
-          <label htmlFor="password" className="customizeLabel">Password</label>
+          <label htmlFor="password" className="customizeLabel">New Password</label>
           <Field name="password" type="text" id="password" className="customizeForm " placeholder="youPass"/>
           <ErrorMessage name="password" render={msg => <div className="text-red-500  capitalize font-medium">{msg}</div>}/>
           </div>
 
           {/* //? Password */}
           <div className="p-3">
-          <label htmlFor="confirmPassword" className="customizeLabel">Confirm Password</label>
+          <label htmlFor="confirmPassword" className="customizeLabel">Confirm New Password</label>
           <Field name="confirmPassword" type="text" id="confirmPassword" className="customizeForm" placeholder="youPass"/>
           <ErrorMessage name="confirmPassword" render={msg => <div className="text-red-500  capitalize font-medium">{msg}</div>}/>
           </div>

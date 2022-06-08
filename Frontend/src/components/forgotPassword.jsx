@@ -17,7 +17,7 @@ function ForgotPassword() {
   const { setUser } = useAuth();
 
   function onSubmit(values) {
-    console.log(values);
+    try{
     axios
       .post("http://127.0.0.1:8000/api/auth/sendResetCode/", {
         email: values.email,
@@ -25,7 +25,7 @@ function ForgotPassword() {
       .then((response) => {
         if (response.status === 200) {
           setUser({email : values.email})
-          navigate("/PasswordReset");
+          navigate("/sendResetCode");
         }
       })
       .catch((error) =>
@@ -33,7 +33,10 @@ function ForgotPassword() {
           condition: true,
           message: error.response.data.detail,
         })
-      );
+      )
+    } catch(e){
+
+    } 
   }
 
   return (

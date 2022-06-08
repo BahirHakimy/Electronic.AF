@@ -9,9 +9,8 @@ function AuthProvider({children}){
 
     
     return <authContext.Provider value={{user,setUser}}>
-
         {children}
-    </authContext.Provider>
+             </authContext.Provider>
 }
 
 function useAuth(){

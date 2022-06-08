@@ -20,9 +20,10 @@ function LogIn() {
   const navigate = useNavigate();
 
   function onSubmit(values) {
+    try{
     axios
       .post("http://127.0.0.1:8000/api/auth/token/", {
-        email: values.emailaddress,
+        email: values.email,
         password: values.password,
       })
       .then((response) => {
@@ -30,7 +31,9 @@ function LogIn() {
       })
       .catch((error) =>
         setError({ condition: true, message: error.response.data.detail })
-      );
+      )} catch (e){
+          //todo to take the appropariate action for error hanlding 
+      }
   }
 
   return (
@@ -112,6 +115,10 @@ function LogIn() {
             >
               {error.message}
             </span>
+
+                <div className="flex justify-end mr-8">
+                  <Link to={'/forgotPassword'}><span className="text-gray-500">Forgot Password?</span></Link>
+                </div>
 
             {/* button for submit  */}
             <div className="text-center mt-8 mb-16">

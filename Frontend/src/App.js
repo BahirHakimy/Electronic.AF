@@ -7,7 +7,7 @@ import Home from './components/Home'
 import PasswordReset from './components/PasswordReset';
 import NotFound from './components/404';
 
-import Send from './components/sendResetCode2';
+import Send from './components/sendResetCode';
 import { AuthProvider } from './hooks/authContext';
 
 function App() {
@@ -21,6 +21,7 @@ function App() {
           <Route path='forgotPassword' element={<ForgotPassword/>}/>
           <Route path='Home' element={<Home/>}/>
           <Route path='PasswordReset' element={<PasswordReset/>}/>
+          <Route path='Home' element={<Home/>} />
           <Route path='/' element={<LogIn/>}/>
           </Routes>
           </AuthProvider>
