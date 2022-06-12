@@ -143,7 +143,11 @@ def sendResetCodeView(request):
                 },
                 status=status.HTTP_200_OK,
             )
+<<<<<<< HEAD
+        except:
+=======
         except Exception:
+>>>>>>> 41e72e7e411c4b873a44a4a43831bc0a712b93ff
             return Response(
                 {"detail": "Some thing went wrong please try again later."},
                 status=status.HTTP_503_SERVICE_UNAVAILABLE,

@@ -1,105 +1,175 @@
-  import { useState } from "react";
-  import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-  import { faLaptopCode } from "@fortawesome/free-solid-svg-icons";
-  import { Link, useNavigate } from "react-router-dom";
-  import axios from "axios";
-  import { ErrorMessage, Field, Form, Formik} from "formik";
-  import * as Yup from 'yup'
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import sign from "../illustrations/sign.svg";
+import * as Yup from "yup";
+import {setTokens } from "../Api/client";
+import jwtDecode from "jwt-decode";
+import { useAuth } from "../hooks/authContext"; 
+import {HiOutlineMail} from 'react-icons/hi'
+import {RiLockPasswordLine} from 'react-icons/ri'
 
-  const initialValue = {
-    email : '',
-    password : ''
-  }
+const initialValue = {
+  email: "",
+  password: "",
+};
 
-  const validationSchema = Yup.object().shape({
-      email: Yup.string().email('Invalid Email').required('Required'),
-      password: Yup.string().required('Required')
-  }) 
-
-  
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid Email").required("Required"),
+  password: Yup.string().required("Required"),
+});
 
 function LogIn() {
-
-  const [error, setError] = useState({ condition: false, message: "" });
+  const [error, setError] = useState({ condition: false, message: ""});
   const navigate = useNavigate();
-
+  const {user,setUser} = useAuth();
+ 
+  
+  
   function onSubmit(values) {
-    axios
-      .post("http://127.0.0.1:8000/api/token/", {
-        email: values.emailaddress,
-        password: values.password
-      })
-      .then((response) => {
-        if (response.status === 200) navigate("/Home", { replace: true });
-      })
-      .catch((error) => setError({ condition: true, message: error.response.data.detail }));
+    try {
+      axios
+        .post("http://127.0.0.1:8000/api/auth/token/",{
+          email: values.email,
+          password: values.password,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            setTokens(response.data);
+            jwtDecode(response.data.access);
+            setUser({
+              ...user,
+              email : values.email,
+              password : values.password,
+            })
+            navigate("/products", { replace: true });
+          }
+        })
+        .catch((error) =>
+          setError({ condition: true, message: error.response.data.detail })
+        );
+    } catch (e) {
+      //todo to take the appropariate action for error hanlding
+    }
   }
 
   return (
-    <div className="my-8 ">
-      {/* //* logo section  */}
-      <div className="text-center">
-        <FontAwesomeIcon icon={faLaptopCode} className="h-16 " />
-      </div>
-
-      {/* //* header section */}
-      <div className="text-center">
-        <h1 className="text-2xl font-bold ">Sign In To Your Account </h1>
-        {/* //todo add the registration page link in here */}
-        <p>
-          Or{" "}
-          <Link to="/createaccount" className="font-semibold underline">
-            {" "}
-            create your account now
-          </Link>
-        </p>
-      </div>
-
-     {/* card section */}
-     <div className="bg-white shadow-md rounded w-9/12 lg:w-4/12 mx-auto mt-4 px-3 ">
-
-        <Formik  initialValues={initialValue}
-        onSubmit={onSubmit}
-        validationSchema={validationSchema}
-        validateOnBlur={false}
-        validateOnChange={false}
-        >
-        <Form>
-          {/* //? email */}
-          <div className="p-3">
-          <label htmlFor="email" className="customizeLabel">Email</label>
-           <Field name="email" type="email" id="email" className="customizeForm"/>
-           <ErrorMessage name="email" render={msg => <div className="text-red-500 capitalize font-medium">{msg}</div>}/>
+    <div className="h-screen bg-background flex items-center">
+      <div className="customizeCard scale-110 ">
+        {/* //*form  section */}
+        <div className="pt-4 px-3 space-y-3 bg-white">
+          {/* //*header  */}
+          <div className="flex justify-between px-7">
+            <div className="font-bold text-primaryLight text-2xl">logo</div>
+            <div className="text-gray-500 font-bold text-xl  hover:text-gray-700">
+              <Link to={"/createAccount"}>Create Account</Link>
             </div>
-
-          {/* //? Password */}
-          <div className="p-3">
-          <label htmlFor="password" className="customizeLabel">Password</label>
-           <Field name="password" type="password" id="password" className="customizeForm "/>
-           <ErrorMessage name="password" render={msg => <div className="text-red-500  capitalize font-medium">{msg}</div>}/>
-            </div>
-
-          <span
-            className={`${
-              error.condition ? "block" : "hidden"
-            } text-red-500 font-medium capitalize text-center `}
-              >
-            {error.message}
-          </span>
-
-          {/* button for submit  */}
-          <div className="text-center">
-            <button
-              type="submit"
-              className="bg-gray-600 text-white rounded-md w-11/12  py-1  mt-2 mb-4 hover:bg-gray-800"
-            >
-              {" "}
-              Sign Up
-            </button>
           </div>
-        </Form>
-        </Formik>
 
+          {/* //* sign in  */}
+          <div className="py-6 pl-7  ">
+            <h1 className="font-bold text-2xl pb-2 pt-6">SIGN IN</h1>
+            <span className="text-gray-400 text-lg font-mono">
+              Sign in to continue exploration of the best laptops
+            </span>
+          </div>
+
+          <Formik
+            initialValues={initialValue}
+            onSubmit={onSubmit}
+            validationSchema={validationSchema}
+            validateOnBlur={false}
+            validateOnChange={false}
+          >
+            <Form>
+              {/* //? email */}
+              <div className="px-5 py-2 ">
+                <label htmlFor="email" className="customizeLabel pl-1">
+                  Email
+                </label>
+                <div className="flex relative">
+                <Field
+                  name="email"
+                  type="email"
+                  id="email"
+                  className="customizeForm"
+                  placeholder="you@mail.com"
+                />
+                <HiOutlineMail className="h-5 w-5 absolute left-96 ml-8 top-4"/>
+                </div>
+                <ErrorMessage
+                  name="email"
+                  render={(msg) => (
+                    <div className="text-red-500 capitalize font-medium">
+                      {msg}
+                    </div>
+                  )}
+                />
+              </div>
+
+              {/* //? Password */}
+              <div className="px-5 py-4">
+                <label htmlFor="password" className="customizeLabel pl-1">
+                  Password
+                </label>
+                <div className="flex relative">
+                <Field
+                  name="password"
+                  type="password"
+                  id="password"
+                  className="customizeForm "
+                  placeholder="youPass"
+                /> 
+                  <RiLockPasswordLine className="h-5 w-5 absolute left-96 ml-8 top-4"/>
+                </div>
+                <ErrorMessage
+                  name="password"
+                  render={(msg) => (
+                    <div className="text-red-500  capitalize font-medium">
+                      {msg}
+                    </div>
+                  )}
+                />
+              </div>
+
+              <span
+                className={`${
+                  error.condition ? "block" : "hidden"
+                } text-red-500 font-medium capitalize text-center `}
+              >
+                {error.message}
+              </span>
+
+              <div className="flex justify-end mr-8">
+                <Link to={"/forgotPassword"}>
+                  <span className="text-gray-500">Forgot Password?</span>
+                </Link>
+              </div>
+
+              {/* button for submit  */}
+              <div className="text-center mt-8 mb-16">
+                <button
+                  type="submit"
+                  className="bg-gradient-to-r from-primary to-primaryLight text-white rounded-md w-11/12 h-10 shadow-md drop-shadow-lg  shadow-primary  py-1  "
+                >
+                  {" "}
+                  Sign In
+                </button>
+              </div>
+            </Form>
+          </Formik>
+        </div>
+
+        {/* //* illustraion part */}
+        <div className="bg-gradient-to-b from-primaryDark to-primaryLight relative">
+          <div className="h-full flex items-center bg-primary rounded-full scale-75 justify-center opacity-25"></div>
+          <img
+            src={sign}
+            alt="illustration"
+            className="h-80 absolute scale-75 top-32 left-14"
+          />
+        </div>
       </div>
     </div>
   );

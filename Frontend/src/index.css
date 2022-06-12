@@ -2,13 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .customizeForm {
+    @apply w-full  border-0 border-b-2 border-gray-300 focus:border-primary focus:ring-0 focus:border-b-3;
+  }
+  .customizeLabel {
+    @apply text-base text-gray-700 font-bold block;
+  }
+  .customizeCard{
+    @apply grid grid-cols-2 max-w-5xl mx-auto shadow-xl 
+  }
+  .customField{
+   @apply px-5 py-2
+  }
+  .customNumberInput{
+    @apply focus:border-primary focus:ring-primary
+  }
 
-    @layer components {
-        .customizeForm {
-                @apply w-full rounded-md border-gray-300 focus:ring-gray-700 focus:border-gray-500 
+  
+}
+
+        /* //*for the arrows in the number input type */
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+                /* 2 group of 3 items */
+        input[type="number"]:nth-child(n+4) {
+          order: 2;
         }
-        .customizeLabel {
-            @apply text-sm text-gray-700 font-medium block
-        }
-    }
-    
+        
