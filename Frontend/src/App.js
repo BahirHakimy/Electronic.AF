@@ -9,6 +9,7 @@ import NotFound from './components/404';
 
 import Send from './components/sendResetCode';
 import { AuthProvider } from './hooks/authContext';
+import Products from './components/products';
 
 function App() {
   return (
@@ -19,10 +20,10 @@ function App() {
           <Route path='createAccount' element={<CreateAccount/>}/>
           <Route path='sendResetCode' element={<Send/>}/>
           <Route path='forgotPassword' element={<ForgotPassword/>}/>
-          <Route path='Home' element={<Home/>}/>
+          <Route path='logIn' element={<LogIn/>}/>
           <Route path='PasswordReset' element={<PasswordReset/>}/>
-          <Route path='Home' element={<Home/>} />
-          <Route path='/' element={<LogIn/>}/>
+          <Route path='Products' element={<Products/>} />
+          <Route path='/' element={<Home/>}/>
           </Routes>
           </AuthProvider>
         </div>

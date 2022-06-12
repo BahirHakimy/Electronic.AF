@@ -3,6 +3,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from 'yup'
+import { setTokens } from "../Api/client";
 import { useAuth } from "../hooks/authContext";
 
   const initialValue = {
@@ -21,7 +22,6 @@ import { useAuth } from "../hooks/authContext";
   const PasswordReset = () => {
 
     const {user} = useAuth()
-
     const [error, setError] = useState({ condition: false, message: "" });
     const navigate = useNavigate();
   
@@ -30,12 +30,20 @@ import { useAuth } from "../hooks/authContext";
           if(user.email !== '' ||  user.resetCode !== ''){
           axios
         .post("http://127.0.0.1:8000/api/auth/passwordReset/", {
-          email : values.resetPasswordEmail,
-          resetCode : values.resetPasswordNumber,
+          email : user.email,
+          resetCode : user.resetCode,
           newPassword: values.resetPassword
         })
         .then((response) => {
-                if(response.status === 200) navigate('/Home')
+                if(response.status === 200){
+                  axios.post('http://127.0.0.1:8000/api/auth/token/',{
+                    email: user.email,
+                    password: values.newPassword
+                  }).then(res => {
+                    setTokens(res.data)
+                    navigate('/products')
+                  })
+                }
         })
         .catch((error) =>
           setError({
@@ -46,18 +54,19 @@ import { useAuth } from "../hooks/authContext";
         )
         } else {
             //* to take back user to the forgot password
-            if(user.email === ''){}
-            if(user.resetCode === ''){}
+            if(user.email === ''){
+              navigate('/forgotPassword')
+            }
         }
       }catch(e){
-          
+
       }
     }
   
  
     return (
       <div className="h-screen bg-background flex items-center">
-       <div className="grid grid-cols-1 max-w-5xl mx-auto shadow-xl scale-110 ">
+       <div className="grid grid-cols-1 max-w-5xl mx-auto shadow-xl  ">
 
     {/* //*form  section */}
     <div className="pt-4 px-12 space-y-3 bg-white pb-16  ">
@@ -78,12 +87,6 @@ import { useAuth } from "../hooks/authContext";
           validationSchema={validationSchema}
           >
           <Form >
-          {/* //? email
-          <div className="p-3">
-          <label htmlFor="email" className="customizeLabel">Email</label>
-          <Field name="email" type="email" id="email" className="customizeForm" placeholder="you@email.com"/>
-          <ErrorMessage name="email" render={msg => <div className="text-red-500 capitalize font-medium">{msg}</div>}/>
-          </div> */}
 
           {/* //? Password */}
           <div className="p-3">
@@ -92,7 +95,7 @@ import { useAuth } from "../hooks/authContext";
           <ErrorMessage name="password" render={msg => <div className="text-red-500  capitalize font-medium">{msg}</div>}/>
           </div>
 
-          {/* //? Password */}
+          {/* //? Confirm Password */}
           <div className="p-3">
           <label htmlFor="confirmPassword" className="customizeLabel">Confirm New Password</label>
           <Field name="confirmPassword" type="text" id="confirmPassword" className="customizeForm" placeholder="youPass"/>

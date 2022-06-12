@@ -5,6 +5,8 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from 'yup'
 import { useState } from "react";
 import building  from '../illustrations/building.svg'
+import { setTokens } from "../Api/client";
+import { useAuth } from "../hooks/authContext";
 
   const initialValue = {
     firstName : '',
@@ -25,13 +27,13 @@ import building  from '../illustrations/building.svg'
   })
 
 
-
+  
     function CreateAccount() {
 
-    const navigate = useNavigate();
-    const [error, setError] = useState({ condition: false, message: "" });
-    const onSubmit = values =>  { 
-      console.log(values);
+      const navigate = useNavigate();
+      const [error, setError] = useState({ condition: false, message: "" });
+      const {user,setUser} = useAuth()
+      const onSubmit = values =>  { 
       try{
       axios
         .post("http://127.0.0.1:8000/api/auth/register/", {
@@ -42,7 +44,20 @@ import building  from '../illustrations/building.svg'
             lastname: values.lastName,
           })
           .then((response) => {
-              if (response.status === 201) navigate("/Home", { replace: true })
+              if (response.status === 201) {
+                axios.post('http://127.0.0.1:8000/api/auth/token/', {
+                  email : values.email,
+                  password : values.password
+                }).then(res => {
+                  if(res.status === 200) {
+                    setTokens(res.data)
+                    setUser({...user, email : values.email});
+                    navigate('/products')
+                  }
+                })
+                // todo to error handle in here 
+                .catch(e =>  null)
+              }
             })
             .catch((error) => 
             setError({
@@ -62,8 +77,8 @@ import building  from '../illustrations/building.svg'
         }
 
         return (
-          <div className="h-screen bg-background flex items-center ">
-      <div className="customizeCard overflow-y-scroll">
+          <div className=" bg-background flex items-center ">
+      <div className="customizeCard my-2 scale-95">
   
         {/* //*form  section */}
         <div className="pt-4 px-3 space-y-3 bg-white pb-4 ">
@@ -149,7 +164,6 @@ import building  from '../illustrations/building.svg'
   </div>
 </Form>
                             </Formik>
-  
         </div>
   
         {/* //* illustraion part */}

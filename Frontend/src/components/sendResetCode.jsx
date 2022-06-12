@@ -13,6 +13,8 @@ function Send() {
             5: ''
         })
 
+        const [error, setError] = useState({condition : false, message : ''})
+
           const {user, setUser} = useAuth();
           
           const refInput = useRef()
@@ -46,21 +48,30 @@ function Send() {
 
           const handleSubmit = e => {
             e.preventDefault();
-          
             let num = ''
-            console.log(value);
             for (const item in value){
               num += value[item] + '';
             }
-            setUser({resetCode : refInput.current.value.concat('', num)})
-            axios.post("http://127.0.0.1:8000/api/auth/checkResetCode/",{
+            setUser({...user, resetCode : refInput.current.value.concat('', num)})
+
+            try{
+              if(user.email){
+              axios.post("http://127.0.0.1:8000/api/auth/checkResetCode/",{
               email: user.email,
               resetCode: refInput.current.value.concat('', num)
            }).then(res => {
              if(res.status === 202) navigate('/PasswordReset') 
            }).catch(e => {
-             
+             setError({condition : true , message : e.message})
            })
+          }
+          else{
+            setError({condition: true , message : 'Email not available please enter your email again'})
+          }
+        } catch(e){
+              console.log(e);
+          }
+            
 
           }
         
@@ -93,9 +104,9 @@ function Send() {
         <div className='bg-background h-screen flex justify-center items-center' >
             <div className='bg-white grid grid-cols-1 items-center h-96 px-24 shadow-md '>
               {/* //* header section */}
-              <div className=' text-3xl capitalize mx-auto max-w-3xl'>
-                <h1 className='font-bold '>Enter the 6 digit number you recieved in your Email</h1>
-                <span className='font-semibold text-gray-400'>kindly check your spam folder if the you didn't recive the Security code</span>
+              <div className=' capitalize mx-auto max-w-prose'>
+                <h1 className='font-bold text-3xl  '>Enter the 6 digit number you recieved in your Email</h1>
+                <span className='font-semibold text-gray-400 text-lg'>kindly check your spam folder if the you didn't recive the Security code</span>
               </div>
     
               {/* //* input section  */}
@@ -107,7 +118,8 @@ function Send() {
                 <input  name='3' type="number"  className='mx-2 rounded customNumberInput ' maxLength={1} min={1} max={9} onKeyUp={handleKeyUp} onFocus={handleFocus}   required  />
                 <input  name='4' type="number"  className='mx-2 rounded customNumberInput ' maxLength={1} min={1} max={9} onKeyUp={handleKeyUp} onFocus={handleFocus}   required  />
                 <input  name='5' type="number"  className='mx-2 rounded customNumberInput ' maxLength={1} min={1} max={9} onKeyUp={handleKeyUp} onFocus={handleFocus}   required  />
-                <button type="submit" className='w-96 block bg-primaryLight rounded-md mb-5 mt-10 ml-10 h-7 font-bold text-white text-xl'>Click</button>
+                <span className={`text-center text-red-500 ${error.condition ? 'block' : 'hidden'}`}>{error.message}</span>
+                <button type="submit" className='w-96 block bg-primaryLight rounded-md mb-5 mt-10 ml-10 h-7 font-bold text-white text-xl'>Submit</button>
                 </form>
                 </div>
             </div>

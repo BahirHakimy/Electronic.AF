@@ -5,12 +5,12 @@ const authContext = React.createContext()
 
 function AuthProvider({children}){
 
-    const [user,setUser] = React.useState({"email":"","resetCode":""})
+    const [user,setUser] = React.useState({"email":"","resetCode":"", "password" : ""})
 
     
     return <authContext.Provider value={{user,setUser}}>
         {children}
-             </authContext.Provider>
+            </authContext.Provider>
 }
 
 function useAuth(){

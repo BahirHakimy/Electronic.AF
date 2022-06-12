@@ -6,13 +6,13 @@ import * as Yup from "yup";
 import forgotPassword from "../illustrations/forgotPassword.svg";
 import { useAuth } from "../hooks/authContext";
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid Email").required("Required"),
-});
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().email("Invalid Email").required("Required"),
+  });
 
-function ForgotPassword() {
-  const [error, setError] = useState({ condition: false, message: "" });
-  const navigate = useNavigate();
+  function ForgotPassword() {
+    const [error, setError] = useState({ condition: false, message: "" });
+    const navigate = useNavigate();
 
   const { setUser } = useAuth();
 
@@ -41,7 +41,7 @@ function ForgotPassword() {
 
   return (
     <div className="h-screen bg-background flex items-center">
-      <div className="customizeCard scale-110 h-4/6">
+      <div className="customizeCard h-4/6">
         {/* //*form  section */}
         <div className="pt-4 px-3 space-y-3 bg-white">
           {/* //*header  */}
