@@ -136,9 +136,17 @@ def getUserCartView(request):
         email = request.data["email"]
         try:
             user = User.objects.get(email=email)
-            cart, created = Cart.objects.get_or_create(user=user, is_active=True)
-            if created:
-                return Response({"items": []}, status=status.HTTP_200_OK)
+            carts = Cart.objects.filter(user=user, is_active=True).order_by(
+                "-timestamp"
+            )
+            if carts.exists() and carts.count() < 2:
+                cart = carts[0]
+            elif carts.count() >= 2:
+                cart_to_deactive, cart = carts
+                cart_to_deactive.is_active = False
+                cart_to_deactive.save()
+            else:
+                cart = Cart.objects.create(user=user, is_active=True)
 
             serializer = CartSerailizer(cart, many=False)
             return Response(serializer.data, status=status.HTTP_200_OK)
