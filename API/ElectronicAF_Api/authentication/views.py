@@ -1,6 +1,8 @@
 import random
 from django.contrib.auth import get_user_model
 from django.conf import settings
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 from datetime import datetime
 from rest_framework import status
 from rest_framework.response import Response
@@ -153,3 +155,18 @@ def sendResetCodeView(request):
             {"detail": "User with the given email not found in the database."},
             status=status.HTTP_404_NOT_FOUND,
         )
+
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        # Custom claims
+        token["email"] = user.email
+
+        return token
+
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
