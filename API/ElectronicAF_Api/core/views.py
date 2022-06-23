@@ -176,13 +176,14 @@ def addToCartView(request):
             user = User.objects.get(email=email)
             product = Product.objects.get(id=product_id)
             cart, created = Cart.objects.get_or_create(user=user, is_active=True)
+            message = "Product added to cart."
             if created:
                 cartItem = CartItem.objects.create(product=product, cart=cart)
                 cartItem.save()
                 serializer = CartSerailizer(cart, many=False)
                 return Response(
                     {
-                        "detail": "Product added to cart.",
+                        "detail": message,
                         "items": serializer.data["items"],
                     },
                     status=status.HTTP_202_ACCEPTED,
@@ -191,12 +192,13 @@ def addToCartView(request):
             if cartItem.exists():
                 cartItem = cartItem[0]
                 cartItem.quantity += 1
+                message = "Product quantity was updated."
             else:
                 cartItem = CartItem.objects.create(cart=cart, product=product)
             cartItem.save()
             serializer = CartSerailizer(cart, many=False)
             return Response(
-                {"detail": "Product added to cart.", "items": serializer.data["items"]},
+                {"detail": message, "items": serializer.data["items"]},
                 status=status.HTTP_202_ACCEPTED,
             )
 

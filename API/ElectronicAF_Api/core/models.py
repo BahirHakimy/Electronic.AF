@@ -147,6 +147,9 @@ class CartItem(models.Model):
     cart = models.ForeignKey("Cart", on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
 
+    def cart_id(self) -> int:
+        return self.cart.id
+
     def __str__(self) -> str:
         return self.product.title
 
@@ -157,7 +160,7 @@ class Cart(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
-        return self.user.email.split("@")[0]
+        return f"cart of {self.user.get_full_name() or self.user.email.split('@')[0]}"
 
     def get_items(self):
         items = CartItem.objects.filter(cart=self)
