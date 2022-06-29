@@ -6,10 +6,11 @@ import {Route, Routes} from 'react-router-dom'
 import Home from './components/Home'
 import PasswordReset from './components/PasswordReset';
 import NotFound from './components/404';
-
+import {ToastContainer} from 'react-toastify'
 import Send from './components/sendResetCode';
 import { AuthProvider } from './hooks/authContext';
 import Products from './components/products';
+import Cart from './components/cart';
 
 function App() {
   return (
@@ -23,9 +24,11 @@ function App() {
           <Route path='logIn' element={<LogIn/>}/>
           <Route path='PasswordReset' element={<PasswordReset/>}/>
           <Route path='Products' element={<Products/>} />
+          <Route path='cart' element={<Cart/>}/>
           <Route path='/' element={<Home/>}/>
           </Routes>
           </AuthProvider>
+          <ToastContainer />
         </div>
   );
 }

@@ -4,20 +4,21 @@ const TokenKey = "AUTH_TOKEN";
 
 function getTokens() {
   const tokens = JSON.parse(localStorage.getItem(TokenKey));
-  return { access: tokens?.access, refresh: tokens?.refresh };
+  if (tokens && tokens?.access) return {access:tokens.access,refresh:tokens.refresh}
+  return null;
 }
 
 function setTokens(data) {
   localStorage.setItem(TokenKey, JSON.stringify(data));
 }
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+axios.defaults.baseURL = 'http://127.0.0.1:8000/api/';
 
 const axiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: 'http://127.0.0.1:8000/api/',
   timeout: 60000,
   headers: {
-    Authorization: "Bearer " + getTokens().access,
+    Authorization: "Bearer " + getTokens()?.access,
     "Content-Type": "application/json",
     accept: "application/json",
   },
@@ -36,7 +37,7 @@ axiosInstance.interceptors.response.use(
       retryCount++;
       if (retryCount < 3) {
         return axiosInstance
-          .post("token/refresh/", { refresh: refresh_token })
+          .post("auth/token/refresh/", { refresh: refresh_token })
           .then((response) => {
             setTokens(response.data);
             axiosInstance.defaults.headers["Authorization"] =

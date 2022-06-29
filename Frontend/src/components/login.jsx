@@ -56,7 +56,7 @@ function LogIn() {
 
   return (
     <div className="h-screen bg-background flex items-center">
-      <div className="customizeCard scale-110 ">
+      <div className="customizeCard  ">
         {/* //*form  section */}
         <div className="pt-4 px-3 space-y-3 bg-white">
           {/* //*header  */}
