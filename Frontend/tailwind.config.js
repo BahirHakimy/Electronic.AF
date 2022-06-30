@@ -13,6 +13,9 @@ module.exports = {
       },
       borderWidth : {
         '3' : '3px'
+      }, 
+      spacing : {
+        66 : '270px'
       }
     },
   },
