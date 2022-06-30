@@ -1,8 +1,10 @@
 from django.urls import path
 from .views import (
     addToCartView,
+    getProductView,
     getUserReview,
     getProductReviews,
+    getProductsView,
     getUserCartView,
     getProductsView,
     createProductView,
@@ -15,6 +17,7 @@ from .views import (
 
 urlpatterns = [
     path("getProducts/", getProductsView, name="get_products"),
+    path("getProduct/", getProductView, name="get_product"),
     path("createProduct/", createProductView, name="create_product"),
     path("updateProduct/", updateProductView, name="update_product"),
     path("deleteProduct/", deleteProductView, name="delete_product"),

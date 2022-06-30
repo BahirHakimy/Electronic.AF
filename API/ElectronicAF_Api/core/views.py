@@ -114,6 +114,30 @@ def deleteProductView(request):
         )
 
 
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def getProductView(request):
+    try:
+        id = request.data["id"]
+        try:
+            product = Product.objects.get(id=id)
+            serializer = ProductSerializer(
+                product, many=False, context={"request": request}
+            )
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        except Product.DoesNotExist:
+            return Response(
+                {"detail": "Product with the given id was not found in the system"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+    except KeyError:
+        return Response(
+            {"detail": "You must include the id of product you want to delete"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def getProductsView(request):

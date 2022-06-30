@@ -74,6 +74,7 @@ python manage.py runserver
 [api/core/createProduct/](#2-hostaddressportapicorecreateproduct)<br>
 [api/core/updateProduct/](#3-hostaddressportapicoreupdateproduct)<br>
 [api/core/deleteProduct/](#4-hostaddressportapicoredeleteproduct)<br>
+[api/core/getProduct/](#5-hostaddressportapicoregetproduct)<br>
 [api/core/getCart/](#1-hostaddressportapicoregetcart)<br>
 [api/core/addToCart/](#2-hostaddressportapicoreaddtocart)<br>
 [api/core/removeFromCart/](#3-hostaddressportapicoreremovefromcart)<br>
@@ -476,6 +477,46 @@ python manage.py runserver
   {
     "detail": "Product with the given id was not found in the system"
   }
+  ```
+
+### 5: `<<hostAddress:port>>/api/core/getProduct/`
+
+- `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
+- `IsProtected` : No
+- `Expecting inputs`:
+- ```json
+  {
+    "id": "product id you want to get details [Required]"
+  }
+  ```
+- `Success Status`: `HTTP 200 OK`
+- `Success Response`:
+- ```json
+  {
+    "id": 37,
+    "title": "Dell Xps 600 Gaming",
+    "category": "Laptop",
+    "cpu": "Intel core i7 10th genration 3.5GHz upto 5GHz",
+    "gpu": "Nvidea Geforce Rtx 3080 8GB",
+    "memory": "16GB",
+    "storage": "256GB",
+    "storageType": "SSD",
+    "os": "Windows 10 Pro",
+    "price": "1500.00",
+    "description": "Gaming laptop",
+    "images": [
+      {
+        "image": "image url",
+        "thumbnail": "thumbnail url"
+      }
+    ]
+  }
+  ```
+
+- `Failiure Status`: `HTTP 404 NotFound`
+- `Failiure Response`:
+- ```json
+  { "detail": "Product with the given id was not found in the system" }
   ```
 
 ++++++++++++++++++++
