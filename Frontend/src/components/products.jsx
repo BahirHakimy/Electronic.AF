@@ -56,8 +56,7 @@ const Products = () => {
 
   const handleClick = (type) => {
     if (type === "svg") setVisiblity({ ...visibility, cart: !visibility.cart });
-    if (authenticated &&  type === "cart") navigate("/cart", {state : { email : authenticated?.access.email}}) ;
-    if (authenticated &&  type === "cart") console.log(' int e');
+    if (authenticated &&  type === "cart") navigate("/cart", {state : { email : authenticated?.access}}) ;
     if(type === 'cart' && !authenticated) toast.error('Please Sign In');
   };
 
@@ -128,7 +127,7 @@ const Products = () => {
                 </h2>
               ) : (
                 cartData?.map((data) => (
-                  <CardDetail key={data.product.id} {...data} />
+                  <CardDetail key={data.product.id} info={data} style={{height: "h-16" , width: "w-16", priceVisibility : true, hover: 'hover:bg-primary hover:grow hover:text-white', deleteVisible : true}} />
                 ))
               )}
               <div className="pt-2 space-x-4 px-4">
