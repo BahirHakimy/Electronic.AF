@@ -33,7 +33,7 @@ function Home() {
                 <p className='text-gray-500 text-lg pb-4'>Electronic.AF brings quality to the country by bringing the most reliable <strong className='text-black'>Computer</strong> products from the most reliable recources.</p>
                {/* buttons */}
                <div className='space-x-10 '>
-               <button onClick={() => console.log('clicked')} className='bg-primaryLight text-lg rounded-lg font-bold px-8 hover:bg-primary hover:text-white'><Link to={'/products'}>Browse</Link></button> 
+               <button  className='bg-primaryLight text-lg rounded-lg font-bold px-8 hover:bg-primary hover:text-white'><Link to={'/products'}>Browse</Link></button> 
                 <button className='border border-secondary shadow-md rounded-md px-6 hover:bg-primaryLight hover:border-0 hover:font-bold hover:text-white'>About Us</button>
                </div>
           </div>

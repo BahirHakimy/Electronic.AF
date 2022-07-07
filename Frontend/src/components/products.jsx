@@ -37,19 +37,6 @@ const Products = () => {
         (res) => setCartData(res.data.items),
       );
 
-    // .catch(() => {
-    //     axios
-    //       .post("http://127.0.0.1:8000/api/auth/token/refresh/", {
-    //         refresh: authenticated.refresh,
-    //       })
-    //       .then((res) => {
-    //         setTokens(res.data);
-    //       })
-    //       .catch((e) => {
-    //         console.log(e);
-    //       });
-
-    // });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authenticated]);

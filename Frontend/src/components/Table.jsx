@@ -17,7 +17,7 @@ const CardDetail = ({info, style}) => {
       {/* icon */}
       <div hidden={style.deleteVisible} className="pr-5">
           <RiDeleteBin6Fill size={20} className="hover:text-primary"/>
-        
+       {/* //todo the spacing is not properly done */}
           <select name="quantity" id="quantity" className='rounded mt-7 focus:ring-primary focus:border-primary ' >
             <option value={info.quantity}>{info.quantity}</option>
             <option value="2">2</option>

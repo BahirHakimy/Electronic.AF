@@ -4,6 +4,7 @@ import { axios } from "../Api/client";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 
 
@@ -43,7 +44,9 @@ const Card = ({ info, authenticated }) => {
 
       <div className="m-2 space-x-2">
         <button className="bg-primary px-3 rounded-md hover:shadow-md text-white py-0.">
-          Learn more
+          <Link to={`/products/${info.id}`} params={authenticated}   >
+           Learn more
+          </Link>
         </button>
        {/* //? to be changed with click and must show added to cart */}
         <button

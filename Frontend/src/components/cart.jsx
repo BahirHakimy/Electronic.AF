@@ -145,7 +145,7 @@ const Cart = () => {
           {/* order summary */}
           <div className="col-span-1 pt-20 mx-10 ">
             <h1 className="font-semibold text-xl pb-5">Order Summary</h1>
-              <div className="divide-y-2  space-y-4 border-2 border-gray-400 rounded-md p-4 shadow-md">
+              <div className="divide-y-2  space-y-4 border-2 border-gray-400 rounded-md p-4 shadow-md bg-white">
                 {/* cart Data */}
                 {cartData?.map((data) => ((
                   price += parseInt(data.product.price) * data.quantity,

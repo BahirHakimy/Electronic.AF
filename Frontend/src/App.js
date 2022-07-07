@@ -11,10 +11,13 @@ import Send from './components/sendResetCode';
 import { AuthProvider } from './hooks/authContext';
 import Products from './components/products';
 import Cart from './components/cart';
+import ProductDetails from './components/ProductDetails';
+import { CookiesProvider } from 'react-cookie';
 
 function App() {
   return (
         <div className='' >
+          <CookiesProvider>
           <AuthProvider >
           <Routes>
           <Route path='*' element={<NotFound/>}/>
@@ -25,9 +28,11 @@ function App() {
           <Route path='PasswordReset' element={<PasswordReset/>}/>
           <Route path='Products' element={<Products/>} />
           <Route path='cart' element={<Cart/>}/>
+          <Route path='products/:productId' element={<ProductDetails />}/>
           <Route path='/' element={<Home/>}/>
           </Routes>
           </AuthProvider>
+          </CookiesProvider>
           <ToastContainer />
         </div>
   );

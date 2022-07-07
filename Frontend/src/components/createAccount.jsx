@@ -6,7 +6,6 @@ import * as Yup from 'yup'
 import { useState } from "react";
 import building  from '../illustrations/building.svg'
 import { setTokens } from "../Api/client";
-import { useAuth } from "../hooks/authContext";
 
   const initialValue = {
     firstName : '',
@@ -32,7 +31,6 @@ import { useAuth } from "../hooks/authContext";
 
       const navigate = useNavigate();
       const [error, setError] = useState({ condition: false, message: "" });
-      const {user,setUser} = useAuth()
       const onSubmit = values =>  { 
       try{
       axios
@@ -51,7 +49,6 @@ import { useAuth } from "../hooks/authContext";
                 }).then(res => {
                   if(res.status === 200) {
                     setTokens(res.data)
-                    setUser({...user, email : values.email});
                     navigate('/products')
                   }
                 })

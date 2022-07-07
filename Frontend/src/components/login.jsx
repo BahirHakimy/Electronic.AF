@@ -6,9 +6,9 @@ import sign from "../illustrations/sign.svg";
 import * as Yup from "yup";
 import {setTokens } from "../Api/client";
 import jwtDecode from "jwt-decode";
-import { useAuth } from "../hooks/authContext"; 
 import {HiOutlineMail} from 'react-icons/hi'
 import {RiLockPasswordLine} from 'react-icons/ri'
+import { useCookies } from "react-cookie";
 
 const initialValue = {
   email: "",
@@ -22,8 +22,8 @@ const validationSchema = Yup.object().shape({
 
 function LogIn() {
   const [error, setError] = useState({ condition: false, message: ""});
+  const [cookie,setCookie] = useCookies(['email'])
   const navigate = useNavigate();
-  const {user,setUser} = useAuth();
  
   
   
@@ -38,16 +38,12 @@ function LogIn() {
           if (response.status === 200) {
             setTokens(response.data);
             jwtDecode(response.data.access);
-            setUser({
-              ...user,
-              email : values.email,
-              password : values.password,
-            })
+            setCookie('email', values.email, {path : '/'})
             navigate("/products", { replace: true });
           }
         })
         .catch((error) =>
-          setError({ condition: true, message: error.response.data.detail })
+          setError({ condition: true, message: error?.response?.data.detail })
         );
     } catch (e) {
       //todo to take the appropariate action for error hanlding
