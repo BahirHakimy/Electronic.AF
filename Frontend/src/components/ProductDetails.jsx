@@ -6,14 +6,22 @@ import Carousel from '../common/carouselMaker';
 import StarRatingComponent from 'react-star-rating-component';
 import {RiEmotionSadLine} from 'react-icons/ri'
 import { useCookies } from 'react-cookie';
+import Review from './Review';
+import { useRef } from 'react';
+import { toast } from 'react-toastify';
+
+
 
 const ProductDetails = () => {
   const {productId} = useParams();
   const [productData, setProductData] = useState();
   const [review, setReview] = useState();
-  const [selfReview, setSelfReview] = useState();
+  const [postReview, setPostReview] = useState({submitReview : false, formSubmitReview : true, postData :'', postRating: 0})
   const [cookie] = useCookies(['email']);
-  let avgStar = 0;
+  const [rating, setRating] = useState(0)
+  const inputRef = useRef()
+
+  
 
   // ? useEffect for product detail
   useEffect(() => {
@@ -21,6 +29,7 @@ const ProductDetails = () => {
             id : productId
         }).then(
             res => setProductData(res.data)
+            
         ).catch(e=> {
           //todo to error handle in here 
           console.log(e);
@@ -29,39 +38,61 @@ const ProductDetails = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
-    // ? useEffect for getReview All 
+    // ? useEffect for getReview All and gerReview Self
     useEffect(() => {
       axios.post(`http://127.0.0.1:8000/api/core/getProductReviews/`,{
         productId
       })
-      .then(res => setReview(res.data))
+      .then(res => {
+         setReview(res.data)    
+         //  ? if there is data then check for the user's review 
+         //! is it necessary to have data from the user itself 
+         if(Array.isArray(res.data)){
+         axios.post(`http://127.0.0.1:8000/api/core/getRating/`,{
+          productId,
+        })
+        .then(res => setRating(res.data.average_rating))
+        .catch(e => {
+          //todo error handle in here 
+          console.log(e);
+        }) 
+      }
+        })
       .catch(e => {
         //todo to error handle in here 
-        console.log(e);
-      })
+        // console.log(e);
+      }) 
+      //! this function is not updating automatically 
+    },[setReview, productId])
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+    // handleclick funciton 
+    const handleClick = param => {
+        if(typeof param === 'number')
+            setPostReview({...postReview, postRating: param ,formSubmitReview : false});
+    }
 
-      
+       const handleChange = data => {
+              setPostReview({...postReview, postData: data.target.value})
+       }
 
-    // ? useEffect for getReview self
-    useEffect(() => {
-      axios.post(`http://127.0.0.1:8000/api/core/getUserReview/`,{
-        productId,
-        email: cookie.email
-      })
-      .then(res => setSelfReview(res.data))
-      .catch(e => {
-        //todo error handle in here 
-        
-      })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
-
-    
-   
-
+       const handleSubmit = e => {
+        e.preventDefault();
+         axios.post(`http://127.0.0.1:8000/api/core/submitReview/`,{
+            productId, 
+            email: cookie.email, 
+            rating: postReview.postRating, 
+            review: postReview.postData
+          })
+          .then(res => {
+            toast.success(res.data.detail)
+            setPostReview({...postReview, postData: '', postRating : 0})
+            inputRef.current.value= '';
+          })
+          .catch(e=> {
+            //todo error handling in here 
+          })
+       }
+  
   return (
     <div className='p-5'>
         {/* links tree */}
@@ -105,7 +136,7 @@ const ProductDetails = () => {
               name='rating'
               editing={false}
               //todo problem may be in the logic 
-              value={Array.isArray(review) ? review.map(num => avgStar += num.rating) : 0}
+              value={rating}
               />
 
             {productData?.price}$
@@ -138,19 +169,31 @@ const ProductDetails = () => {
 
           {/* review  */}
 
-          <div className='pt-3'>
-              {Array.isArray(review) ? <h1>true</h1> : <div className='flex text-gray-400 space-x-2 justify-center'> <h1>This Product has no review</h1> <RiEmotionSadLine className='mt-1' size={18}/></div>}
-
-          </div>
-
-      </div>
-         
-
-      </div>
+          <div className='pt-3 '>
+            <h1 className='pb-2 font-semibold'>Reviews :</h1>
+              {Array.isArray(review) ? <Review review={review} /> : <div className='flex text-gray-400 space-x-2 justify-center'> <h1>This Product has no review</h1> <RiEmotionSadLine className='mt-1' size={18}/></div>}
      
+           {/* submit review  */}
 
+           <div className='mt-5'>
+            {/* <button hidden={postReview.submitReview} onClick={() => handleClick('visibility')} className='bg-primary border border-primary text-white rounded px-2 py-0.5 hover:bg-white hover:text-primary hover:ring-black hover:border-black'>Submit Review</button> */}
+             <div className='flex space-x-4'>
+             <span className=''>Rate this Product</span>
+              <StarRatingComponent  name='ratingProduct' onStarClick={handleClick} value={postReview.postRating}/>
+             </div>
+         
+            <form onSubmit={handleSubmit} hidden={postReview.formSubmitReview}>
+              <input ref={inputRef} type="text" className='customizeForm w-96' id='review' placeholder='Submit your review' onChange={handleChange} />
+              <button type="submit"  className='bg-primary text-white rounded px-4 py-1 w-24 ml-3 '>Post</button>
+            </form>
+          </div>
+     
+          </div>
+        </div>
+         
+      </div>
 
-     </div>
+   </div>
   )
 }
 
