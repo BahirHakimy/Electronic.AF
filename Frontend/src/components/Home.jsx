@@ -30,7 +30,7 @@ function Home() {
              {/* title  */}
                <h1 className='text-3xl font-bold pb-4'>Electronic<span className='text-primary'>.AF</span></h1>
                <h2 className='text-3xl font-bold pb-9'><span className='bg-clip-text text-4xl  bg-gradient-to-r from-secondary to-primaryLight text-transparent '>Surf</span> Through the Ocean Of Quality</h2>
-                <p className='text-gray-500 text-lg pb-4'>Electronic.AF brings quality to the country by bringing the most reliable <strong className='text-black'>Computer</strong> products from the most reliable recources.</p>
+                <p className='text-gray-500 text-lg pb-4'>Electronic.AF brings quality to the country by bringing the most reliable <strong className='text-black'>Computer</strong> products from the most reliable sources.</p>
                {/* buttons */}
                <div className='space-x-10 '>
                <button  className='bg-primaryLight text-lg rounded-lg font-bold px-8 hover:bg-primary hover:text-white'><Link to={'/products'}>Browse</Link></button> 

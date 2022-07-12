@@ -29,8 +29,8 @@ const ProductDetails = () => {
             id : productId
         }).then(
             res => setProductData(res.data)
-            
-        ).catch(e=> {
+        )
+        .catch(e=> {
           //todo to error handle in here 
           console.log(e);
         })
@@ -69,6 +69,17 @@ const ProductDetails = () => {
     const handleClick = param => {
         if(typeof param === 'number')
             setPostReview({...postReview, postRating: param ,formSubmitReview : false});
+         
+         if(param === 'addToCart'){
+            axios.post('http://127.0.0.1:8000/api/core/addToCart/',{
+              email: cookie.email,
+              productId
+            })
+            .then(res => toast.success(res.data.detail))
+            .catch(e => {
+              //todo error handling in here 
+            })
+          }   
     }
 
        const handleChange = data => {
@@ -102,6 +113,7 @@ const ProductDetails = () => {
         </Link>
         <span  className='px-2 '>/</span>
           <Link to={'category/hp'}>
+            {/* //todo make this dynamic it should not be hp rather dynamic */}
           <span className='font-semibold hover:text-gray-400'>HP</span>
           </Link>
           <span className='px-2'>/</span>
@@ -155,7 +167,7 @@ const ProductDetails = () => {
                {/* add to cart  */}
 
           <div className='px-10 pt-7 mx-auto'>
-            <button className='border rounded bg-primary border-primary text-white w-full h-10 hover:bg-white hover:ring-black hover:border-black hover:text-primary  '>Add to Cart</button>
+            <button onClick={()=>handleClick('addToCart')} className='border rounded bg-primary border-primary text-white w-full h-10 hover:bg-white hover:ring-black hover:border-black hover:text-primary'>Add to Cart</button>
           </div>
 
               </div>
