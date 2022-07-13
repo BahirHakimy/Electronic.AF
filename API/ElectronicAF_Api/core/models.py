@@ -7,7 +7,7 @@ from io import BytesIO
 from PIL import Image as PilImage, ImageFilter, ImageOps
 
 
-CATEGORIES = [("LT", "Laptop"), ("DT", "Desktop")]
+TYPES = [("LT", "Laptop"), ("DT", "Desktop")]
 MEMORY_CAPACITIES = [
     ("4", "4GB"),
     ("8", "8GB"),
@@ -22,6 +22,14 @@ STORAGE_CAPACITIES = [
     ("1000", "1TB"),
     ("2000", "2TB"),
     ("4000", "4TB"),
+]
+VENDORS = [
+    ("dell", "DELL"),
+    ("hp", "HP"),
+    ("apple", "APPLE"),
+    ("asus", "ASUS"),
+    ("lenovo", "LENOVO"),
+    ("msi", "MSI"),
 ]
 STORAGE_TYPES = [("1", "HDD"), ("2", "SSD")]
 STARS = [(1, 1), (2, 2), (3, 3), (4, 4), (5, 5)]
@@ -66,7 +74,8 @@ PROVINCES = (
 
 class Product(models.Model):
     title = models.CharField("Product name", max_length=255)
-    category = models.CharField(max_length=2, choices=CATEGORIES)
+    type = models.CharField(max_length=2, choices=TYPES)
+    vendor = models.CharField(max_length=55, choices=VENDORS, default="dell")
     cpu = models.CharField(max_length=255)
     gpu = models.CharField(max_length=255)
     memory = models.CharField(max_length=3, choices=MEMORY_CAPACITIES)

@@ -304,7 +304,8 @@ python manage.py runserver
     {
       "id": 37,
       "title": "Dell Xps 600 Gaming",
-      "category": "Laptop",
+      "type": "Laptop",
+      "vendor": "DELL",
       "cpu": "Intel core i7 10th genration 3.5GHz upto 5GHz",
       "gpu": "Nvidea Geforce Rtx 3080 8GB",
       "memory": "16GB",
@@ -337,7 +338,8 @@ python manage.py runserver
 - ```json
   {
     "title": "product title",
-    "category": "LT for[Laptop] and DT for[Desktop]",
+    "type": "LT for[Laptop] and DT for[Desktop]",
+    "vendor": "dell for [DELL] hp for [HP], apple for [APPLE], asus for [ASUS], lenovo for [LENOVO] and MSI for [msi]",
     "cpu": "cpu info",
     "gpu": "gpu info",
     "memory": "must be [4|8|16|32|64|128]",
@@ -357,7 +359,8 @@ python manage.py runserver
   {
     "id": "auto generated id",
     "title": "created product title",
-    "category": "selected category",
+    "type": "selected type",
+    "vendor": "selected vendor",
     "cpu": "...",
     "gpu": "...",
     "memory": "...",
@@ -495,7 +498,8 @@ python manage.py runserver
   {
     "id": 37,
     "title": "Dell Xps 600 Gaming",
-    "category": "Laptop",
+    "type": "Laptop",
+    "vendor": "DELL",
     "cpu": "Intel core i7 10th genration 3.5GHz upto 5GHz",
     "gpu": "Nvidea Geforce Rtx 3080 8GB",
     "memory": "16GB",
@@ -547,7 +551,8 @@ python manage.py runserver
         "product": {
           "id": 37,
           "title": "Dell Xps 600 Gaming",
-          "category": "Laptop",
+          "type": "Laptop",
+          "vendor": "DELL",
           "cpu": "Intel core i7 10th genration 3.5GHz upto 5GHz",
           "gpu": "Nvidea Geforce Rtx 3080 8GB",
           "memory": "16GB",

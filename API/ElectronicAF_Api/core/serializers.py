@@ -22,7 +22,8 @@ class ProductCreateSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    category = serializers.ReadOnlyField(source="get_category_display")
+    type = serializers.ReadOnlyField(source="get_type_display")
+    vendor = serializers.ReadOnlyField(source="get_vendor_display")
     images = serializers.SerializerMethodField("get_images")
     memory = serializers.ReadOnlyField(source="get_memory_display")
     storage = serializers.ReadOnlyField(source="get_storage_display")
@@ -33,7 +34,8 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "title",
-            "category",
+            "type",
+            "vendor",
             "cpu",
             "gpu",
             "memory",

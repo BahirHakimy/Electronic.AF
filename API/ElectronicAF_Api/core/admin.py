@@ -4,8 +4,8 @@ from .models import Address, Cart, CartItem, CustomerReview, Image, Order, Produ
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("title", "id", "category", "price")
-    list_filter = ("category", "price")
+    list_display = ("title", "id", "type", "price")
+    list_filter = ("type", "price")
     search_fields = ("title",)
 
 
