@@ -63,8 +63,8 @@ PROVINCES = (
     ("PTI", "Paktia"),
     ("PTK", "Paktika"),
     ("PJR", "Panjshir"),
-    ("PAR", "Parwan"),
-    ("SMN", "Samangan"),
+    ("PRW", "Parwan"),
+    ("SMG", "Samangan"),
     ("SRP", "Sar-e-Pol"),
     ("TKH", "Takhar"),
     ("WDK", "Wardak"),
@@ -76,6 +76,7 @@ class Product(models.Model):
     title = models.CharField("Product name", max_length=255)
     type = models.CharField(max_length=2, choices=TYPES)
     vendor = models.CharField(max_length=55, choices=VENDORS, default="dell")
+    model = models.CharField(max_length=4,default='2016')
     cpu = models.CharField(max_length=255)
     gpu = models.CharField(max_length=255)
     memory = models.CharField(max_length=3, choices=MEMORY_CAPACITIES)
@@ -188,7 +189,7 @@ class Address(models.Model):
     province = models.CharField(max_length=3, choices=PROVINCES)
     district = models.CharField(max_length=55)
     home_address = models.CharField(max_length=255)
-    contact_phone = models.CharField(max_length=9, blank=True)
+    contact_phone = models.CharField(max_length=9)
 
     def __str__(self) -> str:
         return f"Address of user {self.user.get_full_name()}"
@@ -197,7 +198,7 @@ class Address(models.Model):
 class Order(models.Model):
     address = models.ForeignKey(Address, on_delete=models.DO_NOTHING)
     cart = models.OneToOneField(Cart, on_delete=models.DO_NOTHING)
-    status = models.CharField(max_length=2, choices=ORDER_STATES)
+    status = models.CharField(max_length=2, choices=ORDER_STATES, default="P")
     timestamp = models.DateTimeField(auto_now_add=True)
     total = models.DecimalField(max_digits=8, decimal_places=2)
 

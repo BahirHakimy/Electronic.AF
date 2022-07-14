@@ -24,10 +24,20 @@ class CartItemAdmin(admin.ModelAdmin):
     list_filter = ("cart_id",)
 
 
-admin.site.register(Address)
+class AddressAdmin(admin.ModelAdmin):
+    list_display = ("id", "user", "province", "contact_phone")
+    list_filter = ("user", "province")
+
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ("cart", "status", "total", "timestamp")
+    list_filter = ("status",)
+
+
+admin.site.register(Address, AddressAdmin)
 admin.site.register(Cart, CartAdmin)
 admin.site.register(CartItem, CartItemAdmin)
 admin.site.register(CustomerReview)
 admin.site.register(Image, ImageAdmin)
-admin.site.register(Order)
+admin.site.register(Order, OrderAdmin)
 admin.site.register(Product, ProductAdmin)

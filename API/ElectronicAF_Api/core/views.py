@@ -1,3 +1,4 @@
+from typing import Tuple
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from rest_framework import status
@@ -6,13 +7,32 @@ from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.decorators import api_view, permission_classes, parser_classes
 
-from .models import Address, Cart, CartItem, CustomerReview, Image, Order, Product
+from .models import (
+    PROVINCES,
+    Address,
+    Cart,
+    CartItem,
+    CustomerReview,
+    Image,
+    Order,
+    Product,
+)
 from .serializers import (
+    AddressCreateSerializer,
+    AddressSerializer,
     CartSerailizer,
     CustomerReviewSerializer,
+    OrderSerializer,
     ProductCreateSerializer,
     ProductSerializer,
 )
+
+
+def standardizedErrors(serializer):
+    standerdizedErrors = {}
+    for error in serializer.errors:
+        standerdizedErrors[error] = serializer.errors[error][0].__str__()
+    return Response({"errors": standerdizedErrors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["POST"])
@@ -44,12 +64,7 @@ def createProductView(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     else:
-        standerdizedErrors = {}
-        for error in serializer.errors:
-            standerdizedErrors[error] = serializer.errors[error][0].__str__()
-        return Response(
-            {"errors": standerdizedErrors}, status=status.HTTP_400_BAD_REQUEST
-        )
+        return standardizedErrors(serializer)
 
 
 @api_view(["PUT"])
@@ -479,5 +494,218 @@ def getRatingForProductView(request):
     except KeyError:
         return Response(
             {"detail": "You should include productId to get review for."},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def getProvincesView(request):
+    serialized = []
+    for province in PROVINCES:
+        value, label = province
+        serialized.append({"value": value, "label": label})
+    return Response(serialized, status=status.HTTP_200_OK)
+
+
+@api_view(["POST"])
+def getUserAddressesView(request):
+    User = get_user_model()
+    try:
+        email = request.data["email"]
+        try:
+            user = User.objects.get(email=email)
+            addresses = Address.objects.filter(user=user)
+            data = []
+
+            if addresses.exists():
+                serializer = AddressSerializer(addresses, many=True)
+                data = serializer.data
+            return Response(data, status=status.HTTP_200_OK)
+
+        except User.DoesNotExist:
+            return Response(
+                {
+                    "detail": "User with the given email does not exist.",
+                },
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+    except KeyError:
+        return Response(
+            {"detail": "You should provide user's email to get address for."},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+
+@api_view(["POST"])
+def createAddressView(request):
+    User = get_user_model()
+    try:
+        email = request.data["email"]
+        errors = {}
+        try:
+            user = User.objects.get(email=email)
+            request.data["user"] = user.id
+            try:
+                request.data["home_address"] = request.data["homeAddress"]
+            except KeyError:
+                errors["homeAddress"] = "This field is required"
+            try:
+                request.data["contact_phone"] = request.data["contactPhone"]
+            except KeyError:
+                errors["contactPhone"] = "This field is required"
+
+            serializer = AddressCreateSerializer(data=request.data, many=False)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                return standardizedErrors(serializer)
+        except User.DoesNotExist:
+            return Response(
+                {
+                    "detail": "User with the given email does not exist.",
+                },
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        except KeyError:
+            return Response(
+                {"errors": errors},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+    except KeyError:
+        return Response(
+            {"detail": "You should provide user's email to get address for."},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+
+def createAddress(data) -> Tuple[bool, Address, dict]:
+    errors = {}
+    try:
+        try:
+            data["home_address"] = data["homeAddress"]
+        except KeyError:
+            errors["homeAddress"] = "This field is required"
+        try:
+            data["contact_phone"] = data["contactPhone"]
+        except KeyError:
+            errors["contactPhone"] = "This field is required"
+
+        serializer = AddressCreateSerializer(data=data, many=False)
+        if serializer.is_valid():
+            serializer.save()
+            return (True, Address.objects.get(id=serializer.data["id"]), None)
+        else:
+            standerdizedErrors = {}
+            for error in serializer.errors:
+                standerdizedErrors[error] = serializer.errors[error][0].__str__()
+            return (False, None, standerdizedErrors)
+    except KeyError:
+        return (False, None, errors)
+
+
+@api_view(["POST"])
+def checkoutView(request):
+    try:
+        key_error = "You must provide cartId in order to place an Order."
+        cart_id = request.data["cartId"]
+        cart = Cart.objects.get(id=cart_id)
+
+        if Order.objects.filter(cart=cart).exists() or not cart.is_active:
+            return Response(
+                {"detail": "This Order is already submited."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        try:
+            new_address = request.data["useNewAddress"]
+            if new_address:
+                data = {**request.data}
+                data["user"] = cart.user.id
+                success, address, errors = createAddress(data)
+                if success:
+                    Order.objects.create(
+                        cart=cart, address=address, total=cart.get_total_price()
+                    )
+                else:
+                    errors["homeAddress"] = errors["home_address"]
+                    errors["contactPhone"] = errors["contact_phone"]
+                    del errors["contact_phone"]
+                    del errors["home_address"]
+                    return Response(
+                        {"errors": errors}, status=status.HTTP_400_BAD_REQUEST
+                    )
+            else:
+                try:
+                    address_id = request.data["addressId"]
+                    address = Address.objects.get(id=address_id)
+                    Order.objects.create(
+                        cart=cart, address=address, total=cart.get_total_price()
+                    )
+                except KeyError:
+                    key_error = "You must include addressId if you want to use an existing address"
+
+                except Address.DoesNotExist:
+                    return Response(
+                        {
+                            "detail": "Address with the given id does not exist.",
+                        },
+                        status=status.HTTP_404_NOT_FOUND,
+                    )
+            cart.is_active = False
+            cart.save()
+            return Response(
+                {
+                    "detail": "Order successfully submitted, We will email you when its out for delivery, Thanks for your purchase"
+                },
+                status=status.HTTP_201_CREATED,
+            )
+
+        except KeyError:
+            key_error = "You must specify whether to use new address or existing."
+
+    except KeyError:
+        return Response(
+            {"detail": key_error},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+    except Cart.DoesNotExist:
+        return Response(
+            {
+                "detail": "Cart with the given id does not exist.",
+            },
+            status=status.HTTP_404_NOT_FOUND,
+        )
+
+
+@api_view(["POST"])
+def getUserOrdersView(request):
+    User = get_user_model()
+    try:
+        email = request.data["email"]
+        try:
+            user = User.objects.get(email=email)
+
+            orders = Order.objects.filter(cart__user=user)
+            data = []
+            if orders.exists():
+                serializer = OrderSerializer(
+                    orders, many=True, context={"request": request}
+                )
+                data = serializer.data
+            return Response(data, status=status.HTTP_200_OK)
+
+        except User.DoesNotExist:
+            return Response(
+                {
+                    "detail": "User with the given email does not exist.",
+                },
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+    except KeyError:
+        return Response(
+            {"detail": "You should provide user's email to get Orders for."},
             status=status.HTTP_400_BAD_REQUEST,
         )
