@@ -1,3 +1,4 @@
+from datetime import datetime
 import os
 from django.db import models
 from django.conf import settings
@@ -76,6 +77,7 @@ class Product(models.Model):
     title = models.CharField("Product name", max_length=255)
     type = models.CharField(max_length=2, choices=TYPES)
     vendor = models.CharField(max_length=55, choices=VENDORS, default="dell")
+    manufacture_date = models.DateField(default=datetime(2016, 6, 14).date())
     cpu = models.CharField(max_length=255)
     gpu = models.CharField(max_length=255)
     memory = models.CharField(max_length=3, choices=MEMORY_CAPACITIES)
