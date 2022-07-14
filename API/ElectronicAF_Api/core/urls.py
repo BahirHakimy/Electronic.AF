@@ -1,7 +1,11 @@
 from django.urls import path
 from .views import (
     addToCartView,
+    checkoutView,
+    createAddressView,
     getProductView,
+    getUserAddressesView,
+    getUserOrdersView,
     getUserReview,
     getProductReviews,
     getProductsView,
@@ -13,6 +17,7 @@ from .views import (
     updateProductView,
     getRatingForProductView,
     addProductReviewView,
+    getProvincesView,
 )
 
 urlpatterns = [
@@ -28,4 +33,9 @@ urlpatterns = [
     path("getProductReviews/", getProductReviews, name="get_product_reviews"),
     path("submitReview/", addProductReviewView, name="submit_review"),
     path("getRating/", getRatingForProductView, name="get_average_rating"),
+    path("getProvinces/", getProvincesView, name="get_provinces"),
+    path("getUserAddress/", getUserAddressesView, name="get_addresses"),
+    # path("createAddress/", createAddressView, name="create_address"),
+    path("checkout/", checkoutView, name="create_address"),
+    path("getOrders/", getUserOrdersView, name="get_user_orders"),
 ]

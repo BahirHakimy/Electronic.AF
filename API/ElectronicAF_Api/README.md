@@ -911,3 +911,253 @@ Review and Rating
     "detail": "Product with the given id was not found."
   }
   ```
+
+++++++++++++++++++++++++++++++++
+
+Order, Addresses and Checkout
+
+++++++++++++++++++++++++++++++++
+
+### 1: `<<hostAddress:port>>/api/core/getUserAddress/`
+
+- `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
+- `IsProtected` : Yes
+- `Accepting Data Type`:"application/json"
+- `Expecting inputs`:
+- ```json
+  {
+    "email": "Email of user to get addresses of"
+  }
+  ```
+
+- `Success Status`: `HTTP 200 OK`
+- `Success Response`:
+- ```json
+  [
+    {
+      "id": 1,
+      "user": 2,
+      "province": "Kabul",
+      "district": "7",
+      "homeAddress": "Darullaman 3rd station home#19/13",
+      "contactPhone": "738565527"
+    },
+    {
+      "id": 3,
+      "user": 2,
+      "province": "Kabul",
+      "district": "6th",
+      "homeAddress": "Shahrenaw st5 home#3/4",
+      "contactPhone": "789444343"
+    }
+  ]
+  ```
+
+- `Failiure Status`: `HTTP 400 BadRequest`
+- `Failiure Response`:
+- ```json
+  { "detail": "You should provide user's email to get address for." }
+  ```
+
+- `Failiure Status If email is not valid`: `HTTP 404 NotFound`
+- `Failiure Response`:
+- ```json
+  {
+    "detail": "User with the given email does not exist."
+  }
+  ```
+
+### 2: `<<hostAddress:port>>/api/core/checkout/`
+
+- `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
+- `IsProtected` : Yes
+- `Accepting Data Type`:"application/json"
+- `Expecting inputs`:
+- ```json
+  {
+    "cartId": "ID of user current active cart",
+    "useNewAddress": "Does user uses new address or using and existing. Must be boolean [true | false ]",
+    "addressId": "ID of an existing address [Its Required if <<useNewAddress>> is set to false]",
+    "province": "New address province [Its Required if <<useNewAddress>> is set to true]",
+    "district": "New address district [Its Required if <<useNewAddress>> is set to true]",
+    "homeAddress": "New homeAddress [Its Required if <<useNewAddress>> is set to true]",
+    "contactPhone": "New contactPhone number [Its Required if <<useNewAddress>> is set to true]"
+  }
+  ```
+
+- `Success Status`: `HTTP 201 Created`
+- `Success Response`:
+- ```json
+  {
+    "detail": "Order successfully submitted, We will email you when its out for delivery, Thanks for your purchase"
+  }
+  ```
+
+- `Failiure Status`: `HTTP 400 BadRequest`
+- `Failiure Response`:
+- ```json
+  { "detail": "You must provide cartId in order to place an Order." }
+  ```
+
+- `Failiure Status If Order Is Already Submitted`: `HTTP 400 BadRequest`
+- `Failiure Response`:
+- ```json
+    {"detail": "This Order is already submited."},
+  ```
+
+- `Failiure Status If useNewAddress Is Not Specified`: `HTTP 400 BadRequest`
+- `Failiure Response`:
+- ```json
+  { "detail": "You must specify whether to use new address or existing." }
+  ```
+
+- `Failiure Status If addressId Is Not Specified [When useNewAddress is false]`: `HTTP 400 BadRequest`
+- `Failiure Response`:
+- ```json
+  {
+    "detail": "You must include addressId if you want to use an existing address"
+  }
+  ```
+
+- `Failiure Status Existing addressId Is Invalid [When useNewAddress is false]`: `HTTP 404 NotFound`
+- `Failiure Response`:
+- ```json
+  {
+    "detail": "Address with the given id does not exist."
+  }
+  ```
+
+- `Failiure Status If new Address Fields Have Problem [When useNewAddress is true]`: `HTTP 400 BadRequest`
+- `Failiure Response`:
+- ```json
+  {
+    "errors": {
+      "homeAddress": "Error associated with homeAddress field.",
+      "contactPhone": "Error associated with contactPhone field",
+      "province": "Error associated with province field",
+      "district": "Error associated with district field"
+    }
+  }
+  ```
+
+### 1: `<<hostAddress:port>>/api/core/getOrders/`
+
+- `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
+- `IsProtected` : Yes
+- `Accepting Data Type`:"application/json"
+- `Expecting inputs`:
+- ```json
+  {
+    "email": "Email of user to get Orders of"
+  }
+  ```
+
+- `Success Status`: `HTTP 200 OK`
+- `Success Response`:
+- ```json
+  [
+    {
+      "address": {
+        "id": 1,
+        "user": 2,
+        "province": "Kabul",
+        "district": "7",
+        "homeAddress": "Darullaman 3rd station home#19/13",
+        "contactPhone": "731787827"
+      },
+      "items": [
+        {
+          "product": {
+            "id": 37,
+            "title": "Dell Xps 600 Gaming",
+            "type": "Laptop",
+            "vendor": "DELL",
+            "cpu": "Intel core i7 10th genration 3.5GHz upto 5GHz",
+            "gpu": "Nvidea Geforce Rtx 3080 8GB",
+            "memory": "16GB",
+            "storage": "256GB",
+            "storageType": "SSD",
+            "os": "Windows 10 Pro",
+            "price": "1500.00",
+            "description": "",
+            "images": [
+              {
+                "image": "/media/products/20220331_152635.jpg",
+                "thumbnail": "/media/products/tumbnails/20220331_152635_thumbnail.jpg"
+              }
+            ]
+          },
+          "quantity": 2
+        },
+        {
+          "product": {
+            "id": 38,
+            "title": "Dell alienware Area51M",
+            "type": "Laptop",
+            "vendor": "DELL",
+            "cpu": "Intel Core i9 11200K 3.5Ghz ~ 5.5Ghz",
+            "gpu": "Nvidia Geforce RTX 3080 8GB",
+            "memory": "32GB",
+            "storage": "1TB",
+            "storageType": "SSD",
+            "os": "Windows 11 Pro",
+            "price": "2999.00",
+            "description": "A Monster Built For Brutal Gaming",
+            "images": [
+              {
+                "image": "/media/products/center_facing.png",
+                "thumbnail": "/media/products/tumbnails/center_facing_thumbnail.png"
+              }
+            ]
+          },
+          "quantity": 2
+        }
+      ],
+      "status": "Pending",
+      "total": "8998.00"
+    }
+  ]
+  ```
+
+- `Failiure Status`: `HTTP 400 BadRequest`
+- `Failiure Response`:
+- ```json
+  { "detail": "You should provide user's email to get Orders for." }
+  ```
+
+- `Failiure Status If email is not valid`: `HTTP 404 NotFound`
+- `Failiure Response`:
+- ```json
+  {
+    "detail": "User with the given email does not exist."
+  }
+  ```
+
++++++++++++++++++++++++++
+
+Utility endpoints
+
++++++++++++++++++++++++++
+
+### 1: `<<hostAddress:port>>/api/core/getProvinces/`
+
+- `Method` ![GET](https://img.shields.io/badge/GET-00C300)
+- `IsProtected` : No
+- `Accepting Data Type`:"application/json"
+- `Expecting inputs`: None
+
+- `Success Status`: `HTTP 200 OK`
+- `Success Response`:
+- ```json
+  [
+    { "value": "KBL", "label": "Kabul" },
+    {
+      "value": "BDK",
+      "label": "Badakhshan"
+    },
+    {
+      "value": "BDG",
+      "label": "Badghis"
+    }
+  ]
+  ```

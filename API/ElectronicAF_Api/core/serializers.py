@@ -66,13 +66,11 @@ class CartItemSerializer(serializers.ModelSerializer):
 
 class CartSerailizer(serializers.ModelSerializer):
     items = serializers.SerializerMethodField("serialize_items")
+    total = serializers.ReadOnlyField(source="get_total_price")
 
     class Meta:
         model = Cart
-        fields = (
-            "id",
-            "items",
-        )
+        fields = ("id", "items", "total")
 
     def serialize_items(self, instance):
         items = instance.get_items()
@@ -89,3 +87,38 @@ class CustomerReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomerReview
         fields = ("username", "product", "rating", "review")
+
+
+class AddressSerializer(serializers.ModelSerializer):
+    province = serializers.ReadOnlyField(source="get_province_display")
+    homeAddress = serializers.ReadOnlyField(source="home_address")
+    contactPhone = serializers.ReadOnlyField(source="contact_phone")
+
+    class Meta:
+        model = Address
+        fields = ("id", "user", "province", "district", "homeAddress", "contactPhone")
+
+
+class AddressCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = "__all__"
+
+
+class OrderSerializer(serializers.ModelSerializer):
+
+    address = AddressSerializer(read_only=True, many=False)
+    items = serializers.SerializerMethodField("serialize_items")
+    status = serializers.ReadOnlyField(source="get_status_display")
+
+    class Meta:
+        model = Order
+        fields = ("address", "items", "status", "total")
+
+    def serialize_items(self, instance):
+        items = instance.cart.get_items()
+        if len(items) > 0:
+            serializer = CartItemSerializer(items, many=True)
+            return serializer.data
+        else:
+            return []
