@@ -82,6 +82,10 @@ python manage.py runserver
 [api/core/getProductReviews/](#2-hostaddressportapicoregetproductreviews)<br>
 [api/core/submitReview/](#3-hostaddressportapicoresubmitreview)<br>
 [api/core/getRating/](#4-hostaddressportapicoregetrating)<br>
+[api/core/getUserAddress/](#1-hostaddressportapicoregetuseraddress)<br>
+[api/core/checkout/](#2-hostaddressportapicorecheckout)<br>
+[api/core/getOrders/](#3-hostaddressportapicoregetorders)<br>
+[api/core/getProvinces/](#1-hostaddressportapicoregetprovinces)<br>
 
 +++++++++++++++++++
 
@@ -1040,7 +1044,7 @@ Order, Addresses and Checkout
   }
   ```
 
-### 1: `<<hostAddress:port>>/api/core/getOrders/`
+### 3: `<<hostAddress:port>>/api/core/getOrders/`
 
 - `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
 - `IsProtected` : Yes
