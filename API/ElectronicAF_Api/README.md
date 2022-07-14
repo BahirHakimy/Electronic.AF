@@ -71,10 +71,10 @@ python manage.py runserver
 [api/auth/checkResetCode/](#5-hostaddressportapiauthcheckresetcode)<br>
 [api/auth/passwordReset/](#6-hostaddressportapiauthpasswordreset)<br>
 [api/core/getProducts/](#1-hostaddressportapicoregetproducts)<br>
-[api/core/createProduct/](#2-hostaddressportapicorecreateproduct)<br>
-[api/core/updateProduct/](#3-hostaddressportapicoreupdateproduct)<br>
-[api/core/deleteProduct/](#4-hostaddressportapicoredeleteproduct)<br>
-[api/core/getProduct/](#5-hostaddressportapicoregetproduct)<br>
+[api/core/getProduct/](#2-hostaddressportapicoregetproduct)<br>
+[api/core/createProduct/](#3-hostaddressportapicorecreateproduct)<br>
+[api/core/updateProduct/](#4-hostaddressportapicoreupdateproduct)<br>
+[api/core/deleteProduct/](#5-hostaddressportapicoredeleteproduct)<br>
 [api/core/getCart/](#1-hostaddressportapicoregetcart)<br>
 [api/core/addToCart/](#2-hostaddressportapicoreaddtocart)<br>
 [api/core/removeFromCart/](#3-hostaddressportapicoreremovefromcart)<br>
@@ -329,7 +329,42 @@ python manage.py runserver
   { "detail": "No availble product in the database" }
   ```
 
-### 2: `<<hostAddress:port>>/api/core/createProduct/`
+### 2: `<<hostAddress:port>>/api/core/getProduct/`
+
+- `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
+- `IsProtected` : No
+- `Expecting inputs`:
+- ```json
+  {
+    "id": "product id you want to get details [Required]"
+  }
+  ```
+- `Success Status`: `HTTP 200 OK`
+- `Success Response`:
+- ```json
+  {
+    "id": 37,
+    "title": "Dell Xps 600 Gaming",
+    "type": "Laptop",
+    "vendor": "DELL",
+    "cpu": "Intel core i7 10th genration 3.5GHz upto 5GHz",
+    "gpu": "Nvidea Geforce Rtx 3080 8GB",
+    "memory": "16GB",
+    "storage": "256GB",
+    "storageType": "SSD",
+    "os": "Windows 10 Pro",
+    "price": "1500.00",
+    "description": "Gaming laptop",
+    "images": [
+      {
+        "image": "image url",
+        "thumbnail": "thumbnail url"
+      }
+    ]
+  }
+  ```
+
+### 3: `<<hostAddress:port>>/api/core/createProduct/`
 
 - `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
 - `IsProtected` : Yes `You should provide an admin user access token to access the endpoint`
@@ -400,7 +435,7 @@ python manage.py runserver
   }
   ```
 
-### 3: `<<hostAddress:port>>/api/core/updateProduct/`
+### 4: `<<hostAddress:port>>/api/core/updateProduct/`
 
 - `Method` ![PUT](https://img.shields.io/badge/PUT-%23039BE5.svg)
 - `IsProtected` : Yes `You should provide an admin user access token to access the endpoint`
@@ -448,7 +483,7 @@ python manage.py runserver
   }
   ```
 
-### 4: `<<hostAddress:port>>/api/core/deleteProduct/`
+### 5: `<<hostAddress:port>>/api/core/deleteProduct/`
 
 - `Method` ![DELETE](https://img.shields.io/badge/DELETE-%23FF0000)
 - `IsProtected` : Yes `You should provide an admin user access token to access the endpoint`
@@ -479,41 +514,6 @@ python manage.py runserver
 - ```json
   {
     "detail": "Product with the given id was not found in the system"
-  }
-  ```
-
-### 5: `<<hostAddress:port>>/api/core/getProduct/`
-
-- `Method` ![POST](https://img.shields.io/badge/POST-%23FF9900.svg)
-- `IsProtected` : No
-- `Expecting inputs`:
-- ```json
-  {
-    "id": "product id you want to get details [Required]"
-  }
-  ```
-- `Success Status`: `HTTP 200 OK`
-- `Success Response`:
-- ```json
-  {
-    "id": 37,
-    "title": "Dell Xps 600 Gaming",
-    "type": "Laptop",
-    "vendor": "DELL",
-    "cpu": "Intel core i7 10th genration 3.5GHz upto 5GHz",
-    "gpu": "Nvidea Geforce Rtx 3080 8GB",
-    "memory": "16GB",
-    "storage": "256GB",
-    "storageType": "SSD",
-    "os": "Windows 10 Pro",
-    "price": "1500.00",
-    "description": "Gaming laptop",
-    "images": [
-      {
-        "image": "image url",
-        "thumbnail": "thumbnail url"
-      }
-    ]
   }
   ```
 
