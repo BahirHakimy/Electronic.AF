@@ -32,15 +32,16 @@ const CategoryDetails = () => {
     
 
     const handleChange = value => {
-                
+                   
 
         switch(value.target.value){
             case 'price' :  modifiedData.sort((a,b) => a.price - b.price) ;
             break;
             case 'storage' : modifiedData.sort((a,b) => a.storage - b.stroage);
             break;
-            
-
+            case 'model' : modifiedData.sort((a,b)=> a.model - b.model);
+            break;
+            case 'all' : return modifiedData;
             
             default  : return modifiedData;
         }
