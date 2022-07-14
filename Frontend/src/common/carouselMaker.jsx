@@ -1,19 +1,18 @@
-import surfing from '../illustrations/surfing.svg';
-import building from '../illustrations/building.svg';
-import sign from '../illustrations/sign.svg';
 
+const Carousel = ({images}) => {
 
-
-const Carousel = () => {
+  if(images !== undefined)
   return (
-        <div>
-              <img src={surfing} alt="surfing" className="h-full w-full"/>
-              <div className='flex space-x-8'>
-              <img src={building} alt="surfing" className="h-64 w-64 "/>
-              <img src={sign} alt="surfing" className="h-64 w-64 "/>
-              </div>
+        <div className='pt-5'>
+              <img src={`http://127.0.0.1:8000${images[0]?.image}`} alt="surfing" className="w-10/12 rounded-md"/>
+              {images.length > 1 ?  <div className='flex space-x-8 pt-10'>
+              <img src={`http://127.0.0.1:8000${images[1]?.image}`} alt="surfing" className=" w-64 rounded-md "/>
+              <img src={`http://127.0.0.1:8000${images[2]?.image}`} alt="surfing" className=" w-64 rounded-md "/>
+              </div> : null }
        </div>
   )
+// todo to add loader io in here 
+  return <h1>...</h1>
 }
 
 export default Carousel

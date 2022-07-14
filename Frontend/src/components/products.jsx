@@ -35,9 +35,9 @@ const Products = () => {
         </form>
       </div>
       {/* card  */}
-      <div className="pl-8">
-        <h1 className="font-bold text-3xl pl-10">Top Deals</h1>
-        <div className="flex space-x-10 pt-8">
+      <div className="pl-8  ">
+        <h1 className="font-bold text-3xl pl-10 ">Top Deals</h1>
+        <div className="flex space-x-10 pt-8 ">
           {data ? (
             data.map((info) => (
               <Card key={info.id} authenticated={authenticated} info={info} />

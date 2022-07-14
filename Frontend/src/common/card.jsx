@@ -30,8 +30,9 @@ const Card = ({ info, authenticated }) => {
 };
 
   return (
-    <div className="bg-white w-64 rounded-md  shadow-md hover:scale-105 transition-transform grid ">
-      <img
+    <div className="bg-white w-64 rounded-md  shadow-md hover:scale-105 transition-transform grid  ">
+   
+     <img
         src={`http://127.0.0.1:8000${info.images[0].image}`}
         alt="Product"
         className="rounded-md w-full h-44 "

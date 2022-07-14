@@ -6,6 +6,7 @@ import CardDetail from '../components/Table';
 import {toast} from 'react-toastify'
 import { setTokens } from '../Api/client';
 import jwtDecode from 'jwt-decode';
+import MyDropdown from '../components/menudropdown';
 
 
     const Navbar = () => {
@@ -45,10 +46,10 @@ import jwtDecode from 'jwt-decode';
      
       <div className="flex justify-between  py-5 px-10">
         {/* logo and the links  */}
-        <div className="flex space-x-16 font-bold">
+        <div className="flex space-x-16 font-bold ">
         <h1 className='text-2xl font-semibold '>
               <span className='font-serif text-3xl '>E</span>.AF</h1>
-          <h3 className="text-lg ">Category</h3>
+          <MyDropdown/>
           <h3 className={`text-lg ${location.pathname === '/about' ? 'underline' : 'no-underline'} underline-offset-8  text-primary`}><Link to={'/about'}><span className='text-black'>About Us</span></Link></h3>
         </div>
 

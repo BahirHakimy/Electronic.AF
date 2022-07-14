@@ -17,6 +17,8 @@ const About = () => {
     MehdiBio: ''
    })
 
+
+  //! not woriking properly and just rendering 2 times
   useEffect(() => {
     axios.get('https://api.github.com/users/BahirHakimy')
     .then(res => setData({...data,BahirPic: res.data.avatar_url, BahirName: res.data.name, BahirBio: res.data.bio}))
@@ -24,11 +26,10 @@ const About = () => {
     axios.get('https://api.github.com/users/MW25-HUSH')
     .then(res => setData({...data,MehdiPic : res.data.avatar_url, MehdiName: res.data.name, MehdiBio : res.data.bio}))
       
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
 
-
+    console.log(data);
   return (
     <div className="container"> 
       {/* Navbar */}

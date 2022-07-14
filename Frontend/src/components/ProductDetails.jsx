@@ -103,6 +103,7 @@ const ProductDetails = () => {
             //todo error handling in here 
           })
        }
+
   
   return (
     <div className='p-5'>
@@ -128,11 +129,11 @@ const ProductDetails = () => {
       <div className='grid grid-cols-2 '>
       {/* pictures  */}
             <div className='col-span-1'>
-                  <Carousel />
+                  <Carousel images={productData?.images}/>
               </div> 
 
       {/* info about product  */}
-      <div className='col-span-1 divide-y-2 space-y-5'>
+      <div className='col-span-1 divide-y-2 space-y-5 pt-5'>
 
 
             <div>

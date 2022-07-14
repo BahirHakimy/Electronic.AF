@@ -14,6 +14,7 @@ import Cart from './components/cart';
 import ProductDetails from './components/ProductDetails';
 import { CookiesProvider } from 'react-cookie';
 import About from './components/about';
+import CategoryDetails from './components/categorydetails';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path='Products' element={<Products/>} />
           <Route path='cart' element={<Cart/>}/>
           <Route path='products/:productId' element={<ProductDetails />}/>
+          <Route path='products/category/:vendor' element={<CategoryDetails/>} />
           <Route path='/about' element={<About/>}/>
           <Route path='/' element={<Home/>}/>
           </Routes>
