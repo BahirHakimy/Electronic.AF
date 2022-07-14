@@ -45,7 +45,6 @@ def createProductView(request):
 
     data = request.data.copy()
     data["storage_type"] = data["storageType"]
-    data["manufacture_date"] = data["manufactureDate"]
     serializer = ProductCreateSerializer(data=data, many=False)
     if serializer.is_valid():
         product = serializer.save()
@@ -78,9 +77,6 @@ def updateProductView(request):
             data = request.data.copy()
             if data.__contains__("storageType"):
                 data["storage_type"] = data["storageType"]
-
-            if data.__contains__("manufactureDate"):
-                data["manufacture_date"] = data["manufactureDate"]
 
             serializer = ProductCreateSerializer(
                 instance=product, data=data, partial=True

@@ -28,7 +28,6 @@ class ProductSerializer(serializers.ModelSerializer):
     memory = serializers.ReadOnlyField(source="get_memory_display")
     storage = serializers.ReadOnlyField(source="get_storage_display")
     storageType = serializers.ReadOnlyField(source="get_storage_type_display")
-    manufactureDate = serializers.ReadOnlyField(source="manufacture_date")
 
     class Meta:
         model = Product
@@ -37,7 +36,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "title",
             "type",
             "vendor",
-            "manufactureDate",
+            "model",
             "cpu",
             "gpu",
             "memory",
