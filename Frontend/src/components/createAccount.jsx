@@ -75,13 +75,18 @@ import { setTokens } from "../Api/client";
 
         return (
           <div className=" bg-background flex items-center ">
-      <div className="customizeCard my-2 scale-95">
+      <div className="customizeCard mt-3 mb-1 md:scale-95 mx-3">
   
         {/* //*form  section */}
         <div className="pt-4 px-3 space-y-3 bg-white pb-4 ">
           {/* //*header  */}
           <div className="flex justify-between px-7">
-            <div className="font-bold text-primaryLight text-2xl">logo</div>
+               {/* //*  logo */}
+               <div>
+            <h1 className='text-2xl md:text-4xl font-semibold '>
+              <span className='font-serif text-3xl md:text-5xl '>E</span>.AF</h1>
+           </div>
+
             <div className="text-gray-500 font-bold text-xl  hover:text-gray-700"><Link to={'/'}>Sign In</Link></div>
           </div>
   
@@ -164,7 +169,7 @@ import { setTokens } from "../Api/client";
         </div>
   
         {/* //* illustraion part */}
-            <div className="bg-gradient-to-b from-primaryDark to-primaryLight relative">
+            <div className="hidden md:inline-block bg-gradient-to-b from-primaryDark to-primaryLight relative">
                   <img src={building}  alt="illustration" className="h-80 absolute  top-44 left-14"/>
             </div>
   

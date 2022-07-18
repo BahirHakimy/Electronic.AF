@@ -29,7 +29,9 @@ const About = () => {
   },[])
 
 
-    console.log(data);
+
+
+    
   return (
     <div className="container"> 
       {/* Navbar */}

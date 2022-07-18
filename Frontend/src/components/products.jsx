@@ -24,7 +24,7 @@ const Products = () => {
       {/* //* input */}
       <div>
         <form>
-          <div className="flex justify-end items-center mr-24 mt-8 relative">
+          <div className="flex justify-end  items-center mr-24 mt-8 relative">
             <BsSearch className="h-4 w-4 absolute right-60" />
             <input
               type="text"
@@ -35,9 +35,9 @@ const Products = () => {
         </form>
       </div>
       {/* card  */}
-      <div className="pl-8  ">
+      <div className="pl-7 pt-8 md:pt-0 ">
         <h1 className="font-bold text-3xl pl-10 ">Top Deals</h1>
-        <div className="flex space-x-10 pt-8 ">
+        <div className="md:flex md:space-x-10 pt-8 space-y-3 md:space-y-0">
           {data ? (
             data.map((info) => (
               <Card key={info.id} authenticated={authenticated} info={info} />

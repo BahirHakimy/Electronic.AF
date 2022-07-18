@@ -66,7 +66,7 @@ import { useAuth } from "../hooks/authContext";
  
     return (
       <div className="h-screen bg-background flex items-center">
-       <div className="grid grid-cols-1 max-w-5xl mx-auto shadow-xl  ">
+       <div className="grid grid-cols-1 max-w-5xl md:mx-auto shadow-xl mx-3  ">
 
     {/* //*form  section */}
     <div className="pt-4 px-12 space-y-3 bg-white pb-16  ">
@@ -77,7 +77,7 @@ import { useAuth } from "../hooks/authContext";
       </div>
 
       {/* //* Reset Your password  */}
-      <div className="py-6 pl-7 mx-24  ">
+      <div className="py-6 pl-7 md:mx-24    ">
         <h1 className="font-bold text-2xl pb-2 pt-6">Reset Your Password</h1>
       </div>
 

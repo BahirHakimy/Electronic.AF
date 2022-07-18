@@ -102,24 +102,24 @@ function Send() {
        
     return (
         <div className='bg-background h-screen flex justify-center items-center' >
-            <div className='bg-white grid grid-cols-1 items-center h-96 px-24 shadow-md '>
+            <div className='bg-white md:grid grid-cols-1 items-center h-96 py-24 md:py-0 md:px-24 shadow-md overflow-aut  '>
               {/* //* header section */}
-              <div className=' capitalize mx-auto max-w-prose'>
-                <h1 className='font-bold text-3xl  '>Enter the 6 digit number you recieved in your Email</h1>
-                <span className='font-semibold text-gray-400 text-lg'>kindly check your spam folder if the you didn't recive the Security code</span>
+              <div className='capitalize mx-3 md:mx-auto max-w-prose'>
+                <h1 className='font-bold text-lg md:text-3xl  '>Enter the 6 digit number you recieved in your Email</h1>
+                <span className='font-semibold text-gray-400 text-md'>kindly check your spam folder if the you didn't recive the Security code</span>
               </div>
     
               {/* //* input section  */}
-                <div className='mx-auto my-5' >
-                <form onSubmit={handleSubmit}> 
-                <input  name='0' type="number" ref={refInput} className='mx-2 rounded customNumberInput' maxLength={1} min={1} max={9} onKeyUp={handleKeyUp} onFocus={handleFocus} onInput={splitNumber}  required/>
-                <input  name='1' type="number"  className='mx-2 rounded customNumberInput ' maxLength={1} min={1} max={9} onKeyUp={handleKeyUp} onFocus={handleFocus}   required  />
-                <input  name='2' type="number"  className='mx-2 rounded customNumberInput ' maxLength={1} min={1} max={9} onKeyUp={handleKeyUp} onFocus={handleFocus}   required  />
-                <input  name='3' type="number"  className='mx-2 rounded customNumberInput ' maxLength={1} min={1} max={9} onKeyUp={handleKeyUp} onFocus={handleFocus}   required  />
-                <input  name='4' type="number"  className='mx-2 rounded customNumberInput ' maxLength={1} min={1} max={9} onKeyUp={handleKeyUp} onFocus={handleFocus}   required  />
-                <input  name='5' type="number"  className='mx-2 rounded customNumberInput ' maxLength={1} min={1} max={9} onKeyUp={handleKeyUp} onFocus={handleFocus}   required  />
+                <div className='mx-4 md:mx-auto my-5'>
+                <form onSubmit={handleSubmit} > 
+                <input  name='0' type="number" ref={refInput} className='mx-3 md:mx-2 rounded customNumberInput ' maxLength={1} min={1} max={9} onKeyUp={handleKeyUp} onFocus={handleFocus} onInput={splitNumber}  required/>
+                <input  name='1' type="number"  className='mx-3 md:mx-2 rounded customNumberInput ' maxLength={1} min={1} max={9} onKeyUp={handleKeyUp} onFocus={handleFocus}   required  />
+                <input  name='2' type="number"  className='mx-3 md:mx-2 rounded customNumberInput ' maxLength={1} min={1} max={9} onKeyUp={handleKeyUp} onFocus={handleFocus}   required  />
+                <input  name='3' type="number"  className='mx-3 md:mx-2 rounded customNumberInput ' maxLength={1} min={1} max={9} onKeyUp={handleKeyUp} onFocus={handleFocus}   required  />
+                <input  name='4' type="number"  className='mx-3 md:mx-2 rounded customNumberInput ' maxLength={1} min={1} max={9} onKeyUp={handleKeyUp} onFocus={handleFocus}   required  />
+                <input  name='5' type="number"  className='mx-3 md:mx-2 rounded customNumberInput ' maxLength={1} min={1} max={9} onKeyUp={handleKeyUp} onFocus={handleFocus}   required  />
                 <span className={`text-center text-red-500 ${error.condition ? 'block' : 'hidden'}`}>{error.message}</span>
-                <button type="submit" className='w-96 block bg-primaryLight rounded-md mb-5 mt-10 ml-10 h-7 font-bold text-white text-xl'>Submit</button>
+                <button type="submit" className='w-72 md:w-96 block bg-primaryLight rounded-md mb-5 mt-10 ml-10 h-7 font-bold text-white text-xl'>Submit</button>
                 </form>
                 </div>
             </div>

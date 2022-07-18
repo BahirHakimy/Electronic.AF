@@ -39,16 +39,16 @@ const Cart = () => {
 
   return (
     <div className="bg-background/25 ">
-        <div className="grid grid-cols-2 px-1 ">
+        <div className=" md:grid grid-cols-2 px-1 w-full mx-3 ">
           {/* form */}
-          <div className="col-span-1 pl-7 pt-20 ">
+          <div className="md:col-span-1 pl-3 md:pl-7 pt-20">
             <h1 className="font-bold text-2xl ">Contact Information</h1>
             <Formik 
             initialValues={initialValue}
             >
             <Form>
              {/* //? email */}
-              <div className=" w-96 pt-5 ">
+              <div className=" md:w-96 pt-5 ">
                 <label htmlFor="email" className="customizeLabel">Email Address</label>
                  <Field type="email" name="email" id="email" className="border-gray-400 rounded w-full focus:ring-primary focus:border-primary"/>
               </div>
@@ -71,7 +71,7 @@ const Cart = () => {
               </div>
 
               {/* address */}
-              <div className="w-96 pt-10">
+              <div className="md:w-96 pt-10">
               <label htmlFor="address">Address</label>
                 <Field type="text" name="address" id="address" className="border-gray-400 rounded w-full focus:ring-primary focus:border-primary"/>
               </div>
@@ -105,7 +105,7 @@ const Cart = () => {
 
               
               {/* phone */}
-              <div className="w-96 pt-10">
+              <div className="md:w-96 pt-10">
               <label htmlFor="phone">Address</label>
                 <Field type="text" name="phone" id="phone" className="border-gray-400 rounded w-full focus:ring-primary focus:border-primary"/>
               </div>
@@ -114,12 +114,12 @@ const Cart = () => {
                 <div className=" py-20 space-y-5">
                   <h1 className="font-bold text-xl ">Payment</h1>
 
-                  <div className="w-96 ">
+                  <div className="md:w-96 ">
                     <label htmlFor="cardnumber">Card Number</label>
                     <Field type="text" name="cardnumber" id="cardnumber" className="border-gray-400 rounded w-full focus:ring-primary focus:border-primary"/>
                   </div>
 
-                  <div className="w-96">
+                  <div className="md:w-96">
                   <label htmlFor="cardname">Name on card</label>
                     <Field type="text" name="cardname" id="cardname" className="border-gray-400 rounded w-full focus:ring-primary focus:border-primary"/>
                   </div>
@@ -130,7 +130,7 @@ const Cart = () => {
                     <Field type="month" name="expiration" id="cardnumber" className="border-gray-400 rounded w-full focus:ring-primary focus:border-primary "/>
                   </div>
 
-                    <div className="w-32">
+                    <div className="md:w-32">
                     <label htmlFor="phone">CVC</label>
                     <Field type="text" name="cardnumber" id="cardnumber" className="border-gray-400 rounded w-full focus:ring-primary focus:border-primary"/>
                     </div>             
@@ -143,7 +143,7 @@ const Cart = () => {
           </div>
 
           {/* order summary */}
-          <div className="col-span-1 pt-20 mx-10 ">
+          <div className="col-span-1 pt-20 mx-2 md:mx-10 ">
             <h1 className="font-semibold text-xl pb-5">Order Summary</h1>
               <div className="divide-y-2  space-y-4 border-2 border-gray-400 rounded-md p-4 shadow-md bg-white">
                 {/* cart Data */}

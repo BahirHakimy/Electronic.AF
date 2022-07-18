@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { BsCart3 } from 'react-icons/bs';
+import {VscThreeBars} from 'react-icons/vsc'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { axios, getTokens } from '../Api/client';
 import CardDetail from '../components/Table';
@@ -32,6 +33,7 @@ import MyDropdown from '../components/menudropdown';
         signIn: true,
         cart: false,
         logout: false,
+        bars: false
       });
 
       const navigate = useNavigate();
@@ -40,21 +42,45 @@ import MyDropdown from '../components/menudropdown';
         if (type === "svg") setVisiblity({ ...visibility, cart: !visibility.cart });
         if (authenticated &&  type === "cart") navigate("/cart", {state : { email : authenticated?.access}}) ;
         if(type === 'cart' && !authenticated) toast.error('Please Sign In');
+        if(type === 'bars') setVisiblity({...visibility, bars : !visibility.bars})
       }
 
   return (
-     
-      <div className="flex justify-between  py-5 px-10">
+      // ${visibility.bars ? 'blur-md' : 'blur-none'} //todo making the blur functionality 
+      <div className={`flex justify-between  py-5 px-10 `}>
         {/* logo and the links  */}
         <div className="flex space-x-16 font-bold ">
         <h1 className='text-2xl font-semibold '>
               <span className='font-serif text-3xl '>E</span>.AF</h1>
-          <MyDropdown/>
-          <h3 className={`text-lg ${location.pathname === '/about' ? 'underline' : 'no-underline'} underline-offset-8  text-primary`}><Link to={'/about'}><span className='text-black'>About Us</span></Link></h3>
+          <MyDropdown />
+          <h3 className={`hidden md:inline-block text-lg ${location.pathname === '/about' ? 'underline' : 'no-underline'} underline-offset-8  text-primary`}><Link to={'/about'}><span className='text-black'>About Us</span></Link></h3>
         </div>
 
-        {/* cart */}
-        <div className="flex space-x-16 pr-20">
+        {/* threebars in mobile phones  */}
+
+        <div className='block md:hidden relative'>
+          <VscThreeBars size={25} onClick={() => handleClick('bars')}/>
+          <div className={`absolute ${visibility.bars ? 'inline-block' : 'hidden'} bg-white shadow-md divide-y w-32 -right-1 mt-1 z-10 space-y-2 pl-2 pb-2 `}>
+              {/* list of links for the dashbar */}
+              <div>
+                <Link to={'/about'}>About Us</Link> 
+              </div>
+              <div>
+                  <Link to={'/products/category/HP'}>Companies</Link>               
+              </div>
+              <div>
+                  <span onClick={() => handleClick('cart')}>Cart</span>               
+              </div>
+              <div>
+                  <Link to={'/'}>
+                    <button className={`mx-3 border px-4 py-1 mt-1 ${visibility.logout ? ' bg-white text-secondary border-secondary' : 'bg-primary text-white'} rounded`}>{visibility.logout ? 'log out' : 'Sign in'}</button>  
+                  </Link>               
+              </div>
+          </div>
+        </div>
+
+        {/* cart in medium and large pages  */}
+        <div className=" hidden md:flex space-x-16 pr-20">
           {/* //*  sign in button */}
           <button
             className={`bg-primary  text-white font-semibold px-10 py-1 rounded-lg hover:text-black hover:font-bold ${
@@ -98,8 +124,8 @@ import MyDropdown from '../components/menudropdown';
 
             {/* cart card  */}
             <div
-              className={`mt-2 absolute shadow-md  top-8 -right-6
-                bg-gray-200 rounded-md z-10 h-64 w-66 divide-y-2 divide-white space-y-1 overflow-y-auto ${
+              className={`mt-2 absolute shadow-lg  top-8 -right-6
+                bg-white rounded-md z-10 h-64 w-66 divide-y-2 divide-secondary space-y-1 overflow-y-auto ${
                   visibility.cart ? "block" : "hidden"
                 }`}
             >

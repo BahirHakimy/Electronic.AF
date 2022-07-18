@@ -53,7 +53,7 @@ const CategoryDetails = () => {
     
   return (
     <div >
-        <div className='flex pt-5 '>
+        <div className='md:flex pt-5 '>
 
         {/* link tree */}
         <div className=' pl-5 '>
@@ -68,7 +68,7 @@ const CategoryDetails = () => {
 
         {/* links to categories  */}
 
-        <div className='pl-72 space-x-8'>
+        <div className='lg:pl-72 md:pl-20 pl-5 space-x-4 md:space-x-8 pt-5 md:pt-0 '>
             <NavLink to={'/products/category/HP'} className={({isActive}) => isActive ? 'underline underline-offset-4 decoration-primary decoration-2' : 'no-underline'} >HP</NavLink>
             <NavLink to={'/products/category/DELL'} className={({isActive}) => isActive ? 'underline underline-offset-4 decoration-primary decoration-2' : 'no-underline'}>Dell</NavLink>
             <NavLink to={'/products/category/apple'} className={({isActive}) => isActive ? 'underline underline-offset-4 decoration-primary decoration-2 ' : 'no-underline '}>Apple</NavLink>
@@ -80,25 +80,25 @@ const CategoryDetails = () => {
 
         </div>
     
-            <div className='grid grid-cols-3'>
+            <div className='md:grid grid-cols-3'>
         {/* sidebar for filtering according to price storage year of manufacturing  */}
-                <div className='col-span-1'>
-                        <div className=''>
-                            <h1 className='bg-primary text-white text-center rounded w-56 ml-4 mt-20'>Filter</h1>
-                            <div className='border-2 w-56 ml-4 divide-y-2 space-y-1 rounded'>
-                                 <div className='pl-2'>
-                                <input type="radio" name="filter" id="all" className=' text-primary focus:ring-0' value={'All'}  onChange={handleChange} />
+                <div className='col-span-1 '>
+                        <div className='w-56 ml-5 mt-5 md:mt-0 '>
+                            <h1 className='md:bg-primary md:text-white md:text-center md:rounded  md:ml-4 md:mt-20'>Filter:</h1>
+                            <div className='flex md:block  md:border-2  md:ml-4 md:divide-y-2 md:space-y-1 md:rounded space-x-2 md:space-x-0 pt-2 md:pt-0'>
+                                <div className='pl-1 md:pl-2 flex md:flex-none items-center'>
+                                <input type="radio" name="filter" id="all" className='text-primary focus:ring-0' value={'All'}  onChange={handleChange} />
                                 <label htmlFor="all" className='pl-2'>All</label>
                                 </div>
-                                <div className='pl-2'>
+                                <div className='pl-1 md:pl-2 flex md:flex-none items-center'>
                                 <input type="radio" name="filter" id="price" className=' text-primary focus:ring-0' value={'price'}  onChange={handleChange} />
                                 <label htmlFor="price" className='pl-2'>Price</label>
                                 </div>
-                                <div className='pl-2'>
+                                <div className='pl-1 md:pl-2 flex md:flex-none items-center'>
                                 <input type="radio" name="filter" id="storage" className='text-primary focus:ring-0' value={'storage'} onChange={handleChange}/>
                                 <label htmlFor="storage" className='pl-2'>Stroage</label>
                                 </div>
-                                <div className='pl-2 pb-1'>
+                                <div className='pl-1 md:pl-2 md:pb-1 flex md:flex-none items-center'>
                                 <input type="radio" name="filter" id="model" className='text-primary focus:ring-0' value={'model'} onChange={handleChange}/>
                                 <label htmlFor="model" className='pl-2'>Model</label>
                                 </div>
@@ -108,8 +108,8 @@ const CategoryDetails = () => {
                 </div>
 
         {/* showing the results  */}
-                <div className='col-span-2 mt-20'>
-                            {modifiedData?.length !== 0 ? modifiedData?.map(info => <Card key={info.id} info={info} authenticated={authenticated}/> ) : <h1 className='capitalize flex justify-start ml-24'>There are no products for this category <FaSadTear className=' text-gray-400 ml-3 mt-1.5'/>  </h1>}
+                <div className='col-span-2 mt-20 md:ml-24 mx-6 md:mx-0 '>
+                            {modifiedData?.length !== 0 ? modifiedData?.map(info => <Card key={info.id} info={info} authenticated={authenticated}/> ) : <h1 className='capitalize  md:flex md:justify-start md:ml-24 '>There are no products for this category <FaSadTear className=' text-gray-400 inline-block md:ml-3 md:mt-1.5'/>  </h1>}
                 </div>
 
             </div>

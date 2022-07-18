@@ -10,13 +10,13 @@
     @apply text-base text-gray-700 font-bold block;
   }
   .customizeCard{
-    @apply grid grid-cols-2 max-w-5xl mx-auto shadow-xl 
+    @apply grid md:grid-cols-2 max-w-5xl mx-auto shadow-xl 
   }
   .customField{
    @apply px-5 py-2
   }
   .customNumberInput{
-    @apply focus:border-primary focus:ring-primary
+    @apply focus:border-primary focus:ring-primary w-8 md:w-16
   }
 
   

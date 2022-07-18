@@ -115,7 +115,7 @@ const ProductDetails = () => {
         <span  className='px-2 '>/</span>
           <Link to={'category/hp'}>
             {/* //todo make this dynamic it should not be hp rather dynamic */}
-          <span className='font-semibold hover:text-gray-400'>HP</span>
+          <span className='font-semibold hover:text-gray-400'>{productData?.vendor}</span>
           </Link>
           <span className='px-2'>/</span>
             <Link to={'#'}>
@@ -126,14 +126,14 @@ const ProductDetails = () => {
         </div>
       
       {/* section */}
-      <div className='grid grid-cols-2 '>
+      <div className='md:grid grid-cols-2 '>
       {/* pictures  */}
-            <div className='col-span-1'>
+            <div className='col-span-1 '>
                   <Carousel images={productData?.images}/>
               </div> 
 
       {/* info about product  */}
-      <div className='col-span-1 divide-y-2 space-y-5 pt-5'>
+      <div className='col-span-1 divide-y-2 space-y-5 pt-5  '>
 
 
             <div>
@@ -143,7 +143,7 @@ const ProductDetails = () => {
               </h1>
           {/* review and price   */}
 
-          <div className='flex justify-between pr-7 pt-3'> 
+          <div className='flex justify-between pr-7 pt-3 '> 
               
               <StarRatingComponent
               name='rating'

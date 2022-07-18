@@ -51,14 +51,18 @@ function LogIn() {
   }
 
   return (
-    <div className="h-screen bg-background flex items-center">
-      <div className="customizeCard  ">
+    <div className="lg:h-screen bg-background flex items-center mx-3 ">
+      <div className="customizeCard  mt-3 md:mx-auto rounded ">
         {/* //*form  section */}
         <div className="pt-4 px-3 space-y-3 bg-white">
           {/* //*header  */}
           <div className="flex justify-between px-7">
-            <div className="font-bold text-primaryLight text-2xl">logo</div>
-            <div className="text-gray-500 font-bold text-xl  hover:text-gray-700">
+                 {/* //*  logo */}
+        <div>
+            <h1 className='text-2xl md:text-3xl font-semibold '>
+              <span className='font-serif text-3xl md:text-4xl '>E</span>.AF</h1>
+        </div>
+            <div className="text-black font-bold text-xl  hover:text-gray-400">
               <Link to={"/createAccount"}>Create Account</Link>
             </div>
           </div>
@@ -84,7 +88,7 @@ function LogIn() {
                 <label htmlFor="email" className="customizeLabel pl-1">
                   Email
                 </label>
-                <div className="flex relative">
+                <div className="flex justify-between relative">
                 <Field
                   name="email"
                   type="email"
@@ -92,7 +96,7 @@ function LogIn() {
                   className="customizeForm"
                   placeholder="you@mail.com"
                 />
-                <HiOutlineMail className="h-5 w-5 absolute left-96 ml-8 top-4"/>
+                <HiOutlineMail className="h-5 w-5 mt-4 absolute right-4"/>
                 </div>
                 <ErrorMessage
                   name="email"
@@ -109,7 +113,7 @@ function LogIn() {
                 <label htmlFor="password" className="customizeLabel pl-1">
                   Password
                 </label>
-                <div className="flex relative">
+                <div className="flex relative justify-between">
                 <Field
                   name="password"
                   type="password"
@@ -117,7 +121,7 @@ function LogIn() {
                   className="customizeForm "
                   placeholder="youPass"
                 /> 
-                  <RiLockPasswordLine className="h-5 w-5 absolute left-96 ml-8 top-4"/>
+                  <RiLockPasswordLine className="h-5 w-5 absolute  right-4 mt-4"/>
                 </div>
                 <ErrorMessage
                   name="password"
@@ -158,12 +162,12 @@ function LogIn() {
         </div>
 
         {/* //* illustraion part */}
-        <div className="bg-gradient-to-b from-primaryDark to-primaryLight relative">
+        <div className="hidden md:inline-block bg-gradient-to-b from-primaryDark to-primaryLight relative">
           <div className="h-full flex items-center bg-primary rounded-full scale-75 justify-center opacity-25"></div>
           <img
             src={sign}
             alt="illustration"
-            className="h-80 absolute scale-75 top-32 left-14"
+            className="h-80 absolute scale-75 top-32 left-10 lg:left-14"
           />
         </div>
       </div>

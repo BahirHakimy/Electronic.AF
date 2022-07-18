@@ -41,19 +41,24 @@ import { useAuth } from "../hooks/authContext";
 
   return (
     <div className="h-screen bg-background flex items-center">
-      <div className="customizeCard h-4/6">
+      <div className="customizeCard lg:h-5/6 mx-3 lg:mt-10 lg:mb-5 lg:mx-auto rounded-md">
         {/* //*form  section */}
-        <div className="pt-4 px-3 space-y-3 bg-white">
+        <div className="pt-4 px-3 space-y-3 bg-white pb-3">
           {/* //*header  */}
           <div className="flex justify-between px-7">
-            <div className="font-bold text-primaryLight text-2xl">logo</div>
+                 {/* //*  logo */}
+                 <div>
+            <h1 className='text-2xl md:text-4xl font-semibold '>
+              <span className='font-serif text-3xl md:text-5xl '>E</span>.AF</h1>
+           </div>
+
             <div className="text-gray-500 font-bold text-xl  hover:text-gray-700">
               <Link to={"/"}>Sign In</Link>
             </div>
           </div>
 
           {/* //* sign in  */}
-          <div className="py-6 pl-7 flex flex-wrap ">
+          <div className="md:pt-32 pl-7 flex flex-wrap ">
             <h1 className="font-bold text-2xl pb-2 pt-6">
               FORGOT YOUR PASSWORD?
             </h1>
@@ -113,7 +118,7 @@ import { useAuth } from "../hooks/authContext";
         </div>
 
         {/* //* illustraion part */}
-        <div className="bg-gradient-to-b from-primaryDark to-primaryLight relative">
+        <div className="hidden md:inline-block bg-gradient-to-b from-primaryDark to-primaryLight relative">
           <img
             src={forgotPassword}
             alt="illustration"

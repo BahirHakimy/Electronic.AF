@@ -10,7 +10,7 @@ const MyDropdown = () => {
     const handleClick = () => setOpen(!open)
     
   return (
-    <div onClick={handleClick} className='relative'>
+    <div onClick={handleClick} className='hidden  md:inline-block relative '>
         <h1  className='text-lg cursor-pointer'>Companies</h1>
 
         <div hidden={open} className='absolute bg-white shadow-lg w-40 rounded-md px-1 pt-1  '>
