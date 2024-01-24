@@ -29,6 +29,8 @@ import MyDropdown from '../components/menudropdown';
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authenticated]);
 
+  console.log(cartData);
+
     const [visibility, setVisiblity] = useState({
         signIn: true,
         cart: false,
@@ -134,7 +136,8 @@ import MyDropdown from '../components/menudropdown';
                   Please Sign In to Get Cart Info
                 </h2>
               ) : (
-                cartData?.map((data) => (
+                
+               cartData?.length &&  cartData?.map((data) => (
                   <CardDetail key={data.product.id} info={data} style={{height: "h-16" , width: "w-16", priceVisibility : true, hover: 'hover:bg-primary hover:text-white', deleteVisible : true}} />
                 ))
               )}

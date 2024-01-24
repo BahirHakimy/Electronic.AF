@@ -147,7 +147,7 @@ const Cart = () => {
             <h1 className="font-semibold text-xl pb-5">Order Summary</h1>
               <div className="divide-y-2  space-y-4 border-2 border-gray-400 rounded-md p-4 shadow-md bg-white">
                 {/* cart Data */}
-                {cartData?.map((data) => ((
+                {cartData?.length &&  cartData?.map((data) => ((
                   price += parseInt(data.product.price) * data.quantity,
                   <CardDetail key={data.product.id} info={data} style={{height: "h-24" , width: "w-24", padding : 'pl-7' , imageMargin : 'ml-3', priceVisibility : false, deleteVisbile : false}}/>
                )))}
