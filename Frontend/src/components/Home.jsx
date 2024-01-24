@@ -16,10 +16,10 @@ function Home() {
         </div>
 
         {/* //* links  */}
-          <div className='md:space-x-16 lg:space-x-20'>
-                <span className='font-bold text-xl hover:text-primary'><Link to={'/logIn'}>Sign In</Link></span>
-                <span className='hidden md:inline-block font-bold text-xl '><Link to={'/about'}>About Us</Link></span>
-                <button className='hidden md:inline-block font-bold text-xl bg-primaryLight rounded-lg px-12 py-1 text-center hover:bg-primary hover:text-white'><Link to={'/products'}>Browse</Link></button>
+          <div className=' lg:space-x-[1rem]'>
+                <span className=' text-xl hover:text-primary border border-black rounded-md px-4 py-1 '><Link to={'/logIn'}>Sign In</Link></span>
+                <span className='hidden md:inline-block  text-xl  '><Link to={'/about'}>About Us</Link></span>
+                {/* <button className='hidden md:inline-block font-bold text-xl bg-primaryLight rounded-lg px-12 py-1 text-center hover:bg-primary hover:text-white'><Link to={'/products'}>Browse</Link></button> */}
           </div>
       </div>
 
