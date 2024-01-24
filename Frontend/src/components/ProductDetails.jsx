@@ -8,6 +8,7 @@ import { useCookies } from "react-cookie";
 import Review from "./Review";
 import { useRef } from "react";
 import { toast } from "react-toastify";
+import ReactStars from "react-rating-stars-component";
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -149,12 +150,8 @@ const ProductDetails = () => {
             {/* review and price   */}
 
             <div className="flex justify-between pr-7 pt-3 ">
-              {/* <StarRatingComponent
-              name='rating'
-              editing={false}
-              //todo problem may be in the logic 
-              value={rating}
-              /> */}
+         
+              <ReactStars count={5} size={24} activeColor="#ffd700" />,
               {productData?.price}$
             </div>
 
@@ -223,6 +220,13 @@ const ProductDetails = () => {
               <div className="flex space-x-4">
                 <span className="">Rate this Product</span>
                 {/* <StarRatingComponent  name='ratingProduct' onStarClick={handleClick} value={postReview.postRating}/> */}
+                <ReactStars
+                
+                  count={5}
+                  onChange={handleClick}
+                  size={24}
+                  activeColor="#ffd700"
+                />
               </div>
 
               <form
