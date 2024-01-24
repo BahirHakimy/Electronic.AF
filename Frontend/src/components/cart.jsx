@@ -2,7 +2,7 @@ import {axios} from "../Api/client"
 import { Field, Form , Formik} from "formik"
 import { useEffect, useState } from "react"
 import {useLocation} from 'react-router-dom'
-import jwtDecode from 'jwt-decode'
+import {jwtDecode} from 'jwt-decode'
 import CardDetail from "./Table"
 const initialValue = {
   email: '',

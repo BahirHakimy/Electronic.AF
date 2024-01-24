@@ -5,7 +5,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import sign from "../illustrations/sign.svg";
 import * as Yup from "yup";
 import {setTokens } from "../Api/client";
-import jwtDecode from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 import {HiOutlineMail} from 'react-icons/hi'
 import {RiLockPasswordLine} from 'react-icons/ri'
 import { useCookies } from "react-cookie";

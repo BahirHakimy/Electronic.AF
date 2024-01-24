@@ -6,7 +6,7 @@ import { axios, getTokens } from '../Api/client';
 import CardDetail from '../components/Table';
 import {toast} from 'react-toastify'
 import { setTokens } from '../Api/client';
-import jwtDecode from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 import MyDropdown from '../components/menudropdown';
 
 

@@ -1,5 +1,5 @@
 import React from "react";
-import jwtDecode from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 import { axios } from "../Api/client";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
