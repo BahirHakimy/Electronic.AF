@@ -20,7 +20,7 @@ import MyDropdown from '../components/menudropdown';
     if (!authenticated) return;
     setVisiblity({ ...visibility, signIn: false, logout: true });
     axios
-      .post("http://127.0.0.1:8000/api/core/getCart/", {
+      .post(`${process.env.baseURL}core/getCart/`, {
         email: jwtDecode(authenticated.access).email,
       })
       .then(

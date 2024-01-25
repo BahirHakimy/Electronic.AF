@@ -6,7 +6,7 @@ const CardDetail = ({info, style}) => {
   return (
         <div className="flex justify-between pt-3 first:pt-1 ">
         <div className='flex grow'>
-      <img src={`http://127.0.0.1:8000${info.product?.images[0].thumbnail}`} alt="desktop" className={` ${style.height} ${style.width} rounded-md  ${style.imageMargin} `}/>
+      <img src={`${info.product?.images[0].thumbnail}`} alt="desktop" className={` ${style.height} ${style.width} rounded-md  ${style.imageMargin} `}/>
       <div className={`text-sm pt-1 pl-2 ${style.padding} ${style.hover} !grow `}>
       <h1 className="font-bold text-sm grow">{info.product.title}</h1>
       <p className="block">{info.product.memory} RAM</p>

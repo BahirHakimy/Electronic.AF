@@ -15,7 +15,7 @@ const Card = ({ info, authenticated }) => {
 
   const handleClick = () => {
     if(authenticated.access){
-    axios.post("http://127.0.0.1:8000/api/core/addToCart/",{
+    axios.post(`${process.env.baseURL}core/addToCart/`,{
       email: jwtDecode(authenticated.access).email,
       productId : info.id
     }).then(res => 
@@ -33,7 +33,7 @@ const Card = ({ info, authenticated }) => {
     <div className="bg-white w-64 rounded-md  shadow-md hover:scale-105 transition-transform grid  ">
    
      <img
-        src={`http://127.0.0.1:8000${info.images[0].image}`}
+        src={`${info.images[0].image}`}
         alt="Product"
         className="rounded-md w-full h-44 "
       />

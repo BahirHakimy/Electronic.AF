@@ -4,18 +4,18 @@ const TokenKey = "AUTH_TOKEN";
 
 function getTokens() {
   const tokens = JSON.parse(localStorage.getItem(TokenKey));
-  if (tokens && tokens?.access) return {access:tokens.access,refresh:tokens.refresh}
+  if (tokens && tokens?.access)
+    return { access: tokens.access, refresh: tokens.refresh };
   return null;
 }
 
 function setTokens(data) {
   localStorage.setItem(TokenKey, JSON.stringify(data));
 }
-
-axios.defaults.baseURL = 'http://127.0.0.1:8000/api/';
+axios.defaults.baseURL = process.env.baseURL;
 
 const axiosInstance = axios.create({
-  baseURL: 'http://127.0.0.1:8000/api/',
+  baseURL: process.env.baseURL,
   timeout: 60000,
   headers: {
     Authorization: "Bearer " + getTokens()?.access,

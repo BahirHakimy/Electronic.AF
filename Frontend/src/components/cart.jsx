@@ -26,7 +26,7 @@ const Cart = () => {
   
   useEffect(() => {
     axios
-    .post("http://127.0.0.1:8000/api/core/getCart/", {
+    .post(`${process.env.baseURL}core/getCart/`, {
       email: jwtDecode(state?.email).email,
     })
     .then(

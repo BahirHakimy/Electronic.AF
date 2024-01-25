@@ -34,7 +34,7 @@ import { setTokens } from "../Api/client";
       const onSubmit = values =>  { 
       try{
       axios
-        .post("http://127.0.0.1:8000/api/auth/register/", {
+        .post(`${process.env.baseURL}auth/register/`, {
             email : values.email,
             password: values.password,
             phone: values.phone,
@@ -43,7 +43,7 @@ import { setTokens } from "../Api/client";
           })
           .then((response) => {
               if (response.status === 201) {
-                axios.post('http://127.0.0.1:8000/api/auth/token/', {
+                axios.post(`${process.env.baseURL}auth/token/`, {
                   email : values.email,
                   password : values.password
                 }).then(res => {

@@ -56,7 +56,7 @@ function Send() {
 
             try{
               if(user.email){
-              axios.post("http://127.0.0.1:8000/api/auth/checkResetCode/",{
+              axios.post(`${process.env.baseURL}auth/checkResetCode/`,{
               email: user.email,
               resetCode: refInput.current.value.concat('', num)
            }).then(res => {

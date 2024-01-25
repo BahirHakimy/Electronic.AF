@@ -5,6 +5,8 @@ import surfing from '../illustrations/surfing.svg'
 
 function Home() {
 
+  console.log(process.env.baseURL);
+
   return (
     <div className='sm:overflow-x-hidden h-screen overflow-scrol'>
       {/* //* navbar */}

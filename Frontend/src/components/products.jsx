@@ -10,7 +10,7 @@ const Products = () => {
  
   useEffect(() => {
     baseAxios
-      .get("http://127.0.0.1:8000/api/core/getProducts/")
+      .get(`${process.env.baseURL}core/getProducts/`)
       .then((res) => setData(res.data));
   }, []);
 

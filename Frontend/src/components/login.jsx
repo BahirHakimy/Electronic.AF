@@ -30,7 +30,7 @@ function LogIn() {
   function onSubmit(values) {
     try {
       axios
-        .post("http://127.0.0.1:8000/api/auth/token/",{
+        .post(`${process.env.baseURL}auth/token/`,{
           email: values.email,
           password: values.password,
         })
