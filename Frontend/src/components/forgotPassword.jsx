@@ -19,7 +19,7 @@ import { useAuth } from "../hooks/authContext";
   function onSubmit(values) {
     try{
     axios
-      .post(`${process.env.baseURL}auth/sendResetCode/`, {
+      .post(`${process.env.REACT_APP_baseURL}auth/sendResetCode/`, {
         email: values.email,
       })
       .then((response) => {

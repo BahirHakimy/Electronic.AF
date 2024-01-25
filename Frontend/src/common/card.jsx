@@ -15,7 +15,7 @@ const Card = ({ info, authenticated }) => {
 
   const handleClick = () => {
     if(authenticated.access){
-    axios.post(`${process.env.baseURL}core/addToCart/`,{
+    axios.post(`${process.env.REACT_APP_baseURL}core/addToCart/`,{
       email: jwtDecode(authenticated.access).email,
       productId : info.id
     }).then(res => 

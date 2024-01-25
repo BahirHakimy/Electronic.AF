@@ -27,7 +27,7 @@ const ProductDetails = () => {
   // ? useEffect for product detail
   useEffect(() => {
     axios
-      .post(`${process.env.baseURL}core/getProduct/`, {
+      .post(`${process.env.REACT_APP_baseURL}core/getProduct/`, {
         id: productId,
       })
       .then((res) => setProductData(res.data))
@@ -42,7 +42,7 @@ const ProductDetails = () => {
   // ? useEffect for getReview All and gerReview Self
   useEffect(() => {
     axios
-      .post(`${process.env.baseURL}core/getProductReviews/`, {
+      .post(`${process.env.REACT_APP_baseURL}core/getProductReviews/`, {
         productId,
       })
       .then((res) => {
@@ -51,7 +51,7 @@ const ProductDetails = () => {
         //! is it necessary to have data from the user itself
         if (Array.isArray(res.data)) {
           axios
-            .post(`${process.env.baseURL}core/getRating/`, {
+            .post(`${process.env.REACT_APP_baseURL}core/getRating/`, {
               productId,
             })
             .then((res) => setRating(res.data.average_rating))
@@ -79,7 +79,7 @@ const ProductDetails = () => {
 
     if (param === "addToCart") {
       axios
-        .post(`${process.env.baseURL}core/addToCart/`, {
+        .post(`${process.env.REACT_APP_baseURL}core/addToCart/`, {
           email: cookie.email,
           productId,
         })
@@ -97,7 +97,7 @@ const ProductDetails = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`${process.env.baseURL}core/submitReview/`, {
+      .post(`${process.env.REACT_APP_baseURL}core/submitReview/`, {
         productId,
         email: cookie.email,
         rating: postReview.postRating,

@@ -34,7 +34,7 @@ import { setTokens } from "../Api/client";
       const onSubmit = values =>  { 
       try{
       axios
-        .post(`${process.env.baseURL}auth/register/`, {
+        .post(`${process.env.REACT_APP_baseURL}auth/register/`, {
             email : values.email,
             password: values.password,
             phone: values.phone,
@@ -43,7 +43,7 @@ import { setTokens } from "../Api/client";
           })
           .then((response) => {
               if (response.status === 201) {
-                axios.post(`${process.env.baseURL}auth/token/`, {
+                axios.post(`${process.env.REACT_APP_baseURL}auth/token/`, {
                   email : values.email,
                   password : values.password
                 }).then(res => {

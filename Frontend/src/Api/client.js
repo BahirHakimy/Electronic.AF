@@ -12,10 +12,10 @@ function getTokens() {
 function setTokens(data) {
   localStorage.setItem(TokenKey, JSON.stringify(data));
 }
-axios.defaults.baseURL = process.env.baseURL;
+axios.defaults.baseURL = process.env.REACT_APP_baseURL;
 
 const axiosInstance = axios.create({
-  baseURL: process.env.baseURL,
+  baseURL: process.env.REACT_APP_baseURL,
   timeout: 60000,
   headers: {
     Authorization: "Bearer " + getTokens()?.access,

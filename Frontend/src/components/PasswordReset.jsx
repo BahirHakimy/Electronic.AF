@@ -29,14 +29,14 @@ import { useAuth } from "../hooks/authContext";
       try{
           if(user.email !== '' ||  user.resetCode !== ''){
           axios
-        .post(`${process.env.baseURL}auth/passswordReset/`, {
+        .post(`${process.env.REACT_APP_baseURL}auth/passswordReset/`, {
           email : user.email,
           resetCode : user.resetCode,
           newPassword: values.resetPassword
         })
         .then((response) => {
                 if(response.status === 200){
-                  axios.post(`${process.env.baseURL}auth/token/`,{
+                  axios.post(`${process.env.REACT_APP_baseURL}auth/token/`,{
                     email: user.email,
                     password: values.newPassword
                   }).then(res => {

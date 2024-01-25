@@ -16,7 +16,7 @@ const CategoryDetails = () => {
 
     useEffect(() => {
       baseAxios
-        .get(`${process.env.baseURL}core/getProducts/`)
+        .get(`${process.env.REACT_APP_baseURL}core/getProducts/`)
         .then((res) => setData(res.data))
         .catch(e => {
             //todo error handling in here

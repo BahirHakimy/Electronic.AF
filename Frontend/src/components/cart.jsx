@@ -26,7 +26,7 @@ const Cart = () => {
   
   useEffect(() => {
     axios
-    .post(`${process.env.baseURL}core/getCart/`, {
+    .post(`${process.env.REACT_APP_baseURL}core/getCart/`, {
       email: jwtDecode(state?.email).email,
     })
     .then(

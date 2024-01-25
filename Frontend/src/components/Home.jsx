@@ -5,7 +5,7 @@ import surfing from '../illustrations/surfing.svg'
 
 function Home() {
 
-  console.log(process.env.baseURL);
+  console.log(process.env.REACT_APP_baseURL);
 
   return (
     <div className='sm:overflow-x-hidden h-screen overflow-scrol'>

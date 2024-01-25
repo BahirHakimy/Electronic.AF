@@ -30,7 +30,7 @@ function LogIn() {
   function onSubmit(values) {
     try {
       axios
-        .post(`${process.env.baseURL}auth/token/`,{
+        .post(`${process.env.REACT_APP_baseURL}auth/token/`,{
           email: values.email,
           password: values.password,
         })
