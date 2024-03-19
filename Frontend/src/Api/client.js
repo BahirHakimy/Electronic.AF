@@ -14,14 +14,25 @@ function setTokens(data) {
 }
 axios.defaults.baseURL = process.env.REACT_APP_baseURL;
 
+const getHeaders = () => {
+  const token = getTokens();
+  const res = token
+    ? {
+        Authorization: "Bearer " + token.access,
+        "Content-Type": "application/json",
+        accept: "application/json",
+      }
+    : {
+        "Content-Type": "application/json",
+        accept: "application/json",
+      };
+  return res;
+};
+
 const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_baseURL,
   timeout: 60000,
-  headers: {
-    Authorization: "Bearer " + getTokens()?.access,
-    "Content-Type": "application/json",
-    accept: "application/json",
-  },
+  headers: getHeaders(),
 });
 
 let retryCount = 0;
