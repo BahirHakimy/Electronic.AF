@@ -21,19 +21,6 @@ const Products = () => {
 
       {/* body  */}
 
-      {/* //* input */}
-      <div>
-        <form>
-          <div className="flex justify-end  items-center mr-24 mt-8 relative">
-            <BsSearch className="h-4 w-4 absolute right-60" />
-            <input
-              type="text"
-              className="pl-7 customizeForm w-64"
-              placeholder="Search for products"
-            />
-          </div>
-        </form>
-      </div>
       {/* card  */}
       <div className="pl-7 pt-8 md:pt-0 ">
         <h1 className="font-bold text-3xl pl-10 ">Top Deals</h1>

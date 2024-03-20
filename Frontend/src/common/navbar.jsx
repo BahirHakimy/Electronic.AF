@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BsCart3 } from "react-icons/bs";
+import { BsCart3, BsSearch } from "react-icons/bs";
 import { VscThreeBars } from "react-icons/vsc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { axios, getTokens } from "../Api/client";
@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import { setTokens } from "../Api/client";
 import { jwtDecode } from "jwt-decode";
 import MyDropdown from "../components/menudropdown";
+import { FaSearch } from "react-icons/fa";
+import { FaX } from "react-icons/fa6";
 
 const Navbar = () => {
   const [authenticated] = useState(getTokens());
@@ -30,6 +32,7 @@ const Navbar = () => {
     cart: false,
     logout: false,
     bars: false,
+    searchBar: false,
   });
 
   const navigate = useNavigate();
@@ -45,12 +48,12 @@ const Navbar = () => {
 
   return (
     // ${visibility.bars ? 'blur-md' : 'blur-none'} //todo making the blur functionality
-    <div className={`flex justify-between  py-5 px-10 `}>
+    <div
+      className={`flex justify-between items-center py-5 px-10 max-w-7xl mx-auto `}
+    >
       {/* logo and the links  */}
-      <div className="flex space-x-16 font-bold ">
-        <h1 className="text-2xl font-semibold ">
-          <span className="font-serif text-3xl ">E</span>.AF
-        </h1>
+      <div className="flex items-center space-x-16 font-bold ">
+        <img src="/logo1200.png" alt="" className="w-16 h-16" />
         <MyDropdown />
         <h3
           className={`hidden md:inline-block text-lg ${
@@ -62,9 +65,7 @@ const Navbar = () => {
           </Link>
         </h3>
       </div>
-
       {/* threebars in mobile phones  */}
-
       <div className="block md:hidden relative">
         <VscThreeBars size={25} onClick={() => handleClick("bars")} />
         <div
@@ -97,18 +98,45 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-
       {/* cart in medium and large pages  */}
-      <div className=" hidden md:flex space-x-16 pr-20">
+      <div className=" hidden md:flex items-center">
+        {visibility.searchBar ? (
+          <div className="flex items-center space-x-2 mr-8">
+            <form>
+              <div className="flex items-center relative">
+                <BsSearch className="h-4 w-4 absolute " />
+                <input
+                  type="text"
+                  className="pl-7 customizeForm w-64"
+                  placeholder="Search for products"
+                />
+              </div>
+            </form>
+            <FaX
+              size={24}
+              className="text-gray-400 hover:text-black cursor-pointer"
+              onClick={() =>
+                setVisiblity((prev) => ({ ...prev, searchBar: false }))
+              }
+            />
+          </div>
+        ) : (
+          <FaSearch
+            size={24}
+            onClick={() =>
+              setVisiblity((prev) => ({ ...prev, searchBar: true }))
+            }
+            className="mr-12 cursor-pointer"
+          />
+        )}
         {/* //*  sign in button */}
         <button
-          className={`bg-primary  text-white font-semibold px-10 py-1 rounded-lg hover:text-black hover:font-bold ${
+          className={`bg-primary mr-4  text-white font-semibold px-10 py-2 rounded-lg hover:text-black hover:font-bold ${
             visibility.signIn ? "block" : "hidden"
           }`}
         >
           <Link to={"/login"}>Sign In</Link>
         </button>
-
         {/* //* button for logout  */}
         <button
           onClick={() => {
@@ -121,7 +149,6 @@ const Navbar = () => {
         >
           Log Out
         </button>
-
         {/* //* cart Icon */}
         <div className="relative ">
           {/* //* svg */}
@@ -143,14 +170,16 @@ const Navbar = () => {
 
           {/* cart card  */}
           <div
-            className={`mt-2 absolute shadow-lg  top-8 -right-6
-                bg-white rounded-md z-10 h-64 w-66 divide-y-2 divide-secondary space-y-1 overflow-y-auto ${
-                  visibility.cart ? "block" : "hidden"
-                }`}
+            className={`mt-2 absolute shadow-lg   top-8 -right-6
+                bg-white rounded-md z-10 h-64 w-66 ${
+                  cartData?.length && "divide-y-2 overflow-y-auto"
+                }  divide-secondary space-y-1  ${
+              visibility.cart ? "block" : "hidden"
+            }`}
           >
             {authenticated?.access === undefined ? (
-              <h2 className="font-semibold capitalize text-center w-20 mx-auto self-center">
-                Please Sign In to Get Cart Info
+              <h2 className="flex items-center h-full  font-bold text-xl capitalize text-center ">
+                Please Sign In to Get Cart Information
               </h2>
             ) : (
               cartData?.length &&
@@ -170,12 +199,14 @@ const Navbar = () => {
             )}
             <div className="pt-2 space-x-4 px-4">
               {/* <button className="border border-secondary  rounded-md px-2 py-0.5 hover:bg-primaryLight hover:text-white hover:border-gray-100">Keep Shopping</button> */}
-              <button
-                onClick={() => handleClick("cart")}
-                className="w-full bg-primary text-white px-2 rounded py-0.5 hover:bg-white hover:text-primary hover:border-secondary hover:border hover:scale-105"
-              >
-                Go to Cart
-              </button>
+              {cartData?.length && (
+                <button
+                  onClick={() => handleClick("cart")}
+                  className="w-full bg-primary text-white px-2 rounded py-0.5 hover:bg-white hover:text-primary hover:border-secondary hover:border hover:scale-105"
+                >
+                  Go to Cart
+                </button>
+              )}
             </div>
           </div>
         </div>
