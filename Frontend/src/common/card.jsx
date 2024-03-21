@@ -1,62 +1,68 @@
 import React from "react";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { axios } from "../Api/client";
 import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
-
-
+import { FaShoppingCart } from "react-icons/fa";
+import { CiHeart, CiShoppingCart } from "react-icons/ci";
 
 const Card = ({ info, authenticated }) => {
-
-  const [buttonCartState,setButtonCartState] = useState(false);
+  const [buttonCartState, setButtonCartState] = useState(false);
 
   const handleClick = () => {
-    if(authenticated.access){
-    axios.post(`${process.env.REACT_APP_baseURL}core/addToCart/`,{
-      email: jwtDecode(authenticated.access).email,
-      productId : info.id
-    }).then(res => 
-      toast.success(res.data.detail),
-      setButtonCartState(true)
-      )
-    // todo make the success color primary 
-  }else{
-      toast.error('Please Sign In!')
-  }
- 
-};
+    if (authenticated) {
+      axios
+        .post(`${process.env.REACT_APP_baseURL}core/addToCart/`, {
+          email: jwtDecode(authenticated.access).email,
+          productId: info.id,
+        })
+        .then(
+          (res) => toast.success(res.data.detail),
+          setButtonCartState(true)
+        );
+      // todo make the success color primary
+    } else {
+      toast.error("Please Sign In!");
+    }
+  };
 
   return (
-    <div className="bg-white w-64 rounded-md  shadow-md hover:scale-105 transition-transform grid  ">
-   
-     <img
+    <div className="bg-white rounded-md grid    shadow-lg hover:scale-105 transition-transform ">
+      <img
         src={`${info.images[0].image}`}
         alt="Product"
-        className="rounded-md w-full h-44 "
+        className=" h-44 rounded object-cover"
       />
 
-      <div className="pt-3">
-        <h2 className="font-semibold text-lg pl-2">{info.title}</h2>
-        <p className="text-sm text-gray-600 pl-2">{info.description}</p>
+      <div className="pt-4 flex justify-between  ">
+        <section>
+          <h2 className="font-semibold text-lg pl-2">{info.title}</h2>
+          <p className="text-sm text-gray-600 pl-2 w-[35ch]">
+            {info.description}
+          </p>
+        </section>
+        <CiHeart size={24} />
       </div>
 
-      <div className="m-2 space-x-2">
-        <button className="bg-primary px-3 rounded-md hover:shadow-md text-white py-0.">
-          <Link to={`/products/${info.id}`} params={authenticated}   >
-           Learn more
+      <div className="flex items-center justify-between px-2 py-3  ">
+        <button className="bg-primary py-2 px-4  rounded  text-white">
+          <Link to={`/products/${info.id}`} params={authenticated}>
+            Learn more
           </Link>
         </button>
-       {/* //? to be changed with click and must show added to cart */}
-        <button
-          onClick={handleClick}
-          className=" rounded-md hover:shadow-md hover:text-black hover:font-semibold px-3"
-        >
-          {buttonCartState ? 'Added to Cart': 'Add to cart'}
-        </button>
-      
+
+        {buttonCartState ? (
+          <FaShoppingCart size={24} />
+        ) : (
+          <CiShoppingCart
+            className="cursor-pointer "
+            onClick={handleClick}
+            title="Add to cart"
+            size={32}
+          />
+        )}
       </div>
     </div>
   );

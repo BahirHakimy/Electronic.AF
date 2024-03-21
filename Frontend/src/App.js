@@ -34,6 +34,7 @@ function App() {
           <Route path='products/category/:vendor' element={<CategoryDetails/>} />
           <Route path='/about' element={<About/>}/>
           <Route path='/' element={<Home/>}/>
+          <Route path='/admin' element={<Home/>}/>
           </Routes>
           </AuthProvider>
           </CookiesProvider>

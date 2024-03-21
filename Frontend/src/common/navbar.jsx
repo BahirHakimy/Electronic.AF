@@ -48,9 +48,7 @@ const Navbar = () => {
 
   return (
     // ${visibility.bars ? 'blur-md' : 'blur-none'} //todo making the blur functionality
-    <div
-      className={`flex justify-between items-center py-5 px-10 max-w-7xl mx-auto `}
-    >
+    <div className={`flex justify-between items-center py-5 px-10 `}>
       {/* logo and the links  */}
       <div className="flex items-center space-x-16 font-bold ">
         <img src="/logo1200.png" alt="" className="w-16 h-16" />
