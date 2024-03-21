@@ -15,6 +15,7 @@ import ProductDetails from './components/ProductDetails';
 import { CookiesProvider } from 'react-cookie';
 import About from './components/about';
 import CategoryDetails from './components/categorydetails';
+import Dashboard from './components/dashboard';
 
 function App() {
   return (
@@ -34,7 +35,7 @@ function App() {
           <Route path='products/category/:vendor' element={<CategoryDetails/>} />
           <Route path='/about' element={<About/>}/>
           <Route path='/' element={<Home/>}/>
-          <Route path='/admin' element={<Home/>}/>
+          <Route path='/admin' element={<Dashboard/>}/>
           </Routes>
           </AuthProvider>
           </CookiesProvider>
