@@ -9,28 +9,33 @@
   .customizeLabel {
     @apply text-base text-gray-700 font-bold block;
   }
-  .customizeCard{
-    @apply grid md:grid-cols-2 max-w-5xl mx-auto shadow-xl 
+  .customizeCard {
+    @apply grid md:grid-cols-2 max-w-5xl mx-auto shadow-xl;
   }
-  .customField{
-   @apply px-5 py-2
+  .customField {
+    @apply px-5 py-2;
   }
-  .customNumberInput{
-    @apply focus:border-primary focus:ring-primary w-8 md:w-16
+  .customNumberInput {
+    @apply focus:border-primary focus:ring-primary w-8 md:w-16;
   }
-
-  
 }
 
-        /* //*for the arrows in the number input type */
-      input::-webkit-outer-spin-button,
-      input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
+/* //*for the arrows in the number input type */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
-                /* 2 group of 3 items */
-        input[type="number"]:nth-child(n+4) {
-          order: 2;
-        }
-        
+/* 2 group of 3 items */
+input[type="number"]:nth-child(n + 4) {
+  order: 2;
+}
+
+@layer base {
+  @font-face {
+    font-family: "Roboto Bold";
+    font-weight: 700;
+    src: url(./fonts/Roboto-Bold.ttf) format("truetype");
+  }
+}
