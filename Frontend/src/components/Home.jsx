@@ -35,23 +35,23 @@ function Home() {
         {/* colOne */}
         <div className="max-w-[75ch] lg:pt-20">
           {/* title  */}
-          <h1 className="text-[4rem] font-bold leading-none pb-2 ">
+          <h1 className="text-[4rem] font-bold font-robotoBold leading-none pb-2 ">
             Electronic
             <span className="bg-clip-text   bg-gradient-to-r from-secondary to-primaryLight text-transparent">
               .AF
             </span>
           </h1>
-          <h2 className="text-[2rem] leading-none font-bold text-gray-500 ">
+          <h2 className="text-[2rem] font-robotoBold leading-none font-bold text-gray-500 ">
             <span className=" "></span> Surf Through the Ocean Of Quality
           </h2>
-          <p className="text-gray-500 text-[1.5rem] pt-4 pb-10">
+          <p className="text-gray-500 text-[1.5rem] font-roboto pt-4 pb-10">
             Electronic.AF brings quality to the country by bringing the most
             reliable <strong className="text-black">Computer</strong> products
             from the most reliable sources.
           </p>
           {/* buttons */}
           <div className=" ">
-            <button className="bg-primaryLight text-[1.25rem] w-[200px] h-[64px] px-4 py-2 rounded-lg font-bold hover:bg-primaryDark hover:text-white">
+            <button className="bg-primaryLight font-robotoBold text-[1.25rem] w-[200px] h-[64px] px-4 py-2 rounded-lg font-bold hover:bg-primaryDark hover:text-white">
               <Link to={"/products"}>Browse</Link>
             </button>
           </div>
