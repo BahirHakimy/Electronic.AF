@@ -11,6 +11,7 @@ SECRET_KEY = "django-insecure-jfax3vm+*f7kbpxm!6#j8@&+k+%+ahrr6s=^v4!avk#s&b9^qy
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+CORS_ORIGIN_WHITELIST = "*"
 AUTH_USER_MODEL = "authentication.CustomUser"
 ROOT_URLCONF = "ElectronicAF_Api.urls"
 WSGI_APPLICATION = "ElectronicAF_Api.wsgi.application"
