@@ -10,6 +10,7 @@ import { jwtDecode } from "jwt-decode";
 import MyDropdown from "../components/menudropdown";
 import { FaSearch } from "react-icons/fa";
 import { FaX } from "react-icons/fa6";
+import { CiLogout } from "react-icons/ci";
 
 const Navbar = () => {
   const [authenticated] = useState(getTokens());
@@ -47,21 +48,23 @@ const Navbar = () => {
   };
 
   return (
-    // ${visibility.bars ? 'blur-md' : 'blur-none'} //todo making the blur functionality
-    <div className={`flex justify-between items-center py-5 px-10 `}>
-      {/* logo and the links  */}
-      <div className="flex items-center space-x-16 font-bold ">
+    <div
+      className={`flex justify-between items-center pt-12 px-12 lg:px-20 xl:px-24  `}
+    >
+      <div className="flex items-center gap-12 font-bold ">
         <img src="/logo1200.png" alt="" className="w-16 h-16" />
         <MyDropdown />
-        <h3
-          className={`hidden md:inline-block text-lg ${
-            location.pathname === "/about" ? "underline" : "no-underline"
-          } underline-offset-8  text-primary`}
+
+        <Link
+          className={`hidden md:inline-block text-xl ${
+            location.pathname === "/about"
+              ? "underline text-primary"
+              : "no-underline"
+          } underline-offset-8  `}
+          to={"/about"}
         >
-          <Link to={"/about"}>
-            <span className="text-black">About Us</span>
-          </Link>
-        </h3>
+          About Us
+        </Link>
       </div>
       {/* threebars in mobile phones  */}
       <div className="block md:hidden relative">
@@ -71,13 +74,13 @@ const Navbar = () => {
             visibility.bars ? "inline-block" : "hidden"
           } bg-white shadow-md divide-y w-32 -right-1 mt-1 z-10 space-y-2 pl-2 pb-2 `}
         >
-          {/* list of links for the dashbar */}
-          <div>
-            <Link to={"/about"}>About Us</Link>
-          </div>
-          <div>
-            <Link to={"/products/category/HP"}>Companies</Link>
-          </div>
+          <Link className="text-lg" to={"/about"}>
+            About Us
+          </Link>
+          <Link className="text-lg" to={"/products/category/HP"}>
+            Companies
+          </Link>
+
           <div>
             <span onClick={() => handleClick("cart")}>Cart</span>
           </div>
@@ -97,9 +100,9 @@ const Navbar = () => {
         </div>
       </div>
       {/* cart in medium and large pages  */}
-      <div className=" hidden md:flex items-center">
+      <div className=" hidden md:flex items-center gap-12">
         {visibility.searchBar ? (
-          <div className="flex items-center space-x-2 mr-8">
+          <div className="flex items-center gap-2 mr-8">
             <form>
               <div className="flex items-center relative">
                 <BsSearch className="h-4 w-4 absolute " />
@@ -120,37 +123,23 @@ const Navbar = () => {
           </div>
         ) : (
           <FaSearch
-            size={24}
+            size={32}
             onClick={() =>
               setVisiblity((prev) => ({ ...prev, searchBar: true }))
             }
-            className="mr-12 cursor-pointer"
+            className="cursor-pointer"
           />
         )}
-        {/* //*  sign in button */}
-        <button
-          className={`bg-primary mr-4  text-white font-semibold px-10 py-2 rounded-lg hover:text-black hover:font-bold ${
+        <Link
+          className={`bg-primary  text-white font-bold px-12 py-4 text-lg  rounded-full hover:text-black hover:font-bold ${
             visibility.signIn ? "block" : "hidden"
           }`}
+          to={"/login"}
         >
-          <Link to={"/login"}>Sign In</Link>
-        </button>
-        {/* //* button for logout  */}
-        <button
-          onClick={() => {
-            setTokens(null);
-            navigate("/");
-          }}
-          className={` border-primary border-2 font-semibold px-10 py-1 rounded-md hover:bg-primary hover:text-white ${
-            visibility.logout ? "block" : "hidden"
-          }`}
-        >
-          Log Out
-        </button>
-        {/* //* cart Icon */}
+          Sign In
+        </Link>
+
         <div className="relative ">
-          {/* //* svg */}
-          {/* //todo styling here in the cart on hover  */}
           <div className="relative">
             <BsCart3
               className="text-lg hover:scale-105"
@@ -195,8 +184,7 @@ const Navbar = () => {
                 />
               ))
             )}
-            <div className="pt-2 space-x-4 px-4">
-              {/* <button className="border border-secondary  rounded-md px-2 py-0.5 hover:bg-primaryLight hover:text-white hover:border-gray-100">Keep Shopping</button> */}
+            <div className="pt-2 gap-4 px-4">
               {cartData?.length && (
                 <button
                   onClick={() => handleClick("cart")}
@@ -207,6 +195,17 @@ const Navbar = () => {
               )}
             </div>
           </div>
+        </div>
+
+        <div>
+          <CiLogout
+            onClick={() => {
+              setTokens(null);
+              navigate("/");
+            }}
+            size={32}
+            className="cursor-pointer"
+          />
         </div>
       </div>
     </div>

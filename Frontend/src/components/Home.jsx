@@ -4,21 +4,10 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <div className="sm:overflow-x-hidden h-screen relative  ">
-      {/* //*svg */}
-      <div className="hidden lg:block  ">
-        <img
-          src="/cover.png"
-          alt="surfing"
-          className="w-full absolute top-[25%]"
-        />
-      </div>
       {/* //* navbar */}
-      <div className="flex justify-between items-center mx-6  md:mx-10 lg:mx-32 pt-12 ">
+      <div className="flex justify-between items-center mx-6 md:mx-10 lg:mx-32 pt-12">
         {/* //*  logo */}
-        <div>
-          <img src="/logo1200.png" alt="" className="h-20 w-20 object-cover" />
-        </div>
-
+        <img src="/logo1200.png" alt="" className="h-20 w-20 object-cover" />
         {/* //* links  */}
         <div className=" space-x-[1.5rem]">
           <span className="  text-xl hover:text-black hover:bg-primaryLight hover:border-0 hover:font-semibold border border-black rounded-md px-8 py-2 ">
@@ -31,8 +20,7 @@ function Home() {
       </div>
 
       {/* //* body   */}
-      <div className="grid ml-20 relative  sm:pt-24  z-20 ">
-        {/* colOne */}
+      <div className="flex justify-center h-3/4 items-center">
         <div className="max-w-[75ch] lg:pt-20">
           {/* title  */}
           <h1 className="text-[4rem] font-bold font-robotoBold leading-none pb-2 ">
@@ -55,6 +43,9 @@ function Home() {
               <Link to={"/products"}>Browse</Link>
             </button>
           </div>
+        </div>
+        <div className="hidden lg:block">
+          <img src="./devices.svg" alt="surfing" className="w-[800px] h-full" />
         </div>
       </div>
     </div>
