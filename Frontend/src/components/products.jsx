@@ -9,7 +9,7 @@ const Products = () => {
 
   useEffect(() => {
     baseAxios
-      .get("https://89.117.146.3/masoom/eaf/api/core/getProducts/")
+      .get("http://89.117.146.3/masoom/eaf/api/core/getProducts/")
       .then((res) => setProducts(res.data));
   }, []);
 
