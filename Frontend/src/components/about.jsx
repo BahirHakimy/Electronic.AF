@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import Navbar from "../common/navbar";
 import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 
 const About = () => {
@@ -36,44 +35,38 @@ const About = () => {
   }, [data]);
 
   return (
-    <div className="container">
-      {/* Navbar */}
-      <Navbar />
-
-      {/* title and some texts for the webiste like surf through the ocean of quality  */}
-
-      <div className="flex justify-center pt-10 flex-wrap ">
-        <div>
-          <h1 className="text-lg">
-            <span className="font-bold text-2xl bg-gradient-to-r from-secondary to-primary text-transparent bg-clip-text">
-              Electronic.AF
-            </span>{" "}
-            is changing the <span className="font-semibold">E-commerce</span>{" "}
-            game
-          </h1>
-          <button className="bg-primaryDark text-white rounded-lg w-64 px-5 py-1 mt-4 mx-20 hover:bg-white hover:border hover:text-black hover:border-primary">
-            <Link to={"/"}>Get Started</Link>
-          </button>
-        </div>
+    <div>
+      <div className="flex flex-col justify-center items-center pt-20 flex-wrap gap-4 mx-4">
+        <h1 className="text-lg px-4 text-center">
+          <span className="font-bold text-2xl bg-gradient-to-r from-secondary to-primary text-transparent bg-clip-text">
+            Electronic.AF
+          </span>{" "}
+          is changing the <span className="font-semibold">E-commerce</span>{" "}
+          game!
+        </h1>
+        <Link
+          to={"/products"}
+          className="bg-primary font-bold  text-center w-full sm:w-fit text-lg px-8 py-4 rounded-full"
+        >
+          Get Started
+        </Link>
       </div>
 
-      {/* github profile of two of us  */}
-
-      <div className=" py-20">
-        <div className=" pl-10 flex ">
+      <div className=" py-20 ">
+        <div className="  flex flex-col lg:flex-row justify-center gap-4 items-center ">
           <img
             src={data.BahirPic}
             alt="Bahir Hakimi"
             className="rounded-full w-40 "
           />
-          <div className="pl-4 self-center">
+          <div className="pl-4">
             <h1 className="font-semibold ">{data.BahirName}</h1>
             <p>{data.BahirBio}</p>
           </div>
         </div>
 
-        <div className="flex justify-end pr-20">
-          <div className="self-center pr-4">
+        <div className="flex flex-col lg:flex-row  items-center justify-center lg:justify-end lg:pr-20 gap-4">
+          <div className=" order-2 lg:order-none">
             <h1 className="font-semibold">{data.MehdiName}</h1>
             <p>{data.MehdiBio}</p>
           </div>

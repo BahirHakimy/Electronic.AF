@@ -20,12 +20,8 @@ const Card = ({ info, authenticated }) => {
   };
 
   return (
-    <div className="bg-white rounded-md max-w-80 shadow-lg hover:scale-105  cursor-pointer  transition-transform">
-      <Link
-        className="grid h-full"
-        to={`/products/${info.id}`}
-        params={authenticated}
-      >
+    <div className="bg-white rounded-md max-w-80 shadow-lg  cursor-pointer  ">
+      <Link className="" to={`/products/${info.id}`} params={authenticated}>
         <div className="aspect-square ">
           <img
             src={`http://127.0.0.1:8000${info.images[0].image}`}
@@ -33,22 +29,19 @@ const Card = ({ info, authenticated }) => {
             className="object-cover h-full w-full  rounded-md"
           />
         </div>
-        <div className="grid grid-rows-2 gap-4 px-2 py-4">
-          <div>
-            <h2 className="font-semibold text-lg pl-2">{info.title}</h2>
-            <p className="text-sm text-gray-600 pl-2 w-[35ch]">
+        <div className=" px-4 pt-8 pb-4 space-y-8">
+          <div className="space-y-2">
+            <h2 className="font-bold text-3xl ">{info.title}</h2>
+            <p className=" text-gray-600 text-lg truncate ">
               {info.description}
             </p>
           </div>
-
-          <div className="flex items-center justify-between px-2 py-3 grow  ">
-            <button
-              onClick={handleClick}
-              className="bg-primary py-2 px-4 rounded-full  text-white"
-            >
-              Add to Cart +
-            </button>
-          </div>
+          <button
+            onClick={handleClick}
+            className="bg-primary w-full py-4 px-8 rounded-full  text-white font-bold text-lg  hover:scale-105 transition-transform"
+          >
+            Learn More
+          </button>
         </div>
       </Link>
     </div>

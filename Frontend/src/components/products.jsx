@@ -15,10 +15,9 @@ const Products = () => {
 
   return (
     <div>
-      <Navbar />
-      <div className="pt-24 px-24 ">
+      <div className="pt-24 sm:px-24 px-4 ">
         <h1 className="font-bold text-[2.5rem]">Top Deals</h1>
-        <div className="flex  gap-8 pt-8">
+        <div className="flex flex-col lg:flex-row  gap-8 pt-8">
           {products ? (
             products.map((info) => (
               <Card key={info.id} authenticated={authenticated} info={info} />

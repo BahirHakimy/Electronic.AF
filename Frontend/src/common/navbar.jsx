@@ -49,7 +49,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`flex justify-between items-center pt-12 px-12 lg:px-20 xl:px-24  `}
+      className={`flex justify-between items-center pt-12 px-4 md:px-12 lg:px-20 xl:px-24  `}
     >
       <div className="flex items-center gap-12 font-bold ">
         <img src="/logo1200.png" alt="" className="w-16 h-16" />
@@ -68,7 +68,7 @@ const Navbar = () => {
       </div>
       {/* threebars in mobile phones  */}
       <div className="block md:hidden relative">
-        <VscThreeBars size={25} onClick={() => handleClick("bars")} />
+        <VscThreeBars size={48} onClick={() => handleClick("bars")} />
         <div
           className={`absolute ${
             visibility.bars ? "inline-block" : "hidden"
@@ -78,7 +78,7 @@ const Navbar = () => {
             About Us
           </Link>
           <Link className="text-lg" to={"/products/category/HP"}>
-            Companies
+            Categories
           </Link>
 
           <div>
@@ -131,7 +131,7 @@ const Navbar = () => {
           />
         )}
         <Link
-          className={`bg-primary  text-white font-bold px-12 py-4 text-lg  rounded-full hover:text-black hover:font-bold ${
+          className={`bg-primary font-bold px-12 py-4 text-lg  rounded-full hover:text-black hover:font-bold ${
             visibility.signIn ? "block" : "hidden"
           }`}
           to={"/login"}

@@ -9,6 +9,7 @@ import {
   SiLenovo,
   SiMitsubishi,
 } from "react-icons/si";
+import { BsChevronDown } from "react-icons/bs";
 
 const MyDropdown = () => {
   const [open, setOpen] = useState(true);
@@ -17,50 +18,44 @@ const MyDropdown = () => {
 
   return (
     <div onClick={handleClick} className="hidden  md:inline-block relative ">
-      <h1 className="text-xl cursor-pointer">Companies</h1>
-
+      <div className="flex items-center gap-2">
+        <h1 className="text-xl cursor-pointer">Categories</h1>
+        <BsChevronDown size={24} />
+      </div>
       <div
         hidden={open}
-        className="absolute bg-white shadow-lg w-40 rounded-md px-1 pt-1  "
+        className="absolute bg-white shadow-xl w-48 rounded-md border-2  py-2"
       >
+        <Link to={"category/APPLE"}>
+          <div className="flex  items-center gap-4 hover:bg-primary hover:text-white py-3 rounded-md pl-2 ">
+            <SiApple size={24} />
+            <span>Apple</span>
+          </div>
+        </Link>
         <Link to={"category/HP"}>
-          <div className="flex space-x-4 pl-2 hover:bg-primary hover:text-white rounded pb-1  ">
-            <SiHp className="self-center" />
-            <span>HP</span>
+          <div className="flex  items-center gap-4 hover:bg-primary hover:text-white py-3 rounded-md pl-2 ">
+            <SiHp size={24} />
+            <span className="text-xl">HP</span>
           </div>
         </Link>
 
         <Link to={"category/DELL"}>
-          <div className="flex space-x-4 pl-2 hover:bg-primary hover:text-white rounded pb-1  ">
-            <SiDell className="self-center" />
+          <div className="flex  items-center gap-4 hover:bg-primary hover:text-white py-3 rounded-md pl-2  ">
+            <SiDell size={24} />
             <span>Dell</span>
           </div>
         </Link>
 
         <Link to={"category/LENOVO"}>
-          <div className="flex space-x-4 pl-2 hover:bg-primary hover:text-white rounded pb-1  ">
-            <SiLenovo className="self-center" />
+          <div className="flex  items-center gap-4 hover:bg-primary hover:text-white py-3 rounded-md pl-2 ">
+            <SiLenovo size={24} />
             <span>Lenovo</span>
           </div>
         </Link>
 
-        <Link to={"category/APPLE"}>
-          <div className="flex space-x-4 pl-2 hover:bg-primary hover:text-white rounded pb-1  ">
-            <SiApple className="self-center" />
-            <span>Apple</span>
-          </div>
-        </Link>
-
-        <Link to={"category/MSI"}>
-          <div className="flex space-x-4 pl-2 hover:bg-primary hover:text-white  pb-1  ">
-            <SiMitsubishi className="self-center" />
-            <span>Msi</span>
-          </div>
-        </Link>
-
         <Link to={"category/ASUS"}>
-          <div className="flex space-x-4 pl-2 hover:bg-primary hover:text-white pb-1    ">
-            <SiAsus className="self-center" />
+          <div className="flex  items-center gap-4 hover:bg-primary hover:text-white py-3 rounded-md pl-2">
+            <SiAsus size={24} />
             <span>Asus</span>
           </div>
         </Link>
