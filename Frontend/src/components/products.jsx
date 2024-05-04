@@ -15,13 +15,10 @@ const Products = () => {
 
   return (
     <div>
-      {/* navbar  */}
       <Navbar />
-
-      {/* card  */}
-      <div className="pt-8  px-10 ">
+      <div className="pt-24 px-24 ">
         <h1 className="font-bold text-[2.5rem]">Top Deals</h1>
-        <div className="grid justify-center md:justify-start md:flex  space-y-3 md:space-y-0 gap-6 mt-2">
+        <div className="flex  gap-8 pt-8">
           {products ? (
             products.map((info) => (
               <Card key={info.id} authenticated={authenticated} info={info} />
@@ -45,8 +42,6 @@ const Products = () => {
           )}
         </div>
       </div>
-
-      {/* footer */}
     </div>
   );
 };

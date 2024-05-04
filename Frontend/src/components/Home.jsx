@@ -10,7 +10,7 @@ function Home() {
         <img src="/logo1200.png" alt="" className="h-20 w-20 object-cover" />
         {/* //* links  */}
         <div className=" space-x-[1.5rem]">
-          <span className="  text-xl hover:text-black hover:bg-primaryLight hover:border-0 hover:font-semibold border border-black rounded-md px-8 py-2 ">
+          <span className="text-xl hover:text-black hover:bg-primaryLight hover:border-0 hover:font-semibold border border-black rounded-md px-8 py-2 ">
             <Link to={"/logIn"}>Sign In</Link>
           </span>
           <span className="hidden md:inline-block text-xl">

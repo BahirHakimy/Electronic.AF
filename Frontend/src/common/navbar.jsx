@@ -197,16 +197,18 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div>
-          <CiLogout
-            onClick={() => {
-              setTokens(null);
-              navigate("/");
-            }}
-            size={32}
-            className="cursor-pointer"
-          />
-        </div>
+        {authenticated?.access && (
+          <div>
+            <CiLogout
+              onClick={() => {
+                setTokens(null);
+                navigate("/");
+              }}
+              size={32}
+              className="cursor-pointer"
+            />
+          </div>
+        )}
       </div>
     </div>
   );
