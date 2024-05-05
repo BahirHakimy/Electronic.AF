@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 
+//todo add to cart directly from the cards right now i did not know how to put the content properly
+
 const Card = ({ info, authenticated }) => {
   const handleClick = () => {
     if (authenticated) {
@@ -36,10 +38,7 @@ const Card = ({ info, authenticated }) => {
               {info.description}
             </p>
           </div>
-          <button
-            onClick={handleClick}
-            className="bg-primary w-full py-4 px-8 rounded-full font-bold text-lg  hover:scale-105 transition-transform"
-          >
+          <button className="bg-primary w-full py-4 px-8 rounded-full font-bold text-lg  hover:scale-105 transition-transform">
             Learn More
           </button>
         </div>
