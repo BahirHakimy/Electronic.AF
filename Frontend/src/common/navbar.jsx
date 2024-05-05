@@ -49,14 +49,14 @@ const Navbar = () => {
 
   return (
     <div
-      className={`flex justify-between items-center pt-12 px-4 md:px-12 lg:px-20 xl:px-24  `}
+      className={`flex justify-between items-center mt-10 px-4 md:px-12 lg:px-20 xl:px-24  `}
     >
       <div className="flex items-center gap-12 font-bold ">
         <img src="/logo1200.png" alt="" className="w-16 h-16" />
         <MyDropdown />
 
         <Link
-          className={`hidden md:inline-block text-xl ${
+          className={`hidden lg:inline-block text-xl ${
             location.pathname === "/about"
               ? "underline text-primary"
               : "no-underline"
@@ -67,7 +67,7 @@ const Navbar = () => {
         </Link>
       </div>
       {/* threebars in mobile phones  */}
-      <div className="block md:hidden relative">
+      <div className="block lg:hidden relative">
         <VscThreeBars size={48} onClick={() => handleClick("bars")} />
         <div
           className={`absolute ${
@@ -100,7 +100,7 @@ const Navbar = () => {
         </div>
       </div>
       {/* cart in medium and large pages  */}
-      <div className=" hidden md:flex items-center gap-12">
+      <div className=" hidden lg:flex items-center gap-12">
         {visibility.searchBar ? (
           <div className="flex items-center gap-2 mr-8">
             <form>

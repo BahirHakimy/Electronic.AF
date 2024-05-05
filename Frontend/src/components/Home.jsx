@@ -1,47 +1,34 @@
 import React from "react";
+import { BiChevronRight } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
 function Home() {
   return (
-    <div className="sm:overflow-x-hidden h-screen relative  ">
-      {/* //* navbar */}
-      <div className="flex justify-between items-center mx-6 md:mx-10 lg:mx-32 pt-12">
-        {/* //*  logo */}
-        <img src="/logo1200.png" alt="" className="h-20 w-20 object-cover" />
-        {/* //* links  */}
-        <div className=" space-x-[1.5rem]">
-          <span className="text-xl hover:text-black hover:bg-primaryLight hover:border-0 hover:font-semibold border border-black rounded-md px-8 py-2 ">
-            <Link to={"/logIn"}>Sign In</Link>
-          </span>
-          <span className="hidden md:inline-block text-xl">
-            <Link to={"/about"}>About Us</Link>
-          </span>
-        </div>
-      </div>
-
-      {/* //* body   */}
-      <div className="flex justify-center h-3/4 items-center">
-        <div className="max-w-[75ch] lg:pt-20">
-          {/* title  */}
-          <h1 className="text-[4rem] font-bold font-robotoBold leading-none pb-2 ">
+    <div className="sm:overflow-x-hidden h-screen relative px-4 lg:px-20">
+      <div className="flex justify-center h-[80%] items-center">
+        <div className="lg:max-w-[75ch] lg:pt-20 pt-10">
+          <h1 className="text-[3rem] lg:text-[4rem] font-bold font-robotoBold leading-none  ">
             Electronic
-            <span className="bg-clip-text   bg-gradient-to-r from-secondary to-primaryLight text-transparent">
+            <span className="bg-clip-text bg-gradient-to-r from-secondary to-primaryLight text-transparent">
               .AF
             </span>
           </h1>
-          <h2 className="text-[2rem] font-robotoBold leading-none font-bold text-gray-500 ">
-            <span className=" "></span> Surf Through the Ocean Of Quality
-          </h2>
-          <p className="text-gray-500 text-[1.5rem] font-roboto pt-4 pb-10">
+          <p className="text-[1.5rem] lg:text-[2rem] font-robotoBold leading-none mt-4 font-bold text-gray-500 ">
+            Surf Through the Ocean Of Quality
+          </p>
+          <p className="text-gray-500 text-[1.5rem] font-roboto mt-8  md:max-w-prose  lg:max-w-[55ch] xl:max-w-none">
             Electronic.AF brings quality to the country by bringing the most
             reliable <strong className="text-black">Computer</strong> products
             from the most reliable sources.
           </p>
-          {/* buttons */}
-          <div className=" ">
-            <button className="bg-primaryLight font-robotoBold text-[1.25rem] w-[200px] h-[64px] px-4 py-2 rounded-lg font-bold hover:bg-primaryDark hover:text-white">
-              <Link to={"/products"}>Browse</Link>
-            </button>
+          <div>
+            <Link
+              className="flex w-fit mt-12   items-center font-robotoBold text-lg border border-gray-950 hover:bg-primary hover:border-primary   px-12 py-4 rounded-full font-bold "
+              to={"/products"}
+            >
+              <p>Browse</p>
+              <BiChevronRight size={32} />
+            </Link>
           </div>
         </div>
         <div className="hidden lg:block">

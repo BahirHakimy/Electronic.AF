@@ -1,14 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  SiApple,
-  SiAsus,
-  SiDell,
-  SiHp,
-  SiLenovo,
-  SiMitsubishi,
-} from "react-icons/si";
+import { SiApple, SiAsus, SiDell, SiHp, SiLenovo } from "react-icons/si";
 import { BsChevronDown } from "react-icons/bs";
 
 const MyDropdown = () => {
@@ -17,7 +10,7 @@ const MyDropdown = () => {
   const handleClick = () => setOpen(!open);
 
   return (
-    <div onClick={handleClick} className="hidden  md:inline-block relative ">
+    <div onClick={handleClick} className="hidden  lg:inline-block relative ">
       <div className="flex items-center gap-2">
         <h1 className="text-xl cursor-pointer">Categories</h1>
         <BsChevronDown size={24} />

@@ -20,7 +20,7 @@ const Card = ({ info, authenticated }) => {
   };
 
   return (
-    <div className="bg-white rounded-md max-w-80 shadow-lg  cursor-pointer  ">
+    <div className="bg-white rounded-md lg:max-w-96 shadow-lg  cursor-pointer  ">
       <Link className="" to={`/products/${info.id}`} params={authenticated}>
         <div className="aspect-square ">
           <img
@@ -38,7 +38,7 @@ const Card = ({ info, authenticated }) => {
           </div>
           <button
             onClick={handleClick}
-            className="bg-primary w-full py-4 px-8 rounded-full  text-white font-bold text-lg  hover:scale-105 transition-transform"
+            className="bg-primary w-full py-4 px-8 rounded-full font-bold text-lg  hover:scale-105 transition-transform"
           >
             Learn More
           </button>
