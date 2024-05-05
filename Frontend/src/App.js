@@ -1,7 +1,7 @@
 import LogIn from "./components/login";
 import CreateAccount from "./components/createAccount";
 import ForgotPassword from "./components/forgotPassword";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./components/Home";
 import PasswordReset from "./components/PasswordReset";
 import NotFound from "./components/404";
@@ -18,9 +18,18 @@ import Dashboard from "./components/dashboard";
 import Navbar from "./common/navbar";
 
 function App() {
+  const { pathname } = useLocation();
+  const urlsToExclude = [
+    "/login",
+    "/createAccount",
+    "/sendResetCode",
+    "/PasswordReset",
+    "/forgotPassword",
+  ];
+  const shouldRender = !urlsToExclude.includes(pathname);
   return (
-    <div className="">
-      <Navbar />
+    <div>
+      {shouldRender && <Navbar />}
       <CookiesProvider>
         <AuthProvider>
           <Routes>

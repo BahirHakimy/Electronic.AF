@@ -4,10 +4,10 @@ import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import sign from "../illustrations/sign.svg";
 import * as Yup from "yup";
-import {setTokens } from "../Api/client";
-import {jwtDecode} from "jwt-decode";
-import {HiOutlineMail} from 'react-icons/hi'
-import {RiLockPasswordLine} from 'react-icons/ri'
+import { setTokens } from "../Api/client";
+import { jwtDecode } from "jwt-decode";
+import { HiOutlineMail } from "react-icons/hi";
+import { RiLockPasswordLine } from "react-icons/ri";
 import { useCookies } from "react-cookie";
 
 const initialValue = {
@@ -21,16 +21,14 @@ const validationSchema = Yup.object().shape({
 });
 
 function LogIn() {
-  const [error, setError] = useState({ condition: false, message: ""});
-  const [cookie,setCookie] = useCookies(['email'])
+  const [error, setError] = useState({ condition: false, message: "" });
+  const [cookie, setCookie] = useCookies(["email"]);
   const navigate = useNavigate();
- 
-  
-  
+
   function onSubmit(values) {
     try {
       axios
-        .post(`${process.env.REACT_APP_baseURL}auth/token/`,{
+        .post(`${process.env.REACT_APP_baseURL}auth/token/`, {
           email: values.email,
           password: values.password,
         })
@@ -38,7 +36,7 @@ function LogIn() {
           if (response.status === 200) {
             setTokens(response.data);
             jwtDecode(response.data.access);
-            setCookie('email', values.email, {path : '/'})
+            setCookie("email", values.email, { path: "/" });
             navigate("/products", { replace: true });
           }
         })
@@ -51,23 +49,17 @@ function LogIn() {
   }
 
   return (
-    <div className="lg:h-screen bg-background flex items-center mx-3 ">
+    <div className="lg:h-screen  flex items-center mx-3 ">
       <div className="customizeCard  mt-3 md:mx-auto rounded ">
-        {/* //*form  section */}
         <div className="pt-4 px-3 space-y-3 bg-white">
-          {/* //*header  */}
           <div className="flex justify-between px-7">
-                 {/* //*  logo */}
-        <div>
-            <h1 className='text-2xl md:text-3xl font-semibold '>
-              <span className='font-serif text-3xl md:text-4xl '>E</span>.AF</h1>
-        </div>
+            <div className="hidden lg:flex  items-center gap-12 font-bold ">
+              <img src="/logo1200.png" alt="" className="w-16 h-16" />
+            </div>
             <div className="text-black font-bold text-xl  hover:text-gray-400">
               <Link to={"/createAccount"}>Create Account</Link>
             </div>
           </div>
-
-          {/* //* sign in  */}
           <div className="py-6 pl-7  ">
             <h1 className="font-bold text-2xl pb-2 pt-6">SIGN IN</h1>
             <span className="text-gray-400 text-lg font-mono">
@@ -89,14 +81,14 @@ function LogIn() {
                   Email
                 </label>
                 <div className="flex justify-between relative">
-                <Field
-                  name="email"
-                  type="email"
-                  id="email"
-                  className="customizeForm"
-                  placeholder="you@mail.com"
-                />
-                <HiOutlineMail className="h-5 w-5 mt-4 absolute right-4"/>
+                  <Field
+                    name="email"
+                    type="email"
+                    id="email"
+                    className="customizeForm"
+                    placeholder="you@mail.com"
+                  />
+                  <HiOutlineMail className="h-5 w-5 mt-4 absolute right-4" />
                 </div>
                 <ErrorMessage
                   name="email"
@@ -114,14 +106,14 @@ function LogIn() {
                   Password
                 </label>
                 <div className="flex relative justify-between">
-                <Field
-                  name="password"
-                  type="password"
-                  id="password"
-                  className="customizeForm "
-                  placeholder="youPass"
-                /> 
-                  <RiLockPasswordLine className="h-5 w-5 absolute  right-4 mt-4"/>
+                  <Field
+                    name="password"
+                    type="password"
+                    id="password"
+                    className="customizeForm "
+                    placeholder="youPass"
+                  />
+                  <RiLockPasswordLine className="h-5 w-5 absolute  right-4 mt-4" />
                 </div>
                 <ErrorMessage
                   name="password"

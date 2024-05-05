@@ -85,11 +85,9 @@ function Send() {
   };
 
   const splitNumber = (e) => {
-    // console.log(e.target);
     let data = e.data || e.target.value; // Chrome doesn't get the e.data, it's always empty, fallback to value then.
     if (!data) return; // Shouldn't happen, just in case.
     if (data.length === 1) return; // Here is a normal behavior, not a paste action.
-
     popuNext(e.target, data);
   };
 
@@ -108,7 +106,6 @@ function Send() {
   return (
     <div className="bg-background h-screen flex justify-center items-center">
       <div className="bg-white md:grid grid-cols-1 items-center h-96 py-24 md:py-0 md:px-24 shadow-md overflow-aut  ">
-        {/* //* header section */}
         <div className="capitalize mx-3 md:mx-auto max-w-prose">
           <h1 className="font-bold text-lg md:text-3xl  ">
             Enter the 6 digit number you recieved in your Email
