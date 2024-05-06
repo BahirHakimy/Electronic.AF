@@ -3,7 +3,7 @@ const Carousel = ({ images }) => {
     return (
       <div className="pt-5 ml-5 md:ml-0">
         <img
-          src={` http://127.0.0.1:8000${images[0]?.image}`}
+          src={`${images[0]?.image}`}
           alt="surfing"
           className="w-56 md:w-10/12  rounded-md"
         />
