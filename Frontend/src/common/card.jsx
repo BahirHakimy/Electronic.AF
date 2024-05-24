@@ -26,7 +26,7 @@ const Card = ({ info, authenticated }) => {
       <Link className="" to={`/products/${info.id}`} params={authenticated}>
         <div className="aspect-square ">
           <img
-            src={`${info.images[0].image}`}
+            src={`${process.env.REACT_APP_imageURL}${info.images[0].image}`}
             alt="Product"
             className="object-cover h-full w-full  rounded-md"
           />

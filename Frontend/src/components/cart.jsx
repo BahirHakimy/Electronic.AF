@@ -82,7 +82,7 @@ const Cart = () => {
                 <div className="flex items-center gap-4 mt-4">
                   <div className="">
                     <img
-                      src={`${item?.product.images[0].image}`}
+                      src={`${process.env.REACT_APP_imageURL}${item?.product.images[0].image}`}
                       alt="product"
                       className=" object-cover w-48 h-48"
                     />
