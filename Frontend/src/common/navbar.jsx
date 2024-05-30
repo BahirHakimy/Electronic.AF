@@ -15,7 +15,7 @@ import { CiLogout } from "react-icons/ci";
 const Navbar = () => {
   const [authenticated] = useState(getTokens());
   const [cartData, setCartData] = useState();
-  const location = useLocation();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (!authenticated) return;
@@ -87,13 +87,11 @@ const Navbar = () => {
       >
         <div className="hidden lg:flex  items-center gap-12 font-bold ">
           <img src="/logo1200.png" alt="" className="w-16 h-16" />
-          <MyDropdown />
+          {pathname !== "/" && <MyDropdown />}
 
           <Link
             className={`hidden lg:inline-block text-xl ${
-              location.pathname === "/about"
-                ? "underline text-primary"
-                : "no-underline"
+              pathname === "/about" ? "underline text-primary" : "no-underline"
             } underline-offset-8  `}
             to={"/about"}
           >
@@ -133,7 +131,7 @@ const Navbar = () => {
             />
           )}
           <Link
-            className={`bg-primary font-bold px-12 py-4 text-lg  rounded-full hover:text-black hover:font-bold ${
+            className={`bg-myPrimary font-bold px-12 py-4 text-lg  rounded-full hover:text-black hover:font-bold ${
               visibility.signIn ? "block" : "hidden"
             }`}
             to={"/login"}
@@ -151,7 +149,7 @@ const Navbar = () => {
               <span
                 className={`${
                   authenticated?.access ? "inline-block" : "hidden"
-                } absolute  text-center font-semibold -top-3 -right-2 border border-primary bg-primary text-white rounded-full w-6 scale-75`}
+                } absolute  text-center font-semibold -top-3 -right-2 border border-primary bg-myPrimary text-white rounded-full w-6 scale-75`}
               >
                 {cartData?.length}
               </span>
@@ -180,7 +178,7 @@ const Navbar = () => {
                       height: "h-16",
                       width: "w-16",
                       priceVisibility: true,
-                      hover: "hover:bg-primary hover:text-white",
+                      hover: "hover:bg-myPrimary hover:text-white",
                       deleteVisible: true,
                     }}
                   />
@@ -190,7 +188,7 @@ const Navbar = () => {
                 {cartData?.length && (
                   <button
                     onClick={() => handleClick("cart")}
-                    className="w-full bg-primary text-white px-2 rounded py-0.5 hover:bg-white hover:text-primary hover:border-secondary hover:border hover:scale-105"
+                    className="w-full bg-myPrimary text-white px-2 rounded py-0.5 hover:bg-white hover:text-primary hover:border-secondary hover:border hover:scale-105"
                   >
                     Go to Cart
                   </button>
