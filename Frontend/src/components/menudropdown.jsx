@@ -1,27 +1,22 @@
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "./ui/dropDown";
-
+import * as DropDownMenu from "@radix-ui/react-dropdown-menu";
 import React from "react";
 
 function Menu() {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger className="text-lg">Companies</DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>Billing</DropdownMenuItem>
-        <DropdownMenuItem>Team</DropdownMenuItem>
-        <DropdownMenuItem>Subscription</DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <DropDownMenu.Root>
+      <DropDownMenu.Trigger className="text-xl">
+        Categories
+      </DropDownMenu.Trigger>
+      <DropDownMenu.Portal className="bg-white">
+        <DropDownMenu.Content>
+          <DropDownMenu.Item className="px-4 py-2 hover:bg-cyan-400">
+            HP
+          </DropDownMenu.Item>
+          <DropDownMenu.Item>Lenovo</DropDownMenu.Item>
+          <DropDownMenu.Item>Dell</DropDownMenu.Item>
+        </DropDownMenu.Content>
+      </DropDownMenu.Portal>
+    </DropDownMenu.Root>
   );
 }
 

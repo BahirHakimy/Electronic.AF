@@ -122,16 +122,18 @@ const Navbar = () => {
               />
             </div>
           ) : (
-            <FaSearch
-              size={32}
-              onClick={() =>
-                setVisiblity((prev) => ({ ...prev, searchBar: true }))
-              }
-              className="cursor-pointer"
-            />
+            pathname !== "/" && (
+              <FaSearch
+                size={32}
+                onClick={() =>
+                  setVisiblity((prev) => ({ ...prev, searchBar: true }))
+                }
+                className="cursor-pointer"
+              />
+            )
           )}
           <Link
-            className={`bg-myPrimary font-bold px-12 py-4 text-lg  rounded-full hover:text-black hover:font-bold ${
+            className={`bg-primary font-bold px-12 py-4 text-lg  rounded-full hover:text-black hover:font-bold ${
               visibility.signIn ? "block" : "hidden"
             }`}
             to={"/login"}
@@ -141,15 +143,18 @@ const Navbar = () => {
 
           <div className="relative ">
             <div className="relative">
-              <BsCart3
-                className="text-lg hover:scale-105"
-                size={32}
-                onClick={() => handleClick("svg")}
-              />
+              {pathname !== "/" && (
+                <BsCart3
+                  className="text-lg hover:scale-105"
+                  size={32}
+                  onClick={() => handleClick("svg")}
+                />
+              )}
+
               <span
                 className={`${
                   authenticated?.access ? "inline-block" : "hidden"
-                } absolute  text-center font-semibold -top-3 -right-2 border border-primary bg-myPrimary text-white rounded-full w-6 scale-75`}
+                } absolute  text-center font-semibold -top-3 -right-2 border border-primary bg-primary text-white rounded-full w-6 scale-75`}
               >
                 {cartData?.length}
               </span>
@@ -178,7 +183,7 @@ const Navbar = () => {
                       height: "h-16",
                       width: "w-16",
                       priceVisibility: true,
-                      hover: "hover:bg-myPrimary hover:text-white",
+                      hover: "hover:bg-primary hover:text-white",
                       deleteVisible: true,
                     }}
                   />
