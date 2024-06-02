@@ -39,3 +39,28 @@ input[type="number"]:nth-child(n + 4) {
     src: url(./fonts/Roboto-Bold.ttf) format("truetype");
   }
 }
+
+@keyframes typing {
+  0% {
+    width: 0%;
+    visiblity: hidden;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* todo make the blink animation be seperate so that i could make it work according to my own needs */
+@keyframes blink {
+  0%,
+  100% {
+    border-color: black;
+  }
+  50% {
+    border-color: transparent;
+  }
+}
+
+.animate-typing {
+  animation: typing 3s steps(80);
+}
